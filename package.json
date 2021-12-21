@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
     "@ngx-translate/core": "^14.0.0",
+    "@types/globalize": "^1.5.2",
     "@types/jasminewd2": "^2.0.10",
     "@types/jquery": "^3.5.10",
     "@types/lodash": "^4.14.178",
