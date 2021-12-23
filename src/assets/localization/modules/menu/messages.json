@@ -1,0 +1,15 @@
+{
+    "tr":{
+        "menu.homepage.title":"Anasayfa",
+        "menu.quicklinks.title":"Hızlı Liste",
+        "menu.reports.title":"Raporlar",
+        "menu.myfavorities.title":"Favorilerim"
+    },
+    "en":{
+        "menu.homepage.title":"HomePage",
+        "menu.quicklinks.title":"Quick List",
+        "menu.reports.title":"Rapors",
+        "menu.myfavorities.title":"My favorities"
+    }
+
+}

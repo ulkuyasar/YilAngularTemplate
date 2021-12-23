@@ -9,6 +9,7 @@ import { IPanelInstanceRef } from "../component-model/ipanel-instance-ref";
 import { DataContext } from "../data/data-context";
 import { NavigationService } from "../navigation/navigation.service";
 import { DataContextService } from "../services/data-context.service";
+import { LocalizationService } from 'src/app/localization/localization.service'
 
 export abstract class BaseComponent implements OnInit, OnDestroy, AfterViewInit{
     
@@ -139,7 +140,13 @@ export abstract class BaseComponent implements OnInit, OnDestroy, AfterViewInit{
         return this.Injector.get<NavigationService>(NavigationService);
     }
 
-    get localization(): LocalicationService
+    get localization(): LocalizationService{
+        return this.Injector.get<LocalizationService>(LocalizationService);
+    }
+
+    get event(): EventService{
+        return this.Injector.get<EventService>(EventService);
+    }
 
 
 

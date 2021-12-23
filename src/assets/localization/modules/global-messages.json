@@ -1,0 +1,24 @@
+{
+    "en":{
+
+        "global.ok":"OK",
+        "global.cancel":"Cancel",
+        "logout":"Logout",
+        "global.warning":"Warning!",
+        "global.list":"List...",
+        "sure.continue":"Are you sureyou want to continue?"
+
+    },
+    "tr":{
+
+        "global.ok":"Tamam",
+        "global.cancel":"İpral",
+        "logout":"Çıkış Yap",
+        "global.warning":"Uyarı!",
+        "global.list":"List...",
+        "sure.continue":"Devam etmek istediğinize emin misiniz?"
+
+    }
+
+
+}

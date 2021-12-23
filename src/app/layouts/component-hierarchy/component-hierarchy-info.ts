@@ -6,7 +6,7 @@ export class ComponentHierarchyInfo{
 
     ComponentID:string = "";
     ComponentName:string="";
-    ComponentInstance:IComponent;
+    ComponentInstance?:IComponent;
     RouteComponentName:string = "";
     ParentRouteComponentName:string="";
 
@@ -17,7 +17,17 @@ export class ComponentHierarchyInfo{
     }
 
     getParentInfo(){
-        return this._componentHierarchyService.getPa
+        return this._componentHierarchyService.getParentRouteInfo(this);
+    }
+
+    print(){
+        console.log('ComponentID: ' , this.ComponentID);
+        console.log('ComponentName: ' , this.ComponentName);
+        console.log('RouteComponentName: ' , this.RouteComponentName);
+        console.log('ParentRouteComponentName: ' , this.ParentRouteComponentName);
+        console.log( this.ComponentInstance);
+
+
     }
 
 

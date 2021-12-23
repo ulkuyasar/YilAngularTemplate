@@ -1,0 +1,15 @@
+{
+    "tr":{
+        "fw.access.topology.node.header.title":"Topoloji Nodelar",
+        "fw.access.topology.node.quicklinks.title":"Hızlı Liste",
+        "fw.access.topology.node.reports.title":"Raporlar",
+        "fw.access.topology.node.myfavorities.title":"Favorilerim"
+    },
+    "en":{
+        "fw.access.topology.node.header.title":"Topoloji Nodelar",
+        "fw.access.topology.node.quicklinks.title":"Hızlı Liste",
+        "fw.access.topology.node.reports.title":"Raporlar",
+        "fw.access.topology.node.myfavorities.title":"Favorilerim"
+    }
+
+}

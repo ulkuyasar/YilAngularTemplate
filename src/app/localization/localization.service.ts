@@ -1,8 +1,14 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, Injector } from "@angular/core";
-import Globalize from "globalize";
-import { Observable } from "rxjs";
+import { from, Observable } from "rxjs";
+import { ConfigService } from "../config/config.service";
 import { BaseService } from "../core/services/base-sevice";
+import { mergeMap,map } from "rxjs/operators";
+import { globalMessagesDictionaryFileUrl, moduleMessagesDictionaryFileUrlList } from "./localization.constants";
+import { appVersion } from "../config/config.constants";
+import Globalize from 'globalize';
+
+
 
 @Injectable({providedIn:'root'})
 export class LocalizationService extends BaseService{
@@ -18,7 +24,7 @@ export class LocalizationService extends BaseService{
     }
 
     setLanguage(language:string):string{
-        Globalize.locate(language);
+        Globalize.locale(language);
         return language;
     }
 
@@ -46,7 +52,7 @@ export class LocalizationService extends BaseService{
         let uri : string = url + "?v=" + appVersion;
         let $messages = this.http.get(uri).pipe(
             map(messages =>{
-                Globalize.LoadMessages(messages);
+                Globalize.loadMessages(messages);
             })
         );
         return $messages as any;

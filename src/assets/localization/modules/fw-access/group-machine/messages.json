@@ -1,0 +1,15 @@
+{
+    "tr":{
+        "fw.access.groupmachine.homepage.title":"Anasayfa",
+        "fw.access.groupmachine.quicklinks.title":"Hızlı Liste",
+        "fw.access.groupmachine.reports.title":"Raporlar",
+        "fw.access.groupmachine.myfavorities.title":"Favorilerim"
+    },
+    "en":{
+        "fw.access.groupmachine.homepage.title":"Anasayfa",
+        "fw.access.groupmachine.quicklinks.title":"Hızlı Liste",
+        "fw.access.groupmachine.reports.title":"Raporlar",
+        "fw.access.groupmachine.myfavorities.title":"Favorilerim"
+    }
+
+}

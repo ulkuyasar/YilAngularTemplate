@@ -49,7 +49,7 @@
     "ngx-toastr": "^14.2.1",
     "protractor": "^7.0.0",
     "quill": "^1.3.7",
-    "rxjs": "~6.6.0",
+    "rxjs": "~6.5.5",
     "ts-node": "^10.4.0",
     "tslib": "^2.3.0",
     "typescript-require": "^0.3.0",
