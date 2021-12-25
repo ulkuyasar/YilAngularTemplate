@@ -50,7 +50,7 @@ export class ConfigService extends BaseService{
         });
     }
 
-    private requestAppConfig() : Observable<AppConfig>{
+    public requestAppConfig() : Observable<AppConfig>{
         return new Observable<AppConfig>((subscriber:Subscriber<AppConfig>) => {
             this._configSubscribers.push(subscriber);
             if(this._appConfig){
