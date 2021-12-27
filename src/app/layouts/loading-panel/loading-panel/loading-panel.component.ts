@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
 import { DxLoadPanelComponent } from "devextreme-angular";
-import { BaseComponent } from "src/app/core/components/base-components";
+import { BaseComponent } from "src/app/core/components/base-component";
 import { ComponentName } from "src/app/core/decorators/component-name";
 import { ILoadingPanelOptions } from "../iloading-panel.options";
 

@@ -1,5 +1,5 @@
 import { Observable, Subscriber } from "rxjs";
-import { BaseComponent } from "../components/base-components";
+import { BaseComponent } from "../components/base-component";
 
 export interface IPanelInstanceRef{
 
