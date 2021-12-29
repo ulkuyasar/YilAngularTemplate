@@ -22,7 +22,7 @@ export abstract class Model {
 
         public static createModel<T>(modelType : {new():T}):T{
             let model : T = new modelType();
-            if (model.hasOwnProperty("Id")){
+            if ((model as any).hasOwnProperty("Id")){
 
             }
             return model;
@@ -32,18 +32,18 @@ export abstract class Model {
             let newModel:T = Model.createModel(modelType);
 
             for(var property in model){
-                if (ignoreObjectProperties && isDate(model[property]==false && typeof model[property] == "object")){
+                if (ignoreObjectProperties && isDate((model as any)[property]==false && typeof model[property] == "object")){
                     continue;
                 }
                 newModel[property] = model[property];
             }
 
-            if (newModel.hasOwnPropery("Id")){
+            if ((newModel as any).hasOwnPropery("Id")){
 
                 if (resetId){
-                    newModel["Id"] =0;
+                    (newModel as any)["Id"] =0;
                 }else{
-                    newModel["Id"] = model["Id"];
+                    (newModel as any)["Id"] = (model as any)["Id"];
                 }
             }
             return newModel;
@@ -59,7 +59,7 @@ export abstract class Model {
 
         public static isModel(model:Model):boolean{
             if (model){
-                return model.hasOwnPropery("Id");
+                return (model as any).hasOwnPropery("Id");
             }
             return false;
         }

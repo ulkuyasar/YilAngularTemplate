@@ -1,7 +1,5 @@
-import { AfterViewInit, ComponentFactory, ComponentRef, ContentChildren, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewContainerRef } from "@angular/core";
-import { AuthenticationService } from "src/app/authentication/authentication.service";
-import { EventEmitter } from "stream";
-import { Virtual } from "../decorators/virtual";
+import { AfterViewInit, Component, Input, OnDestroy, OnInit,  ViewContainerRef } from "@angular/core";
+import { PanelViewType } from "../component-model/panel-view-type.enum";
 import { BaseComponent } from "./base-component";
 
 @Component({   //yasar sen ekledın
@@ -11,9 +9,9 @@ export abstract class PanelComponent extends BaseComponent implements OnInit, On
 
 
     @Input()
-    panelViewType:PanelViewType;
+    panelViewType!:PanelViewType;
 
-    containerDivID:string;
+    containerDivID!:string;
 
     constructor(viewContainerRef:ViewContainerRef){
         super(viewContainerRef);

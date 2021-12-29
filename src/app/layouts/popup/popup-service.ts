@@ -1,5 +1,9 @@
 import { ComponentFactory, ComponentFactoryResolver, ComponentRef, Injector, Type, ViewContainerRef } from "@angular/core";
 import { ActivatedRoute, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from "@angular/router";
+import { IComponent } from "src/app/core/component-model/icomponent";
+import { IPanelInstanceRef } from "src/app/core/component-model/ipanel-instance-ref";
+import { IReturnValue } from "src/app/core/component-model/ireturn-value";
+import { PanelViewType } from "src/app/core/component-model/panel-view-type.enum";
 import { BaseComponent } from "src/app/core/components/base-component";
 import { IListComponent } from "src/app/core/components/ilist-component";
 import { PageComponent } from "src/app/core/components/page-component";
@@ -7,6 +11,7 @@ import { BaseService } from "src/app/core/services/base-sevice";
 import { ComponentHierarchyInfo } from "../component-hierarchy/component-hierarchy-info";
 import { ComponentHierarchyService } from "../component-hierarchy/component-hierarchy-service";
 import { IPopupOptions } from "./ipopup-options";
+import { PopupOptions } from "./popup-options";
 import { PopupPanelRef } from "./popup-panel-ref";
 import { PopupRef } from "./popup-ref";
 
@@ -293,7 +298,7 @@ export class PopupService extends BaseService{
         let ownerComponentName:string;
         let parentComponentName:string;
 
-        if (panelViewType === PanelViewType.Route){
+        if (panelViewType === PanelViewType.Router){
             let rootHierarchyInfo: ComponentHierarchyInfo = componentHierarchyService.getRouteInfoByActivatedRoute(activatedRoute); 
              ownerComponentName= rootHierarchyInfo.RouteComponentName;
              parentComponentName= rootHierarchyInfo.ParentRouteComponentName;
@@ -321,15 +326,168 @@ export class PopupService extends BaseService{
 
         let popupPanelRef: PopupPanelRef = new PopupPanelRef();
 
-        yasar burda kaldın....
+        popupPanelRef.Id = componentInstance.componentID;
+        popupPanelRef.panelViewType = componentInstance.panelViewType;
+        popupPanelRef.viewContainerRef = componentInstance.viewContainerRef;
+        popupPanelRef.panelComponentRef = componentInstance.panelComponentRef;
+        popupPanelRef.ownerComponentName = componentInstance.ownerComponentName;
+        popupPanelRef.parentComponentName = componentInstance.parentComponentName;
 
-
-
-
-
-
-
+        this._map.set(popupPanelRef.Id,popupPanelRef);
+        return popupPanelRef;
     }
 
-    
+    removePopupPanel(popupPanelID:string){
+        if(this._map.has(popupPanelID)){
+            let popupPanelRef:PopupPanelRef = this._map.get(popupPanelID);
+
+            if(popupPanelRef.panelViewType === PanelViewType.Router){
+                let parentpopupPanelRef: PopupPanelRef = this.findByOwnerComponent(popupPanelRef.parentComponentName).find(value=>value.parentViewType ===PanelViewType.Router );
+                if(parentpopupPanelRef && parentpopupPanelRef.panelComponentRef.Instance.isOpened === true){
+                    parentpopupPanelRef.panelComponentRef.Instance.close();
+                }
+            }
+
+            let ownedPopupPanelRefList: PopupPanelRef[] = this.findByParentComponent(popupPanelRef.ownerComponentName).filter(value=>value.panelViewType ===PanelViewType.Component);
+            ownedPopupPanelRefList.forEach(ownedPopupPanelRef => {
+                ownedPopupPanelRef.panelComponentRef.Instance.cpmponentContainer.clear();
+                this.destroyPopupPanel(ownedPopupPanelRef.Id);
+                this._map.delete(ownedPopupPanelRef.Id);
+            });
+
+            this.destroyPopupPanel(popupPanelID);
+            this._map.delete(popupPanelID);
+
+        }
+    }
+    private destroyPopupPanel(popupPanelID: string):void {
+        if(this._map.has(popupPanelID)){     
+            let popupPanelRef:PopupPanelRef = this._map.get(popupPanelID);
+            popupPanelRef.panelComponentRef.destroy();
+        }
+    }
+
+    private getReturnValue(popupPanelInstanceRef:IPanelInstanceRef):void {
+        let returnValue:any;
+        let component:IComponent = <IComponent>popupPanelInstanceRef.getComponentInstance();
+        if (component && component.hasOwnProperty('returnValue')){
+                let componentObject:object = component;
+                returnValue = (<IReturnValue<any>>componentObject).returnValue;
+        }
+        return returnValue;
+    }
+
+    private beforeOpened = (popupPanelId:string ,args:any)=> {
+        let popupPanelRef : PopupPanelRef = this.getByPopupPanelID(popupPanelId);
+        let popupPanelInstanceRef : IPanelInstanceRef = popupPanelRef.currentPanelInstanceRef;
+
+        if (popupPanelInstanceRef && popupPanelInstanceRef.beforeOpenedSubscriber){
+            let returnValue :any = this.getReturnValue(popupPanelInstanceRef); 
+            if (returnValue){
+                popupPanelInstanceRef.beforeOpenedSubscriber.next(returnValue);
+            }else if (popupPanelInstanceRef.alwaysReturn){
+                popupPanelInstanceRef.beforeOpenedSubscriber.next();
+            }
+        }
+    }
+
+    private afterOpened = (popupPanelId:string ,args:any)=> {
+        let popupPanelRef : PopupPanelRef = this.getByPopupPanelID(popupPanelId);
+        let popupPanelInstanceRef : IPanelInstanceRef = popupPanelRef.currentPanelInstanceRef;
+
+        if (popupPanelInstanceRef && popupPanelInstanceRef.afterOpenedSubscriber){
+            let returnValue :any = this.getReturnValue(popupPanelInstanceRef); 
+            if (returnValue){
+                popupPanelInstanceRef.afterOpenedSubscriber.next(returnValue);
+            }else if (popupPanelInstanceRef.alwaysReturn){
+                popupPanelInstanceRef.afterOpenedSubscriber.next();
+            }
+        }
+    }
+
+    private beforeClosed = (popupPanelId:string ,args:any)=> {
+        let popupPanelRef : PopupPanelRef = this.getByPopupPanelID(popupPanelId);
+        let popupPanelInstanceRef : IPanelInstanceRef = popupPanelRef.currentPanelInstanceRef;
+
+        if (popupPanelInstanceRef && popupPanelInstanceRef.beforeClosedSubscriber){
+            let returnValue :any = this.getReturnValue(popupPanelInstanceRef); 
+            if (returnValue){
+                popupPanelInstanceRef.beforeClosedSubscriber.next(returnValue);
+            }else if (popupPanelInstanceRef.alwaysReturn){
+                popupPanelInstanceRef.beforeClosedSubscriber.next();
+            }
+        }
+    }
+
+    private afterClosed = (popupPanelId:string ,args:any)=> {
+        let popupPanelRef : PopupPanelRef = this.getByPopupPanelID(popupPanelId);
+        let popupPanel:PopupPanelComponent = popupPanelRef.panelComponentRef.Instance;
+        let popupPanelInstanceRef : IPanelInstanceRef = popupPanelRef.currentPanelInstanceRef;
+
+        if (popupPanelInstanceRef && popupPanelInstanceRef.afterClosedSubscriber){
+            let returnValue :any = this.getReturnValue(popupPanelInstanceRef); 
+            if (returnValue){
+                popupPanelInstanceRef.afterClosedSubscriber.next(returnValue);
+            }else if (popupPanelInstanceRef.alwaysReturn){
+                popupPanelInstanceRef.afterClosedSubscriber.next();
+            }
+        }
+
+        if(popupPanelRef.panelViewType === PanelViewType.Router){
+            if (this._isInNavigation===false){
+                let router:Router = popupPanel.Injector.get<Router>(Router);
+                router.navigate(popupPanelRef.currentUrl);
+            } else {
+                popupPanel.componentContainer.clear();
+                this.removePopupPanel(popupPanelID);
+            }
+        }       
+    }
+
+    public close(popupPanelId:string ):void {
+        let popupPanelRef : PopupPanelRef = this.getByPopupPanelID(popupPanelId);
+        if(popupPanelRef){
+            if(popupPanelRef.panelComponentRef.instance.isOpened === true){
+                popupPanelRef.panelComponentRef.instance.close();
+            }
+        }
+    }
+
+    public updatePosition(popupPanelId:string, offset:{x:number,y:number} ):void {
+        let popupPanelRef : PopupPanelRef = this.getByPopupPanelID(popupPanelId);
+        if(popupPanelRef){
+            let _offset:string = `${offset.x} ${offset.y}`
+            popupPanelRef.panelComponentRef.instance.position = {my:'top',at:'top',of:window,offset:_offset};
+        }
+    }
+
+    public updateSize(popupPanelId:string, size:{width?:number|string|Function, height?:number|string|Function} ):void {
+        let popupPanelRef : PopupPanelRef = this.getByPopupPanelID(popupPanelId);
+        if(popupPanelRef){
+            if (size.width){
+                popupPanelRef.panelComponentRef.instance.width = size.width;
+            }
+            if (size.height){
+                popupPanelRef.panelComponentRef.instance.height = size.height;
+            }
+        }
+    }
+
+    public updateTitle(popupPanelId:string, title:string):void {
+        let popupPanelRef : PopupPanelRef = this.getByPopupPanelID(popupPanelId);
+        if(popupPanelRef){
+            popupPanelRef.panelComponentRef.instance.title = title;
+            popupPanelRef.panelComponentRef.instance.popup.instance.repaint();
+        }
+    }
+
+    print(){
+        console.log('popup containers');
+        console.log('value.Id','value.OwnerComponentName','value.ParentComponentName','value.PanelViewType');
+        this._map.forEach((value,key) =>{
+            console.log('key');
+            console.log(value.Id,value.ownerComponentName,value.parentComponentName,value.panelViewType);
+            console.log('-------------------');
+        });
+    }    
 }

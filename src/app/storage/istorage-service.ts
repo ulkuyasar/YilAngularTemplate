@@ -1,4 +1,4 @@
-import { clear } from "console";
+
 
 export interface IStorageService{
     key(index:number):string|null;

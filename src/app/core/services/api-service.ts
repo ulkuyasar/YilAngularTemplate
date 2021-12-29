@@ -5,12 +5,11 @@ import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { UrlOptions } from "../data/url-options";
 import { IHttpOptions } from "../http/ihttp-options";
-import { IService } from "./iservice";
 import { StringUtilities } from "src/app/utilities/string-utilities";
 import { QueryStringParam } from "../data/query-string-param";
 import { GlobalUtilities } from "src/app/utilities/global-utilities";
 import { BaseService } from "./base-sevice";
-import { strictEqual } from "assert";
+
 
 export abstract class  ApiService extends BaseService{
     

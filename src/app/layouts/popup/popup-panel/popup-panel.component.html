@@ -1,0 +1,27 @@
+
+ <dx-popup
+ [width]="300"
+ [height]="280"
+ [showTitle]="true"
+ title="Information"
+ [dragEnabled]="false"
+ [closeOnOutsideClick]="true"
+ [showCloseButton]="false"
+ container=".dx-viewport"
+>
+
+<!-- <dx-popup [ngClass]="ngClass" [container]="containerElement" class="details-model" animation="Animation"
+    [width]="width" [maxwidth]="maxWidth" [minwidth]="minWidth"
+    [height]="height" [maxheight]="maxHeight" [minheight]="minHeight"
+    [showTitle]="showTitle" [position]="position" [title]="title"
+    [fullscreen]="fullscreen" [dragenabled]="dragEnabled" [visible]="visible" [clseoutsideclick]="clseOutsideClick"
+    [resizeenabled]="resizeEnabled" [shading]="shading" [shadingcolor]="shadingColor" [showclosebutton]="showCloseButton"
+    (onShowing)="showing($event)" (onShown)="shown($event) (onHiding)="hiding($event)" (onHidden)="hidden($event)" 
+>
+</dx-popup> -->
+
+<div [attr.id]="containerDivID" style="display: none" class="fade-in">
+  <ng-container #componentContainer></ng-container>
+</div>
+
+

@@ -1,14 +1,19 @@
 import { AfterViewInit, Component, ComponentFactory, ComponentRef, Input, OnDestroy, OnInit, QueryList, ViewChildren, ViewContainerRef } from "@angular/core";
 import { AuthenticationService } from "src/app/authentication/authentication.service";
+import { PopupOptions } from "src/app/layouts/popup/popup-options";
+import { PopupService } from "src/app/layouts/popup/popup-service";
+import { IReturnValue } from "../component-model/ireturn-value";
 import { Virtual } from "../decorators/virtual";
 import { Model } from "../models/model";
+import { IModelService } from "../services/imodel-service";
+import { ListComponent } from "./list-component";
 
 @Component({   //yasar sen ekledın
     template: ''
 })
 export abstract class ModelListComponent<T extends Model,TKey=number> extends ListComponent implements OnInit, OnDestroy, AfterViewInit, IReturnValue<T|Array<T>>{
 
-    returnValue: T|Array<T>;
+    returnValue!: T|Array<T>;
 
     protected _modelService:IModelService<T,TKey>;
 
@@ -17,17 +22,14 @@ export abstract class ModelListComponent<T extends Model,TKey=number> extends Li
         this._modelService = modelService;
 
         this.dataContext.currentChangedEvent.subscribe((currentValue:any)=>{
-            this._returnValue = this.dataContext.curent;
+            this.returnValue = this.dataContext.current;
         })       
     }
 
-
     ngOnInit() {
-        super.ngOnInit();
-        
+        super.ngOnInit();       
     }
 
-    37-45 arası yazılmalı
     ngOnDestroy() {
         super.ngOnDestroy();
     }
@@ -82,3 +84,5 @@ export abstract class ModelListComponent<T extends Model,TKey=number> extends Li
 
     }
 }
+
+

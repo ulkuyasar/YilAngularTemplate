@@ -3,12 +3,13 @@ import { DxLoadPanelComponent } from "devextreme-angular";
 import { BaseComponent } from "src/app/core/components/base-component";
 import { ComponentName } from "src/app/core/decorators/component-name";
 import { ILoadingPanelOptions } from "../iloading-panel.options";
+import { LoadingPanelService } from "../loading-panel-service";
 
 
 @Component({
   selector: 'app-loading-panel',
   templateUrl: './loading-panel.component.html',
-  styleUrls: ['./loading-panel.component.scss']
+  styleUrls: ['./loading-panel.component.css']
 })
 @ComponentName(LoadingPanelComponent,"LoadingPanelComponent")
 export class LoadingPanelComponent extends BaseComponent implements OnInit,OnDestroy, AfterViewInit{
@@ -31,7 +32,7 @@ export class LoadingPanelComponent extends BaseComponent implements OnInit,OnDes
    ngOnInit(): void {
       super.ngOnInit();
       this.defaultMessage = this.loadPanel.message;
-      this.loadingPanelService.instance.subcribe((options:ILoadingPanelOptions) =>{
+      this.loadingPanelService.instance.subscribe((options:ILoadingPanelOptions) =>{
          this.updateOptions(options);
       });
    }
