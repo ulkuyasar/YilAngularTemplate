@@ -3,6 +3,8 @@ import { AuthenticationService } from "src/app/authentication/authentication.ser
 import { PopupOptions } from "src/app/layouts/popup/popup-options";
 import { PopupService } from "src/app/layouts/popup/popup-service";
 import { IReturnValue } from "../component-model/ireturn-value";
+import { DataSourceOptions } from "../data/data-source-options";
+import { IDataSourceOptions } from "../data/idata-source-options";
 import { Virtual } from "../decorators/virtual";
 import { Model } from "../models/model";
 import { IModelService } from "../services/imodel-service";

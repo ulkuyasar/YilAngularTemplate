@@ -1,8 +1,13 @@
-import { PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from "@angular/core";
+import { LocalizationService } from "../localization.service";
 
+
+@Pipe({
+    name:'translate'
+})
 export class TranslatePipe implements PipeTransform{
 
-    constructor(private localization: LocaliizationService){
+    constructor(private localization: LocalizationService){
 
     }
 

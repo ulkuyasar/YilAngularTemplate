@@ -68,7 +68,7 @@ export abstract class  ApiService extends BaseService{
         return this.http.patch<T>(url,body,this.createOptions());
     }
     
-    deleteRequest<T>(url:string,body:string):Observable<T>{
+    deleteRequest<T>(url:string):Observable<T>{
         return this.http.delete<T>(url,this.createOptions());
     }
 

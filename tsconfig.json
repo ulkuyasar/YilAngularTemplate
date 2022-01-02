@@ -25,38 +25,39 @@
     "esModuleInterop":true,
     "allowSyntheticDefaultImports":true,
     "paths": {
-      "globalize":[
-        "node_modules/globalize/disc/globalize"
-      ],
-      "globalize/*":[
-        "node_modules/globalize/disc/globalize/*"
-      ],
-      "cldr":[
-        "node_modules/cldrjs/disc/cldr"
-      ],
-      "cldr/*":[
-        "node_modules/cldrjs/disc/cldr/*"
-      ],
-      "jszip":[
+      "jszip": [
         "node_modules/jszip/dist/jszip.min.js"
+      ],
+      "globalize": [  
+        "node_modules/globalize/dist/globalize"  
+      ],  
+      "globalize/*": [  
+        "node_modules/globalize/dist/globalize/*"    
+      ], 
+      "cldr": [  
+        "node_modules/cldrjs/dist/cldr"     
+      ], 
+      "cldr/*": [  
+        "node_modules/cldrjs/dist/cldr/*"  
       ]
+    }
+    //,
 
-    },
-
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
+    // "forceConsistentCasingInFileNames": true,
+    // "strict": true,
+    // "noImplicitReturns": true,
+    // "noFallthroughCasesInSwitch": true,
     
  
 
 
 
-  },
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
   }
+  //,
+  // "angularCompilerOptions": {
+  //   "enableI18nLegacyMessageIdFormat": false,
+  //   "strictInjectionParameters": true,
+  //   "strictInputAccessModifiers": true,
+  //   "strictTemplates": true
+  // }
 }

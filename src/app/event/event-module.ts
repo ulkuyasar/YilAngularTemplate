@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ToastrModule } from "ngx-toastr";
+import { EventViewerComponent } from "./event-viewer/event-viewer.component";
 
 
 @NgModule({
@@ -18,9 +19,11 @@ import { ToastrModule } from "ngx-toastr";
     exports:[
         ToastrModule,
         EventViewerComponent
-    ]
+    ],
     providers: []
    
   })
-  export class AppModule { }
+  export class EventModule { 
+    constructor(){}
+  }
   

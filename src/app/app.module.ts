@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AppComponent } from './app.component';
 import { SideNavOuterToolbarModule, SideNavInnerToolbarModule, SingleCardModule } from './layouts';
 import { FooterModule, ResetPasswordFormModule, CreateAccountFormModule, ChangePasswordFormModule, LoginFormModule } from './shared/components';
@@ -8,13 +8,33 @@ import { AuthService, ScreenService, AppInfoService } from './shared/services';
 import { UnauthenticatedContentModule } from './unauthenticated-content';
 import { AppRoutingModule } from './app-routing.module';
 import {LayoutModule} from './layouts/layout.module'
+import { HttpClientModule } from '@angular/common/http';
+import { LocalizationModule } from './localization/localization.module';
+import { EventModule } from './event/event-module';
+import { StartupModule } from './startup/startup.module';
+import { ConfigModule } from './config/config.module';
+import { ServicesModule } from './services/services.module';
+import { BaseService } from './core/services/base-sevice';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    // MainComponent,
+    // RoorComponent,
+    // RouteNotFountComponent
   ],
+  entryComponents:[],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    LocalizationModule,
+    EventModule,
+    StartupModule,
+    ConfigModule,
+    LayoutModule,
+    ServicesModule,
+  
     SideNavOuterToolbarModule,
     SideNavInnerToolbarModule,
     SingleCardModule,
@@ -25,9 +45,13 @@ import {LayoutModule} from './layouts/layout.module'
     LoginFormModule,
     UnauthenticatedContentModule,
     AppRoutingModule,
-    LayoutModule
+    
   ],
   providers: [AuthService, ScreenService, AppInfoService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(injector:Injector){
+    BaseService.appInjector = injector;
+  }
+ }
