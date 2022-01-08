@@ -1,0 +1,40 @@
+app-grid-view{
+    float:left;
+    width:100%;
+    min-height: 1px;
+    height: auto;
+    margin-bottom:10px;
+}
+
+.grid-view-body{
+    width:100%;
+    user-select:none;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: var(--box-shadow);
+    padding:10px;
+    float:left;
+}
+
+@media(max-width:1366px){
+    .grid-view-body{
+        border-radius: 0;
+        box-shadow: none;
+        margin-bottom:0;
+        border-bottom: 1px solid #e0e0e0;
+        float:left;
+    }
+
+    .model-form .grid-view-body{
+
+        border-radius: 5px;
+        box-shadow: none;
+        margin-bottom:0;
+        border: none;
+        padding: 0 0 10px 0;
+    }
+}
+
+.data-grid .dx-datagrid-rowsview.dx-scrollable{
+    max-height: calc(100vh - 275px);
+}

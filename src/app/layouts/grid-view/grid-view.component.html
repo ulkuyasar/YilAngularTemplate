@@ -1,0 +1,81 @@
+<div class="grid-view bg-transparent border-0">
+  <div class="grid-view-header">
+    <h6 class="widget-title" *ngIf="Title ? true :false">{{Title}}</h6>
+    <div #toolbarContainerDiv>
+      <ng-content select ="app-grid-toolbar"></ng-content>
+      <ng-container #toolbarContainer></ng-container>
+
+    </div>
+  </div>
+
+<div class="grid-view-body">
+  
+    <dx-data-grid
+      [id]="'dx-grid-'+Id"
+      class="data-grid fade-in"
+      [dataSource]="dataContext.dataSource"
+      height="auto"
+      [(selectedRowKeys)]="selectedRowKeys"
+      [disabled]="disabled"
+      [cacheEnabled]="cacheEnabled"
+      [masterDetail]="masterDetail"
+      [highlightChanges]="highlightChanges"
+      [rowTemplate]="rowTemplate"
+      [hoverStateEnabled]="hoverStateEnabled"
+      [activeStateEnabled]="activeStateEnabled"
+      [rowAlternationEnabled]="rowAlternationEnabled"
+      [allowColumnReordering]="allowColumnReordering"
+      [alowColumnResing]="alowColumnResing"
+      [columnResingMode]="columnResingMode"
+      [columnHidingEnabled]="columnHidingEnabled"
+      [columnAutoWidth]="columnAutoWidth"
+      [wordWrapEnabled]="wordWrapEnabled"
+      [cellHintEnabled]="cellHintEnabled"
+      [showBorders]="showBorders"
+      [showColumnHeaders]="showColumnHeaders"
+      [showColumnLines]="showColumnLines"
+      [showRowLines]="showRowLines"
+      [focusedColumnIndex]="focusedColumnIndex"
+      [focusedRowEnabled]="focusedRowEnabled"
+      [focusedRowIndex]="focusedRowIndex"
+      [focusedRowKey]="focusedRowKey"
+      [focusStateEnabled]="focusStateEnabled"
+      [renderAsync]="renderAsync"
+      [repaintChangesOnly]="repaintChangesOnly"
+      (onSelectionChanged)="selectionChanged($event)"
+      (onContentReady)="contentReady($event)"
+      (onExporting)="exporting($event)"
+      (onCellPrepared)="cellPrepared($event)"
+      (onRowClick)="rowClick($event)"
+      (onRowCollepsed)="rowCollepsed($event)"
+      (onRowCollopsing)="rowCollopsing($event)"
+      (onRowExpanded)="rowExpanded($event)"
+      (onRowExpanding)="rowExpanding($event)"
+      (onRowInserted)="rowInserted($event)"
+      (onRowInserting)="rowInserting($event)"
+      (onRowPrepared)="rowPrepared($event)"
+      (onRowRemoved)="rowRemoved($event)"
+      (onRowRemoving)="rowRemoving($event)"
+      (onRowUpdated)="rowUpdated($event)"
+      (onRowUpdating)="rowUpdating($event)"
+      (onEditingStart)="editingStart($event)"
+      (onDataErrorOccurred)="dataErrorOccurred($event)"
+      (onToolbarPreparing)="toolbarPreparing($event)"
+      [errorRowEnabled]="errorRowEnabled">
+      <ng-content select="dxi-column"></ng-content>
+      <dxo-summery></dxo-summery>
+      <dxo-export [enabled]="false"></dxo-export>
+    
+    </dx-data-grid>
+  </div>
+
+  <div class="grid-view-footer" *ngif="showFooter === true && footerCpmponent">
+    <ng-content select="app-grid-footer"></ng-content>
+  </div>
+</div>
+
+<div [attr.id]="cellButtonsContainerDivID" style="display: none">
+  <ng-container #cellButtonsContainer></ng-container>
+</div>
+
+
