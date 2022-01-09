@@ -7,16 +7,15 @@ import { Subscription } from "rxjs";
 import { BaseComponent } from "src/app/core/components/base-component";
 import { ListComponent } from "src/app/core/components/list-component";
 import { QueryStringParam } from "src/app/core/data/query-string-param";
-import { ComponentName } from "src/app/core/decorators/component-name";
 import { IButtonOptions } from "src/app/devextreme/interfaces/button/ibutton-options";
 import { ICellInfo } from "src/app/devextreme/interfaces/grid/icell-info";
 import { GridEditMode } from "./grid-edit-mode.enum";
 
 
 @Component({
-  selector: 'app-grid-view',
-  templateUrl: './grid-view.component.html',
-  styleUrls: ['./grid-view.component.css'],
+  selector: 'app-grid-toolbar',
+  templateUrl: './grid-toolbar.component.html',
+  styleUrls: ['./grid-toolbar.component.css'],
   providers:[NestedOptionHost,DxTemplateHost],
   encapsulation:ViewEncapsulation.None
 })

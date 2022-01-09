@@ -1,0 +1,48 @@
+<div class="grid-toolbar">
+
+<ng-content select=".before-refresh-button"></ng-content>
+
+<dx-button *ngIf="enableRefresh===true" class="dx-button-orange" [text]="refreshButtonText"
+  [icon]="refreshButtonIcon" (onClick)="refreshButtonClick($event)" container="body"></dx-button>
+<ng-content select=".after-refresh-button"></ng-content>
+
+<dx-button *ngIf="isAddButtonVisible===true" [disabled]="isAddButtonDisabled === true" class="dx-button-orange ????" 
+  [hint]="addButtonText | translate" [icon]="addButtonIcon" (onClick)="addButtonClick($event)" container="body????"></dx-button>
+  <ng-content select=".after-add-button"></ng-content>
+
+
+  <dx-button *ngIf="isEditButtonVisible===true" [disabled]="isEditButtonDisabled === true" class="dx-button-orange ????" 
+    [hint]="editButtonText | translate" [icon]="editButtonIcon" (onClick)="editButtonClick($event)" container="body????"></dx-button>
+    <ng-content select=".after-edit-button"></ng-content>
+
+    <dx-button *ngIf="isDeleteButtonVisible===true" [disabled]="isDeleteButtonDisabled === true" class="dx-button-orange ????" 
+    [hint]="deleteButtonText | translate" [icon]="deleteButtonIcon" (onClick)="deleteButtonClick($event)" container="body????"></dx-button>
+    <ng-content select=".after-delete-button"></ng-content>
+
+    <dx-button *ngIf="enableColumnChooser===true" class="dx-button-orange" [text]="dx.menu-container ???????" [text]="showColumnChooser ???"
+    [hint]="showColumnChooserButtonText | translate" [icon]="showColumnChooserButtonIcon" (onClick)="ButtonClick????($event)" ></dx-button>
+
+    <div *ngIf="enabledExport===true" class="dx-menu-container export-excel m-r-5">
+      <dx-menu [dataSource]="exportToExcelMenu" displayExpr="Caption" container="dx-menu-container????"
+    </div>
+
+    <div *ngIf="enableStates === true" class="float-btn" [ngClass]="status ? 'open' : 'closed'">
+      <div class="color-legend">
+        <div class="states">
+          <div class="state">
+            <span class="state-color new-state"></span>
+            <span class="state-id">Yeni</span>
+          </div>   
+          
+          <div class="state">
+            <span class="state-color draft-state"></span>
+            <span class="state-id">Taslak</span>
+          </div>   
+        
+        
+        </div>
+      </div>
+    </div>
+
+
+</div>
