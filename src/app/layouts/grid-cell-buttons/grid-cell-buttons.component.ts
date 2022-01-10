@@ -106,6 +106,10 @@ export class GridCellButtonsComponent extends BaseComponent implements OnInit,On
       return false;
     }
 
+    ngAfterContentInit():void{
+
+    }
+
     ngOnInit(): void {
         super.ngOnInit();
     }
@@ -117,7 +121,7 @@ export class GridCellButtonsComponent extends BaseComponent implements OnInit,On
     ngAfterViewInit(): void {
         
     }
-
+    
     ngOnChanges(changes: SimpleChanges): void {
         this.onPropertyChanged(changes);
     }

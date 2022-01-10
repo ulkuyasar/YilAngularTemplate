@@ -2,28 +2,28 @@
 
 <ng-content select=".before-refresh-button"></ng-content>
 
-<dx-button *ngIf="enableRefresh===true" class="dx-button-orange" [text]="refreshButtonText"
+<dx-button *ngIf="enableRefresh===true" class="dx-button-orange" [text]="refreshButtonText | translate" [hint]="refreshButtonText | translate" 
   [icon]="refreshButtonIcon" (onClick)="refreshButtonClick($event)" container="body"></dx-button>
 <ng-content select=".after-refresh-button"></ng-content>
 
-<dx-button *ngIf="isAddButtonVisible===true" [disabled]="isAddButtonDisabled === true" class="dx-button-orange ????" 
-  [hint]="addButtonText | translate" [icon]="addButtonIcon" (onClick)="addButtonClick($event)" container="body????"></dx-button>
+<dx-button *ngIf="isAddButtonVisible===true" [disabled]="isAddButtonDisabled === true" class="dx-button-orange" [text]="addButtonText | translate"
+  [hint]="addButtonText | translate" [icon]="addButtonIcon" (onClick)="addButtonClick($event)"></dx-button>
   <ng-content select=".after-add-button"></ng-content>
 
 
-  <dx-button *ngIf="isEditButtonVisible===true" [disabled]="isEditButtonDisabled === true" class="dx-button-orange ????" 
-    [hint]="editButtonText | translate" [icon]="editButtonIcon" (onClick)="editButtonClick($event)" container="body????"></dx-button>
+  <dx-button *ngIf="isEditButtonVisible===true" [disabled]="isEditButtonDisabled === true" class="dx-button-orange"  [text]="editButtonText | translate"
+    [hint]="editButtonText | translate" [icon]="editButtonIcon" (onClick)="editButtonClick($event)" container="body"></dx-button>
     <ng-content select=".after-edit-button"></ng-content>
 
-    <dx-button *ngIf="isDeleteButtonVisible===true" [disabled]="isDeleteButtonDisabled === true" class="dx-button-orange ????" 
-    [hint]="deleteButtonText | translate" [icon]="deleteButtonIcon" (onClick)="deleteButtonClick($event)" container="body????"></dx-button>
+    <dx-button *ngIf="isDeleteButtonVisible===true" [disabled]="isDeleteButtonDisabled === true" class="dx-button-orange"  [text]="deleteButtonText | translate"
+    [hint]="deleteButtonText | translate" [icon]="deleteButtonIcon" (onClick)="deleteButtonClick($event)" container="body"></dx-button>
     <ng-content select=".after-delete-button"></ng-content>
 
-    <dx-button *ngIf="enableColumnChooser===true" class="dx-button-orange" [text]="dx.menu-container ???????" [text]="showColumnChooser ???"
+    <dx-button *ngIf="enableColumnChooser===true" class="dx-button-orange" [text]="dx.menu-container ???????" [text]="showColumnChooserButtonText | translate"
     [hint]="showColumnChooserButtonText | translate" [icon]="showColumnChooserButtonIcon" (onClick)="ButtonClick????($event)" ></dx-button>
 
     <div *ngIf="enabledExport===true" class="dx-menu-container export-excel m-r-5">
-      <dx-menu [dataSource]="exportToExcelMenu" displayExpr="Caption" container="dx-menu-container????"
+      <dx-menu [dataSource]="exportToExcelMenu" displayExpr="Caption" container="dx-menu-container" (onItemClick)="excellMEnuItemClick($event.itemData)"
     </div>
 
     <div *ngIf="enableStates === true" class="float-btn" [ngClass]="status ? 'open' : 'closed'">
@@ -38,11 +38,53 @@
             <span class="state-color draft-state"></span>
             <span class="state-id">Taslak</span>
           </div>   
+
+          <div class="state">
+            <span class="state-color confirmed-state"></span>
+            <span class="state-id">Onaylı</span>
+          </div>   
+
+          <div class="state">
+            <span class="state-color complete-state"></span>
+            <span class="state-id">Tamamlandı/Kesin</span>
+          </div>   
+
+          <div class="state">
+            <span class="state-color paid-state"></span>
+            <span class="state-id">Ödendi</span>
+          </div>   
+
+
+
+          <div class="state">
+            <span class="state-color paid-partitial-state"></span>
+            <span class="state-id">Kısmen Ödendi</span>
+          </div>   
+
+          <div class="state">
+            <span class="state-color paid-over-state"></span>
+            <span class="state-id">Fazla Ödendi</span>
+          </div>   
+
+          <div class="state">
+            <span class="state-color false-state"></span>
+            <span class="state-id">Yanlış</span>
+          </div>   
+
+          <div class="state">
+            <span class="state-color expired-state"></span>
+            <span class="state-id">Zamanı Geçmiş</span>
+          </div>   
         
-        
+          <div class="state">
+            <span class="state-color invalid-state"></span>
+            <span class="state-id">Taslak</span>
+          </div>   
         </div>
       </div>
-    </div>
 
+      <dx-button (click)="status=!status" class="dx-button-orange" style="border-radius: 40px;" container="body">?</dx-button>
+    </div>
+    <ng-content></ng-content>
 
 </div>
