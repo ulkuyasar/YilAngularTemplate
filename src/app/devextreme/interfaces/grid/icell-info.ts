@@ -1,4 +1,6 @@
 import { ICellElement } from "./icell-element";
+import { IColumnOptions } from "./icolumn-options";
+import { IRowInfo } from "./irow-info";
 
     export interface ICellInfo<TData=any,TValue=any>{
         cellElement?:ICellElement;
@@ -15,6 +17,4 @@ import { ICellElement } from "./icell-element";
         text?:string;
         value?:TValue;
 
-
-       
     }

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewContainerRef } from "@angular/core";
 import { BaseComponent } from "src/app/core/components/base-component";
 import { ComponentName } from "src/app/core/decorators/component-name";
+import { IGridView } from "../igrid-view";
 
 
 @Component({

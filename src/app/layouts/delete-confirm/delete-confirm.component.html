@@ -1,0 +1,23 @@
+<div class="delete-confirm">
+  <div class="delete-confirm-header">
+    <span class="icon-header">
+      <em class="icon icon-check-all"></em>
+    </span>
+  </div>
+  <div class="delete-confirm-body">
+    <div class="delete-confirm-title">
+      <p>{{'global.warning'| translate }}</p>
+    </div>
+    <div class="delete-confirm-content">
+      <div>
+        <p class="delete-confirm-message">{{confirmationText}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="delete-confirm-footer">
+    <dx-button [hint]="'global.cancel' | translate" stylingMode="text" [text]="'global.cancel' | translate" (onClick)="cancel()"></dx-button>
+    <dx-button [hint]="'global.ok' | translate" class="dx-button-orange" stylingMode="text" [text]="'global.ok' | translate" (onClick)="ok()"
+            (onEnterKey)="ok()" (onInitialized)="getInstance($event)"></dx-button>
+  </div>
+</div>

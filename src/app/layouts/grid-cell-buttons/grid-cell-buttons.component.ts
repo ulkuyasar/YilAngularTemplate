@@ -3,6 +3,7 @@ import { BaseComponent } from "src/app/core/components/base-component";
 import { ComponentName } from "src/app/core/decorators/component-name";
 import { ICellInfo } from "src/app/devextreme/interfaces/grid/icell-info";
 import { EventEmitter } from "stream";
+import { GridCellButtonComponent } from "../grid-cell-button/grid-cell-button.component";
 
 
 @Component({

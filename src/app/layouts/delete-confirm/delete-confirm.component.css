@@ -1,0 +1,59 @@
+.delete-confirm{
+    position: relative;
+    max-width: 400px;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.delete-confirm-header{
+    text-align: center;
+    background-color: #e40000;
+    padding: 34px 0;
+}
+
+.delete-confirm-title p {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+
+.delete-confirm-body {
+    padding: 15px 10px 0 20px;
+}
+
+.delete-confirm-header .icon-holder{
+    width: 85px;
+    height: 85px;
+    display: block;
+    position: relative;
+    padding: 10px 8px 0 8px;
+    margin: 0 auto;
+    line-height: 1.1;
+    border-radius: 50px;
+    background-color: #fff;
+    border:1px solid #e40000;
+    box-shadow:0 0 20px 11px #e40000, 0 2px 2px #e40000;;
+}
+
+.delete-confirm-header .icon-holder .icon{
+    font-size: 56px;
+    color:#e40000;
+}
+
+.delete-confirm-content{
+    padding: 10px 0 0 0;
+}
+
+.delete-confirm-message{
+    font-size: 13px;
+    color:teal;
+}
+
+.delete-confirm-footer{
+    padding: 15px 0 15px 0;
+    text-align: right;
+    border-top: 1px solid rgba(0, 0, 0, 10);
+    margin-left: 20px;
+    margin-right: 20px;
+}

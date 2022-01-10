@@ -1,6 +1,6 @@
 
     export interface ICellElement{
-        innerText:string;
+        innerText?:string;
         className?:string;
         style?:string;
        
