@@ -1,0 +1,122 @@
+.error-dialog{
+    display: block;
+    margin: 0 0 0 0;
+    position: relative;
+    max-width: 400px; 
+    width: 100%;
+    position: relative;
+}
+
+.error-dialog-header{
+    text-align: center;
+    background-color: #ffc107;
+    padding: 34px 0;
+}
+
+
+
+.error-dialog-header .icon-holder{
+    width: 85px;
+    height: 85px;
+    display: block;
+    position: relative;
+    padding: 10px 8px 0 8px;
+    margin: 0 auto;
+    line-height: 1.1;
+    border-radius: 50px;
+    background-color: #fff;
+    border:1px solid #ce9c05;
+    box-shadow:0 0 20px 11px #ce9c05, 0 2px 2px #ce9c05;
+}
+
+.error-dialog-header .icon-holder .icon{
+    font-size: 56px;
+    color:#ce9c05;
+}
+
+.error-dialog-title p{
+    font-size: 56px;
+    margin-bottom: 5px;
+}
+
+.error-dialog-body{
+    padding: 15px 20px 0 20px;
+}
+
+.error-dialog-image{
+    background-size: inherit;
+    height: 150px;
+    display: block;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position:top left;
+    background-color: var(--sx-9);
+}
+
+
+.error-container{
+    max-height: 100px;
+    overflow-x: hidden;
+    overflow-y: overlay;
+    margin: 10px 0;
+}
+
+@-moz-document url-prefix(){
+    .error-container{
+        overflow-y:scroll;
+    }
+}
+
+
+.error-dialog-content{
+padding: 10px 0 0 0;
+max-height: 100px;
+overflow: overlay;
+}
+
+.error-dialog-message{
+    font-size: 13px;
+    color: teal;
+    white-space: initial;
+    word-break: break-word;
+    
+}
+
+.error-dialog-footer{
+    padding: 15px 0 15px 0;
+    text-align: right;
+    border-top: 1px solid rgba(0,0,0,0.10);
+}
+
+.error-code{
+    font-size: 35px;
+    font-weight: bold;
+    font-family: monospace;
+    color:#d3a313;
+    font-style: normal;
+    line-height: 1.9;
+}
+
+.error-code-400:before{
+    content:'400';
+}
+
+.error-code-401:before{
+    content:'401';
+}
+
+.error-code-403:before{
+    content:'403';
+}
+
+.error-code-404:before{
+    content:'404';
+}
+
+.error-code-500:before{
+    content:'500';
+}
+
+.error-code-503:before{
+    content:'503';
+}

@@ -1,0 +1,52 @@
+<div class="error-dialog">
+  <div class="error-dialog-header 1">
+    <span class="icon-header" *ngIf="errorMessage.error">
+      <em [class]="iconSource"></em>
+    </span>
+    <span class="icon-header 2" *ngIf="!errorMessage.error">
+      <em *ngIf="iconSource" [class]="iconSource"></em>
+    </span>
+  </div>
+
+  <div class="error-dialog-body">
+      <div *ngIf="errorMessage.error">
+        <div class="error-dialog-title">
+          <p *ngIf="errorMessage.error.code == 'AUTHZ'"> {{ 'error.occured.authz' | translate }} </p>
+          <p *ngIf="errorMessage.error.code == 'TECH'"> {{ 'error.occured.tech' | translate }} </p>
+          <p *ngIf="errorMessage.error.code == 'BSNS'"> {{ 'error.occured.bsns' | translate }} </p>
+          <p *ngIf="errorMessage.error.code == 'INFO'"> {{ 'error.occured.info' | translate }} </p>
+          
+          <!-- AUTHZ yetki hatası imajı
+          Tech teknik hatası imajı
+          BSNS mantıksal hatası imajı -->
+
+        </div>
+        <div class="error-dialog-content">
+          <div class="error-container">
+            <div *ngIf="!errorMessage.error.messages || errorMessage.error.messages.length<=0">
+              <p class="error-dialog-message"> {{ 'errorMessage.error.message' | translate }} </p>
+            </div>
+
+            <div *ngIf="errorMessage.error.messages && errorMessage.error.messages.length>0">
+              <p *ngFor="let message of errorMessage.error.messages" lass="error-dialog-message">
+                 {{ message | translate }} </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!errorMessage.error">
+        <div class="error-dialog-title">
+          <p>{{ 'error.occured' | translate }}</p>
+        </div>
+        <div class="error-dialog-content">
+          <p class="error-dialog-message"> {{ message | translate }}</p>
+        </div>
+      </div>
+      <div class="error-dialog-footer">
+        <dx-button [text]='buttonText | translate' class="dx-button-orange" (onClick)="okButtonClick()"
+        (onEnterKey)="okButtonClick()" (onInitilized)="getInstance($event)"></dx-button>
+      </div>
+</div>
+
+
+yasar  div sorunu varrr
