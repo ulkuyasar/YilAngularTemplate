@@ -1,0 +1,60 @@
+<nav class="fade-in grid" [class.collapsed]="collapseState">
+
+    <div class="sidebar-header">
+        <dx-button class="pin-menu icon icon-24px bg-transparent no-border color-white" (click)="collapseSideBr()">
+        </dx-button>
+        <img class="logo" [src]="imageSourceMenu" (click)="goHome()">
+    </div>
+    <div class="sidebar-content">
+        <div class="sidebar-menu long">
+            <div class="sub-menu">
+                <div class="menu-type">
+                    <dx-tree-view class="sidebar-tab-menu sidebar-tab-menu-with-group" #subMenu [items]='menu' 
+                        keyExpr='MenuKey' parentIdExpr='ParentMenuKey' height="100%" [searchEnabled]="true" [searchExpr]="'Name'"
+                        (onItemClick)='mainMenuItemClick($event)' (onOptionChanged)="handlePropertyChange($event)"
+                        dataStructure="plain">
+                            <div *dxTemplate="let item of 'item'" title="{{item.text | translate}}">
+                                <i class="menu-icon {{item.icon}}"></i><span class="menu-title">{{item.text | translate}}</span>
+                            </div>    
+                        <dto-search-editor-options [showClearButton]="false"></dto-search-editor-options>               
+                    </dx-tree-view>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar-Info">
+            <div class="media wrapper">
+                <div class="mt-0">
+                    <div *ngIf="user" class="user-info">
+                        <div class="avatar gray">{{userAvatar | slice:0:2}}</div>
+                        <div class="user-name">{{(userName.length > 33) ? ( userName  | slice:0:33+'..': (userName))}}</div>
+
+                        <div class="user-info">
+                            <div class="avatar cyan">V</div>
+                            <a class="version" (click)="openReleaseNotes()">v{{appVisibleVersion}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar-footer">
+        <dx-button class="button icon icon-tune btn-action-menu" (click)="toogleActionMenu()" id="bt"></dx-button>
+        <ng-container *ngIf="showActionMenu && isActionMenuVisible">
+            <div class="dropdown">
+                <dx-tree-view class="tree-menu fade-in" [items]='actionMenu' height="inherit" keyExpr='MenuKey'
+                    parentIdExpr='ParentMenuKey' [searchEnabled]="true" (onItemClick)='actionMenutemClick($event)' 
+                    dataStructure="plain">
+                
+                        <div *dxTemplate="let item of 'item'">
+                            <div class="menu-item" [ngClass]="{'has-divider': item.isHorizontalRulerVisible,'': !item.isHorizontalRulerVisible}">
+                                <i class="menu-icon {{item.icon}}"></i><span class="menu-title">{{item.text}}</span>
+                            </div>    
+                        </div>                 
+                </dx-tree-view>
+            </div>
+        </ng-container>
+        <span class="company-name">  <a href="www.ulkuyasar.yilmaz.com" target="_blank" rel="noopener">{{'menu.company.copyright'|translate}}</a> </span>
+        <dx-button class="icon icon-power btn-logout" hint="{{'logout' | translate}}" (click)="logout()"></dx-button>
+    </div>
+</nav>

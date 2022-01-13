@@ -1,0 +1,27 @@
+.grid-column-edit-button{
+    width:200px;
+}
+
+.grid-column-edit-button a{
+    color:#333;
+    width: 20px;
+    position: relative;
+    padding: 2px 3px;
+    margin:2px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #fff;
+    border:1px solid #f5e0e0;
+    background-image: linear-gradient(to bottom,#f7f7f700 0%,#ffffff 31%,#ece9e696 100%);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15), 0 2px 2px rgba(0,0,0,0.15);
+}
+
+.grid-column-edit-button a:hover{
+    background:#ff9c01 ;
+    border-color: #ff9c01 ;
+    color:#333;
+}
+
+.grid-column-edit-button a em{
+    font-size: 12px;
+}

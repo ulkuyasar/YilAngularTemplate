@@ -1,0 +1,21 @@
+export interface IMenuItem{
+    Id:number;
+    Code:string;
+    Name:string;
+    MenuKey:string;
+    ParentMenuKey:string;
+    Action:string;
+    LicenseTypeEnum:number;
+    OrganizationTypeEnum:number;
+    isAdmin:boolean;
+    Caption:string;
+    Icon:string;
+    TabKey:string;
+    MenuTypeEnum:number;
+    isActive:boolean;
+    Description:string;
+    ProductTypeEnum:number;
+    CreatedByUserID:number;
+    CreateDate:string;
+    items?:Array<IMenuItem>;
+}

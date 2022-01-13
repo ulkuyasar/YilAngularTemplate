@@ -6,7 +6,7 @@ export class AppConfig{
     AppVersion?:string;
     AppVisibleVersion?:string;
     CopyrightText?:string;
-    ComercialTitle?:string;
+    CommercialTitle?:string;
     MainPath?:string;
     LoginPath?:string;
     ClientId?:string;

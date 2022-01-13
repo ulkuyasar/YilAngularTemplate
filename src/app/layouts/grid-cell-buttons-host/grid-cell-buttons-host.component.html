@@ -1,0 +1,24 @@
+<div class="grid-column-edit-button">
+    <a *ngIf="isAddButtonVisible === true" [attr.name]="addButtonName" (click)="addButtonClick()" [class]="getClassName()" tooltip="{{'grid.toolbar.addbutton.text' | translate}}"
+        container="body" placement="auto" containerClass="custom-tooltip">
+        <em [class]="addIcon"></em>
+    </a>
+
+    <a *ngIf="isEditButtonVisible === true" [attr.name]="editButtonName" (click)="editButtonClick()" [class]="getClassName()" tooltip="{{'grid.toolbar.editbutton.text' | translate}}"
+        container="body" placement="auto" containerClass="custom-tooltip">
+        <em [class]="editIcon"></em>
+    </a>
+
+    <a *ngIf="isDeleteButtonVisible === true" [attr.name]="deleteButtonName" (click)="deleteButtonClick()" [class]="getClassName()" tooltip="{{'grid.toolbar.deletebutton.text' | translate}}"
+        container="body" placement="auto" containerClass="custom-tooltip">
+        <em [class]="deleteIcon"></em>
+    </a>
+
+    <ng-template ngFor let-button [ngForOf]="cellButtons">
+        <a *ngIf="isCellButtonVisible === true" [attr.name]="button.name" (click)="cellButtonClick()" [class]="getClassName()" tooltip="{{'botton.tooltip' | translate}}"
+            container="body" placement="auto" containerClass="custom-tooltip">
+            <em [class]="button.icon"></em>
+        </a>
+    </ng-template>
+
+</div>
