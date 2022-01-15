@@ -1,8 +1,8 @@
-import {  ContentChildren, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewContainerRef } from "@angular/core";
+import {  Component, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewContainerRef } from "@angular/core";
 import { DxFormComponent } from "devextreme-angular";
 import { DxiItemComponent } from "devextreme-angular/ui/nested";
-import { EventEmitter } from "stream";
 import { Virtual } from "../decorators/virtual";
+import { IFormOption } from "../directives/iform-option";
 import { BaseComponent } from "./base-component";
 
 @Component({   //yasar sen ekledın
@@ -44,7 +44,7 @@ export abstract class FormComponent extends BaseComponent implements OnInit, OnD
 
     public reloadForm():void{
         if(this.form){
-            this.form.formData = this.modal();
+            this.form.formData = this.model();
         }
     }
 

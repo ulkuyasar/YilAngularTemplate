@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Injector, Injector, OnDestroy, OnInit, Output, ViewContainerRef, ViewEncapsulation } from "@angular/core";
+import { AfterViewInit, Component, EventEmitter, Injector,  OnDestroy, OnInit, Output, ViewContainerRef, ViewEncapsulation } from "@angular/core";
 import { ComponentName } from "src/app/core/decorators/component-name";
 import { FormComponent } from "src/app/core/components/form-component";
 import { AuthenticationService } from "src/app/authentication/authentication.service";
@@ -10,6 +10,14 @@ import { MenuItem } from "./menu-item";
 import { StorageService } from "src/app/storage/storage-service";
 import { AppConfig } from "src/app/config/app.config";
 import { logoImageProfileAccount, logoImageTopMenu } from "./menu-images";
+import { ITreeViewComponent } from "src/app/devextreme/interfaces/tree-view/itree-view-component";
+import { ITreeViewEventArgs } from "src/app/devextreme/interfaces/tree-view/itree-view-event-args";
+import { AuthenticationContextType } from "src/app/authentication/authentication-context-type";
+import { AuthenticationConstants } from "src/app/authentication/authentication-constants";
+import { PopupOptions } from "../popup/popup-options";
+import { PopupService } from "../popup/popup-service";
+import { numberFormatter } from "globalize";
+import { MenuService } from "./menu.service";
 
 @Component({
   selector: 'app-menu',
@@ -100,33 +108,144 @@ export class MenuComponent extends BaseComponent implements OnInit,OnDestroy,Aft
   }
 
 
-  yasar   menuıtem click
+  private menuItemClick(event:ITreeViewEventArgs<MenuItem>,menuItems:MenuItem[]){
+    if(this.hasChildren(event.itemData,menuItems)){
+      if (event.node.expanded){
+        event.component.collapseItem(event.node.key);
+      }else{
+        event.component.expandItem(event.node.key);
+      }
+    }else{
+      this._authenticationService.changeAuthenticationContextType(AuthenticationContextType.Default);
+      let user = this._authenticationService.currentUser;
+      let shouldRefreshToken = true;
+      if(user){
+        let now = new Date().getTime()/1000;
+        shouldRefreshToken = (now>user.exp);
+      }
 
+      if(shouldRefreshToken){
+        this._storageService.removeItem(AuthenticationConstants.ACCESSTOKEN);
+        this._authenticationService.firstLogin();
+      }
 
+      if (typeof event.itemData.Action === "string"){
+        this.router.navigate([event.itemData.Action]);
+        this.collapseSideBar();
+      }else{
+        event.itemData.Action();
+      }
+    }
+  }
 
+  private findItemListOfItem(item:MenuItem):MenuItem[]{
+    if(item.items != null){
+      if (item.items.length>0){
+        return item.items;
+      }
+    }
+    return this.menu;
+  }
 
+  handlePropertyChange(e):void{
+    if(e.name === "searchValue" && e.Value === ""){
+      e.component.collapseAll();
+    }
+  }
 
+  mainMenuItemClick(event:ITreeViewEventArgs<MenuItem>){
+    let items:MenuItem[] = this.findItemListOfItem(event.itemData);
+    this.menuItemClick(event,items);
+  }
 
+  actionMenuItemClick(event:ITreeViewEventArgs<MenuItem>){  
+    this.mainMenuItemClick(event);
+  }
 
+  logout(){
+    this.collapseSideBar();
+  }
 
+  toggleActionMenu(){
+    this.isActionMenuVisible = !this.isActionMenuVisible;
+  }
 
+  collapseSideBar(){
+    this.collapseState = !this.collapseState;
+    this.onCollapse(this.collapseState);
+  }
 
+  goHome(){
+    this.router.navigate(['main']);
+  }
 
+  openReleaseNotes():void{
+    let popupOptions : PopupOptions = new PopupOptions({
+      Title :this.localization.getMessage('releass.title'),
+      Position:{ my:'center',at:'center',of:window},
+      Height:"900",
+      Width:"850" 
+    });
+    let popupService : PopupService = this.Injector.get<PopupService>(PopupService);
+   //   popupService.openGlobalPopupWithComponentType(ReleaseNotesComponent,popupOptions);
+  }
 
+  private onCollapse(args:boolean):boolean{
+    let handled:boolean=false;
+      if (this.collapseEvent.observers.length >0){
+        handled = true;
+        this.collapseEvent.emit(args);
+      }
+      return handled;
 
-  
+  }
+
+  private hasChildren(menuItem:MenuItem,items:MenuItem[]){
+    if (this._isActionMenuHieratchical){
+      return menuItem && menuItem.items.length>0;
+    }
+    return items.filter(item=>menuItem.MenuKey === item.ParentMenuKey).length;
+
+  }
+
+  private remove = function(array,predicate){
+    for (let i = 0; i < array.length; i++) {
+      if(predicate(array[i])){
+          return array.splice(i,1);
+      }
+    } 
+  }
    
    ngOnInit(): void {
        super.ngOnInit();
 
-       this.CopyrightText = this.config.appConfig.CopyrightText;
-       if(this.auth.currentUser){
-         this.UserName = this.auth.currentUser.user_name;
-       }   
+       let currentAuthenticationContextType = this._authenticationService.currentAuthenticationContextType;
+       this._authenticationService.changeAuthenticationContextType(AuthenticationContextType.Default);
+       this._authenticationService.changeAuthenticationContextType(currentAuthenticationContextType);
+
+      this._menuService.getMenuItemSource().subscribe((menuItemsModule : {default:MenuItem[]})=>{
+        this.menuItems = menuItemsModule.default;
+        if(!this._authenticationService.hasScreen(200)) //200 olmayanlara gozukme
+        {
+          this.remove(this.menuItems,(row:{Id:number}) => row.Id == 7.3);
+          this.remove(this.menuItems,(row:{Id:number}) => row.Id == 7.5);
+
+        }
+        if (!this._authenticationService.hasRole("Beamer"))
+        {
+          this.remove(this.menuItems,(row:{Id:number}) => row.Id == 2);
+        }
+
+      })
+
    }
 
   ngOnDestroy(): void {
       super.ngOnDestroy();
+  }
+
+  ngAfterViewInit(): void {
+    super.ngAfterViewInit();
   }
 
 }

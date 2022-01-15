@@ -1,8 +1,9 @@
 import { Component, Input, OnDestroy, OnInit, ViewContainerRef, AfterViewInit } from "@angular/core";
 import { ComponentName } from "src/app/core/decorators/component-name";
 import { BaseComponent } from "src/app/core/components/base-component";
-import { StringChain } from "lodash";
 import { errorImage400, errorImage401, errorImage403, errorImage404, errorImage500, errorImage503, errorImageOAuth } from "./error-dialog-images";
+import { ErrorMessage } from "src/app/core/data/error-message";
+import { ErrorSource } from "src/app/core/data/error-source.enum";
 
 @Component({
   selector: 'app-error-dialog',

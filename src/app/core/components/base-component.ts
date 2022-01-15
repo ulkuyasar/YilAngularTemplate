@@ -1,6 +1,6 @@
 import { AfterViewInit, OnDestroy, OnInit, ViewContainerRef,Injector,ElementRef,ComponentFactoryResolver,ChangeDetectorRef,EventEmitter,Type,InjectionToken, Input, Component } from "@angular/core";
 import { ActivatedRoute, Data, Router } from "@angular/router";
-import { Observable, Subscription, VirtualAction } from "rxjs";
+import { Observable, Subscription,  } from "rxjs";
 import { ComponentHierarchyInfo } from "src/app/layouts/component-hierarchy/component-hierarchy-info";
 import { ComponentHierarchyService } from "src/app/layouts/component-hierarchy/component-hierarchy-service";
 import { GlobalConstants, IGlobalConstants } from "src/app/utilities/global-constants";
@@ -13,9 +13,8 @@ import { LocalizationService } from 'src/app/localization/localization.service'
 import { EventService } from "src/app/event/event.service";
 import { LoadingPanelService } from "src/app/layouts/loading-panel/loading-panel-service";
 import { IComponent } from "../component-model/icomponent";
-import { isNull } from "lodash";
+
 import { ConfigService } from "src/app/config/config.service";
-import { AppConfig } from "src/app/config/app.config";
 import { IConfigSubscriber } from "src/app/config/iconfig-subscriber";
 import { Virtual } from "../decorators/virtual";
 import { AuthenticationService } from "src/app/authentication/authentication.service";

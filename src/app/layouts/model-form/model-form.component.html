@@ -1,0 +1,9 @@
+<div class="model-form">
+    <div class="form-body">
+        <dx-form [formData]="dataContext.dataSource" [validationGroup]="validationGroup"
+            [showValidationSummary]="showValidationSummary" [readOnly]="readOnly" [screenByWidth]="getSizeQualifier"
+            (onOptionChanged)="optionChanged($event)">
+            <ng-content select="dxi-item"></ng-content>
+        </dx-form>
+    </div>
+</div>

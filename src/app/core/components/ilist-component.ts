@@ -1,4 +1,5 @@
-import { QueryStringParam } from "./query-string-param";
+import { IDataSourceOptions } from "../data/idata-source-options";
+
 
 export interface IListComponent{
     autoRefresh:boolean;

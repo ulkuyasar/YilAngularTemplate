@@ -1,8 +1,7 @@
-import { AfterContentInit, Component, ContentChildren, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChange, SimpleChanges, ViewContainerRef } from "@angular/core";
+import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChange, SimpleChanges, ViewContainerRef } from "@angular/core";
 import { BaseComponent } from "src/app/core/components/base-component";
 import { ComponentName } from "src/app/core/decorators/component-name";
 import { ICellInfo } from "src/app/devextreme/interfaces/grid/icell-info";
-import { EventEmitter } from "stream";
 import { GridCellButtonComponent } from "../grid-cell-button/grid-cell-button.component";
 
 

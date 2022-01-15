@@ -1,4 +1,4 @@
-import {  AfterContentInit, Component,  Input, OnDestroy, OnInit, Output, ViewChild, ViewContainerRef, ViewEncapsulation } from "@angular/core";
+import {  AfterContentInit, Component,  EventEmitter,  Input, OnDestroy, OnInit, Output, ViewChild, ViewContainerRef, ViewEncapsulation } from "@angular/core";
 import { ComponentName } from "src/app/core/decorators/component-name";
 import { FormComponent } from "src/app/core/components/form-component";
 import { DxTemplateDirective, DxTemplateHost, DxTextBoxComponent, IDxTemplateHost, INestedOptionContainer, NestedOptionHost } from "devextreme-angular";
@@ -6,7 +6,6 @@ import { DxiItemComponent } from "devextreme-angular/ui/nested";
 import { GridViewComponent } from "../grid-view/grid-view.component";
 import { ListComponent } from "src/app/core/components/list-component";
 import { FilterModel } from "src/app/core/models/filter-model";
-import { EventEmitter } from "stream";
 import DevExpress from "devextreme";
 import { Override } from "src/app/core/decorators/override";
 import { QueryStringParam } from "src/app/core/data/query-string-param";
@@ -82,6 +81,12 @@ export class FilterPanelComponent extends FormComponent implements OnInit,OnDest
          this.filterEvent = new EventEmitter<FilterModel>();
 
    }
+   isLinked: boolean;
+   removedNestedComponents: string[];
+   optionChangedHandlers: EventEmitter<any>;
+   recreatedNestedComponents: any[];
+   resetOptions: (collectionName?: string) => void;
+   isRecreated: (name: string) => boolean;
 
    get instance():DevExpress.ui.dxForm{
       return this.form.instance;
