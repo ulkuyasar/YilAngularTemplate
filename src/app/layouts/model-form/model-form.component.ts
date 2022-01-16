@@ -1,9 +1,12 @@
-import { AfterContentInit, AfterViewInit, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewContainerRef, ViewEncapsulation } from "@angular/core";
+import { typeWithParameters } from "@angular/compiler/src/render3/util";
+import { AfterContentInit, AfterViewInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewContainerRef, ViewEncapsulation } from "@angular/core";
 import DevExpress from "devextreme";
 import { DxTemplateDirective, DxTemplateHost, IDxTemplateHost, INestedOptionContainer, NestedOptionHost } from "devextreme-angular";
 import { DxiItemComponent, DxiValidationRuleComponent } from "devextreme-angular/ui/nested";
 import { FormComponent } from "src/app/core/components/form-component";
 import { IModelComponent } from "src/app/core/components/imodel-component";
+import { ErrorMessage } from "src/app/core/data/error-message";
+import { ErrorSource } from "src/app/core/data/error-source.enum";
 import { ComponentName } from "src/app/core/decorators/component-name";
 import { Override } from "src/app/core/decorators/override";
 import { Model } from "src/app/core/models/model";
@@ -295,7 +298,7 @@ export class ModelFormComponent extends FormComponent implements OnInit,OnDestro
       let afterDeleteConfimationCreate = (componentInstance:DeleteConfirmComponent) =>{
         componentInstance.confirmationText = this.localization.getMessage('delete.confirmanation.text');
       }
-      let popupRef: PopupRef<DeleteConfirmComponent> = this._popupService.openGlobalPopupWithComponentType... yasar
+      let popupRef: PopupRef<DeleteConfirmComponent> = this._popupService.openGlobalPopupWithComponentType(DeleteConfirmComponent,popupOptions,afterDeleteConfimationCreate)
       popupRef.afterClosed().subscribe((returnValue:boolean) => {
         if(returnValue === true){
           this.modelAction(ModelActionType.Delete,this._deleteModel);
@@ -374,14 +377,307 @@ public okModel():void{
       case ModelValidationStatus.NoValidation:
       case ModelValidationStatus.Valid:
         if(beforeActionEventArgs.beforeAction){
-
-yassarrrrrrrrrr
-01.21
-
-
+          beforeActionEventArgs.beforeAction.subscribe(
+            () => {
+              if(beforeActionEventArgs.cancel === false){
+                action(this);
+              }
+            },
+            (error)=>{
+              this.event.toastError(error);
+            }
+          );
+        } 
+        else{
+          if (beforeActionEventArgs.cancel===false){
+            action(this);
+          }
         }
+        break;
+        case ModelValidationStatus.InValid:
+          if(actionWhenInvalid){
+            actionWhenInvalid(this);
+          }
+          break;
+        default;
+          break;
+    }
+  }
+  private _createModel(that:ModelFormComponent):void{
+    that.loadingPanel.start();
+    let afterActionEventArrgs:ModelAfterActionEventArgs;
+    that.parentModelComponent.create(that._afterCreateActionType).subscribe(
+      (model) => {
+        that.loadingPanel.stop();
+        afterActionEventArrgs = new ModelAfterActionEventArgs(ModelActionType.Create,true,model);
+        that.onAfterAction(afterActionEventArrgs);
+        that.event.toastSuccess(that.localization.getMessage('model.created'));
+        that.afterCreate();
+
+      },
+      (error) =>{
+        that.loadingPanel.stop();
+        afterActionEventArrgs = new ModelAfterActionEventArgs(ModelActionType.Create,false,null,error);
+        that.onAfterAction(afterActionEventArrgs);
+        if(error instanceof ErrorMessage){
+          ErrorService.errorNotifier.next(error);
+        }else{
+          that.event.toastError(that.localization.getMessage('model.created.error'));
+        }
+      }     
+      );
+   }
+
+   private _copyModel(that:ModelFormComponent):void{
+     that.loadingPanel.start();
+
+     let afterActionEventArrgs:ModelAfterActionEventArgs;
+     that.parentModelComponent.create(that._afterCreateActionType).subscribe(
+       (model) => {
+         that.loadingPanel.stop();
+         afterActionEventArrgs = new ModelAfterActionEventArgs(ModelActionType.Copy,true,model);
+         that.onAfterAction(afterActionEventArrgs);
+         that.event.toastSuccess(that.localization.getMessage('model.copied'));
+         that.afterCreate();
+ 
+       },
+       (error) =>{
+         that.loadingPanel.stop();
+         afterActionEventArrgs = new ModelAfterActionEventArgs(ModelActionType.Copy,false,null,error);
+         that.onAfterAction(afterActionEventArrgs);
+         if(error instanceof ErrorMessage){
+           ErrorService.errorNotifier.next(error);
+         }else{
+           that.event.toastError(that.localization.getMessage('model.copied.error'));
+         }
+       }     
+       );
+   }
+
+   private _updateModel(that:ModelFormComponent):void{
+    that.loadingPanel.start();
+
+    let afterActionEventArrgs:ModelAfterActionEventArgs;
+    that.parentModelComponent.create(that._afterCreateActionType).subscribe(
+      (model) => {
+        that.loadingPanel.stop();
+        afterActionEventArrgs = new ModelAfterActionEventArgs(ModelActionType.Update,true,model);
+        that.onAfterAction(afterActionEventArrgs);
+        that.event.toastSuccess(that.localization.getMessage('model.copied'));
+        that.afterUpdate();
+
+      },
+      (error) =>{
+        that.loadingPanel.stop();
+        afterActionEventArrgs = new ModelAfterActionEventArgs(ModelActionType.Update,false,null,error);
+        that.onAfterAction(afterActionEventArrgs);
+        if(error instanceof ErrorMessage){
+          ErrorService.errorNotifier.next(error);
+        }else{
+          that.event.toastError(that.localization.getMessage('model.copied.error'));
+        }
+      }     
+      );
+  }
+
+  private _deleteModel(that:ModelFormComponent):void{
+    that.loadingPanel.start();
+
+    let afterActionEventArrgs:ModelAfterActionEventArgs;
+    that.parentModelComponent.create(that._afterCreateActionType).subscribe(
+      (model) => {
+        that.loadingPanel.stop();
+        afterActionEventArrgs = new ModelAfterActionEventArgs(ModelActionType.Delete,true,model);
+        that.onAfterAction(afterActionEventArrgs);
+        that.event.toastSuccess(that.localization.getMessage('model.copied'));
+        that.afterDelete();
+
+      },
+      (error) =>{
+        that.loadingPanel.stop();
+        afterActionEventArrgs = new ModelAfterActionEventArgs(ModelActionType.Delete,false,null,error);
+        that.onAfterAction(afterActionEventArrgs);
+        if(error instanceof ErrorMessage){
+          ErrorService.errorNotifier.next(error);
+        }else{
+          that.event.toastError(that.localization.getMessage('model.copied.error'));
+        }
+       }     
+      );
+  }
+
+  private _okModel(that:ModelFormComponent):void{
+    let modelActionType:ModelActionType;
+    let successMessage:string;
+    let errorMessage:string;
+    if(that.modelOperation === ModelOperation.New){
+      modelActionType = ModelActionType.Create;
+      successMessage = "model.created";
+      errorMessage = "model.created.error";
+
+    }else if (that.modelOperation === ModelOperation.Edit){
+      modelActionType = ModelActionType.Update;
+      successMessage = "model.updated";
+      errorMessage = "model.updated.error";
+    }
+
+    that.loadingPanel.start();
+
+    let afterActionEventArrgs:ModelAfterActionEventArgs;
+    that.parentModelComponent.create(that._afterCreateActionType).subscribe(
+      (model) => {
+        that.loadingPanel.stop();
+        afterActionEventArrgs = new ModelAfterActionEventArgs(modelActionType,true,model);
+        that.onAfterAction(afterActionEventArrgs);
+        that.event.toastSuccess(successMessage);
+        that.afterOK();
+
+      },
+      (error) =>{
+        that.loadingPanel.stop();
+        afterActionEventArrgs = new ModelAfterActionEventArgs(modelActionType,false,null,error);
+        that.onAfterAction(afterActionEventArrgs);
+        if(error instanceof ErrorMessage){
+          ErrorService.errorNotifier.next(error);
+        }else{
+          that.event.toastError(errorMessage);
+        }
+      }     
+      );
+  }
+
+  private closePanel():void{
+    if(this.parentModelComponent && this.parentModelComponent.panelInstanceRef){
+      this.parentModelComponent.panelInstanceRef.close();
+    }
+  }
+
+  private afterCreate():void{
+    switch(this._afterCreateActionType){
+      case ModelAfterActionType.ClosePanel:
+        this.clearForm();
+        this.closePanel();
+        break;
+      case ModelAfterActionType.ContinueCreate:
+        this.clearForm();
+        break;
+      case ModelAfterActionType.GotoEdit:
+        this.clearForm();
+        if (this.parentModelComponent.useRoute){
+          this.parentModelComponent.changeOperation(ModelOperation.Edit);
+        } else {
+          this.parentModelComponent.changeOperation(ModelOperation.Edit);
+        }
+        break;
+      case ModelAfterActionType.Nothing:
+        break;
+      default:
+        break;
 
     }
+  }
+
+  private afterUpdate():void{
+    switch(this._afterUpdateActionType){
+      case ModelAfterActionType.ClosePanel:
+        this.clearForm();
+        this.closePanel();
+        break;
+      case ModelAfterActionType.ContinueCreate:
+        //Invalid for update
+        break;
+      case ModelAfterActionType.GotoEdit:
+        //Invalid for update
+        break;
+      case ModelAfterActionType.Nothing:
+        break;
+      default:
+        break;
+    }
+  }
+
+  private afterDelete():void{
+    switch(this._afterDeleteActionType){
+      case ModelAfterActionType.ClosePanel:
+        this.clearForm();
+        this.closePanel();
+        break;
+      case ModelAfterActionType.ContinueCreate:
+        //Invalid for delete
+        break;
+      case ModelAfterActionType.GotoEdit:
+        //Invalid for delete
+        break;
+      case ModelAfterActionType.Nothing:
+        break;
+      default:
+        break;
+    }
+  }
+
+
+  private afterOK():void{
+    switch(this._afterOkActionType){
+      case ModelAfterActionType.ClosePanel:
+        this.clearForm();
+        this.closePanel();
+        break;
+      case ModelAfterActionType.ContinueCreate:
+        //Invalid for delete
+        break;
+      case ModelAfterActionType.GotoEdit:
+        //Invalid for delete
+        break;
+      case ModelAfterActionType.Nothing:
+        break;
+      default:
+        break;
+    }
+  }
+
+  onBeforeAction(args:ModelBeforeActionEventArgs):boolean{
+    let handled:boolean = false;
+    if(this.beforeActionEvent.observers.length>0){
+      handled = true;
+      this.beforeActionEvent.emit(args);
+    }
+    return handled;
+  }
+
+  onAfterAction(args:ModelAfterActionEventArgs):boolean{
+    let handled:boolean = false;
+    if(this.afterActionEvent.observers.length>0){
+      handled = true;
+      this.afterActionEvent.emit(args);
+    }
+    return handled;
+  }
+
+  onClosePanel():boolean{
+    let handled:boolean = false;
+    if(this.closePanelEvent.observers.length>0){
+      handled = true;
+      this.closePanelEvent.emit();
+    }
+    return handled;
+  }
+
+  onModelLoading(model:Model):boolean{
+    let handled:boolean = false;
+    if(this.modelLoadingEvent.observers.length>0){
+      handled = true;
+      this.modelLoadingEvent.emit(model);
+    }
+    return handled;
+  }
+
+  onModelLoaded(model:Model):boolean{
+    let handled:boolean = false;
+    if(this.modelLoadedEvent.observers.length>0){
+      handled = true;
+      this.modelLoadedEvent.emit(model);
+    }
+    return handled;
   }
 
 }
