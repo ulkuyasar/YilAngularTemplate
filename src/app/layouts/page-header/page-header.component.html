@@ -1,0 +1,28 @@
+<div *ngIf="visible" class="title-box">
+    <div class="media">
+        <img *ngIf="showImage" class="mr-3 title-image" [src]="imageSource" width="48" height="48">
+        <div class="media-body">
+            <h5 class="mt-2">{{Title}}</h5>
+            <p *ngIf="showContent" [innerHtml]="content" id="collapseBasic" [collapse]="isCollapse"></p>
+        </div>
+    </div>
+</div>
+
+<div class="doc-panel-overlay" [class.collapsed]="collapseDocPanelState" (click)="collapseDocPanel()"></div>
+    <div class="doc-panel">
+        <div class="doc-header">
+            <div class="row">
+                <div class="col-x1-11">
+                    <h1 class="title">{{Title}}</h1>
+                </div>
+                <div class="col-x1-1"><em class="close"><i class="icon icon-24px icon icon-close " (click)="collapseDocPanel()"></i> </em></div>
+            </div>
+        </div>
+        <div class="doc-body">
+            <dx-scroll-view height="inherit">
+                <markdown [src]="docUrl"></markdown>
+            </dx-scroll-view>
+        </div>
+        <div class="doc-footer"></div>
+    </div>
+

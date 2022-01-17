@@ -1,0 +1,251 @@
+app-page-header .collapse-icon{   
+    width: auto;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+app-page-header .title-box
+{ 
+    background: #fff;
+    padding:5px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: var(--box-shadow);
+}
+
+app-page-header .title-image{
+    width: 48px;
+    height: 48px;
+}
+
+app-page-header .media-body{
+    font-size: 12px;
+    padding-top: 5px;
+}
+
+app-page-header .help-icon{
+    
+    margin-top: 6px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+
+
+@media(max-width:1366px){
+    app-page-header .title-box
+    { 
+        margin-bottom: 0;
+        border-radius: 0;
+        box-shadow: none;
+        border-bottom: 1px solid #e0e0e0;
+    }
+}
+
+
+@media(max-width:599px){
+    app-page-header .title-box
+    { 
+        text-align: center;
+        background: #fce0a2;
+    }
+
+    app-page-header .title-box .media
+    { 
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    app-page-header .title-box .title-image
+    { 
+        width: auto;
+        height: auto;
+        margin: 0 !important;
+    }
+
+    app-page-header .title-box .media .media-body h5
+    { 
+        font-size: 1.25em;
+    }
+}
+
+app-page-header .doc-panel{
+    
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    float: right;
+    height: 100%;
+    padding:0;
+    background-color: #fff;
+    overflow: hidden;
+    z-index: 1600;
+    box-shadow: var(--box-shadow);
+}
+
+app-page-header .doc-panel .doc-panel-overlay{
+    position: absolute;
+    width: 0;
+    height:0;
+    display: none;
+}
+
+app-page-header .doc-panel-overlay.collapsed{
+    display: block;
+    width: 100%;
+    height:100%;
+    background: rgba(0,0,0,0.2);
+    position: absolute;
+    z-index: 1599;
+    left: 0;
+    top: 0;
+}
+
+app-page-header .doc-panel-overlay.collapsed + .doc-panel{
+ 
+    width: 800px;
+    animation-name: leftslide;
+    animation-duration: .2s;
+    animation-fill-mode: both;
+    animation-timing-function:ease-in-out;
+    animation-direction: alternate;
+}
+
+app-page-header .doc-panel .doc-header{
+ 
+    border-bottom: 1px solid #ccc;
+    background-color:#fdfdfd ;
+    clear:both;
+    background: #fff;
+    padding: 8px 10px;
+    box-shadow: var(--box-shadow);
+}
+
+app-page-header .doc-panel .doc-header .title{
+ 
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+app-page-header .doc-panel .doc-body{
+ 
+    float: left;
+    width: 100%;
+    display: block;
+    height: calc(100vh-50px);
+}
+
+app-page-header .doc-panel .toolbar-body{
+ 
+    background: white;
+    height: 100%;
+    overflow: scroll;
+}
+
+app-page-header .doc-panel markdown h1:first-child,
+app-page-header .doc-panel markdown div:first-child+h1
+{
+    border-top-width: 0;
+    margin-top: 0;
+}
+
+
+app-page-header .doc-panel markdown h1
+{
+    font-size: 1.25rem;
+    margin-bottom: 21px;
+    margin-top: 2em;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background-color: #fdfdfd;
+    clear:both;
+    background: #fff;
+    padding:5px;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    box-shadow: var(--box-shadow);
+    display: none;
+   
+}
+
+app-page-header .doc-panel markdown>h1,
+app-page-header .doc-panel markdown>h2,
+app-page-header .doc-panel markdown>div{
+    clear:both;
+}
+
+app-page-header .doc-panel markdown h1,
+app-page-header .doc-panel markdown h2,
+app-page-header .doc-panel markdown h3,
+app-page-header .doc-panel markdown h4,
+app-page-header .doc-panel markdown h5,
+app-page-header .doc-panel markdown h6{
+    font-weight: 500;
+    padding: 1rem;
+}
+
+app-page-header .doc-panel markdown h2{
+    font-size: 16px;
+    font-weight: 400;
+    padding: 0 10px;
+    color:#3023ae
+}
+
+app-page-header .doc-panel markdown h3{
+    font-size: 16px;
+    font-weight: 700;
+    padding: 0 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    color:#3023ae
+}
+
+
+app-page-header .doc-panel markdown p,
+app-page-header .doc-panel markdown li
+{
+   padding: 10px;
+   font-size: 13px;
+   margin: 0;
+   padding-bottom: 0;
+}
+
+app-page-header .doc-panel markdown p img,
+app-page-header .doc-panel markdown li img
+{
+   display: inline-block;
+}
+
+app-page-header .doc-panel markdown p,
+app-page-header .doc-panel markdown li,
+app-page-header .doc-panel markdown dt,
+app-page-header .doc-panel markdown dd
+{
+   line-height: 1.6;
+   margin-top: 0;
+}
+
+@keyframes leftslide{
+    from{
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(30%,0);
+    }
+
+    to{
+        opacity: 1;
+        visibility: visible;
+        transform: translate(0,0);
+    }
+}
+
+@keyframes faceIn{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
