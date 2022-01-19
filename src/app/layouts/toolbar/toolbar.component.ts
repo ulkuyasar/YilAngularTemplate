@@ -39,6 +39,7 @@ export class ToolbarComponent extends BaseComponent implements OnInit,OnDestroy{
 
   ngOnInit(): void {
     super.ngOnInit();
+    this.loadLicence();
   }
 
   ngOnDestroy(): void {
@@ -48,13 +49,13 @@ export class ToolbarComponent extends BaseComponent implements OnInit,OnDestroy{
   collapseToolbar(): void {
     super.ngAfterViewInit();
 
-    this.collapseDocPanelState = !this.collapseDocPanelState;
+    this.collapseToolbarState = !this.collapseToolbarState;
+    this.urlPathData = this.router.url.slice(0,10);
     this.docUrl = 'asset/documents'+this.urlPathData+'/'+this.docLicenceType+'.md';
   }
 
-  scrollHeight():number{
-    return window.innerHeight/1;
+  loadLicence():void{
+    this.docLicenceType="Inter";
   }
-
 
 }

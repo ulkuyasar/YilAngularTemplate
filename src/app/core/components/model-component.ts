@@ -1,41 +1,47 @@
-import { SafeMethodCall } from "@angular/compiler";
-import { AfterViewInit, ComponentFactory, ComponentRef, getModuleFactory, Input, OnDestroy, OnInit, Output, ViewChildren, ViewContainerRef } from "@angular/core";
+import { AfterViewInit,  EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren, ViewContainerRef } from "@angular/core";
 import { ParamMap } from "@angular/router";
 import { ok } from "assert";
-import { ETIME } from "constants";
-import { Observable, of } from "rxjs";
-import { AuthenticationService } from "src/app/authentication/authentication.service";
-import { EventEmitter } from "stream";
+import { Observable, of, Subscriber } from "rxjs";
+import { concatMap, map } from "rxjs/operators";
+import { ModelFormComponent } from "src/app/layouts/model-form/model-form.component";
+import { IPopupOptions } from "src/app/layouts/popup/ipopup-options";
+import { IPopupRef } from "src/app/layouts/popup/ipopup-ref";
+import { PopupOptions } from "src/app/layouts/popup/popup-options";
+import { PopupService } from "src/app/layouts/popup/popup-service";
 import { IReturnValue } from "../component-model/ireturn-value";
+import { PageType } from "../component-model/page-type.enum";
+import { ErrorMessage } from "../data/error-message";
 import { Virtual } from "../decorators/virtual";
 import { Model } from "../models/model";
+import { ModelAfterActionType } from "../models/model-after-action-type.enum";
 import { ModelOperation } from "../models/model-operation.enum";
-import { ModelTrackingState } from "../models/model-tracking-state.enum";
-import { BaseComponent } from "./base-component";
+import { ModelSource } from "../models/model-source.enum";
+import { ModelState } from "../models/model-state.enum";
+import { IModelService } from "../services/imodel-service";
 import { IModelComponent } from "./imodel-component";
 import { PageComponent } from "./page-component";
 
-@Component({   //yasar sen ekledın
-    template: ''
-})
+// @Component({   //yasar sen ekledın
+//     template: ''
+// })
 export abstract class ModelComponent<T extends Model,TKey =number | string> 
                                        extends PageComponent implements OnInit, OnDestroy, AfterViewInit, IModelComponent, 
                                        IReturnValue<T | Array<T>>{
 
     @ViewChildren(ModelFormComponent)
-    modelForm:QueryList<ModelFormComponent>;
+    modelForms:QueryList<ModelFormComponent>;
     
     @Input()
     model: T;       
 
-    @Input('isValidationEnableOnCreate')
-    isValidationEnableOnCreate:boolean;   
+    @Input('isValidationEnabledOnCreate')
+    isValidationEnabledOnCreate:boolean;   
 
-    @Input('isValidationEnableOnUpdate')
-    isValidationEnableOnUpdate:boolean; 
+    @Input('isValidationEnabledOnUpdate')
+    isValidationEnabledOnUpdate:boolean; 
 
-    @Input('isValidationEnableOnDelete')
-    isValidationEnableOnDelete:boolean; 
+    @Input('isValidationEnabledOnDelete')
+    isValidationEnabledOnDelete:boolean; 
 
 
     @Output('onModelLoading')
@@ -60,18 +66,18 @@ export abstract class ModelComponent<T extends Model,TKey =number | string>
     private _modelID:TKey;
 
 
-    constructor(modelService,IModelService<T,TKey>,viewContainerRef ViewContainerRef){
+    constructor(modelService:IModelService<T,TKey>,viewContainerRef: ViewContainerRef){
         super(viewContainerRef);
 
         this.modelLoadingEvent = new EventEmitter<T>();
         this.modelLoadedEvent = new EventEmitter<T>();
 
-        this.isValidationEnableOnCreate = true;
-        this.isValidationEnableOnUpdate = true;
-        this.isValidationEnableOnDelete = false;
+        this.isValidationEnabledOnCreate = true;
+        this.isValidationEnabledOnUpdate = true;
+        this.isValidationEnabledOnDelete = false;
 
         this.modelLoadedEvent.subscribe((model:T) =>{
-            this.popupOperations.Title = this.getPopupTitle(model,this.modelOperation);
+            this.popupOptions.Title = this.getPopupTitle(model,this.modelOperation);
             if (this.panelInstanceRef){
                 this.panelInstanceRef.updateTitle(this.popupOptions.Title);
             }
@@ -88,15 +94,15 @@ export abstract class ModelComponent<T extends Model,TKey =number | string>
     }
 
     public set modelID(id:TKey){
-        return this._modelID = id;
+         this._modelID = id;
     }
 
     public get modelOperation():ModelOperation{
         return this._modelOperation;
     }
 
-    public get isModel():boolean{
-        return this._isModel;
+    public get isModal():boolean{
+        return this._isModal;
     }
 
     public get modelState(): ModelState{
@@ -122,8 +128,8 @@ export abstract class ModelComponent<T extends Model,TKey =number | string>
         return this.modelOperation === ModelOperation.Edit;
     }
 
-    ngOnInıt(){
-        super.ngOnInıt();
+    ngOnInit(){
+        super.ngOnInit();
         if(this.useRoute ===true){
             let popupService = this.Injector.get<PopupService>(PopupService);
 
@@ -135,16 +141,16 @@ export abstract class ModelComponent<T extends Model,TKey =number | string>
                 case PageType.Main:
                     break;
                 case PageType.Popup:
-                    let popupRef:IPopupRef = this.popupService.openPopupInRouter(yasarrrr);
-                    this.begininModelOperation();
+                   // let popupRef:IPopupRef = this.popupService.openPopupInRouter(this.componentHierarchyService.getRouteInfo(this.hierarchyInfo),popupOptions);
+                    this.beginModelOperation();
                     break;
-                case PageType.Slide:
+                case PageType.Side:
                     break;
                 default:
                     break;
             }
         } else {
-            this.beginModalOperation();
+            this.beginModelOperation();
         }
     }
 
@@ -154,12 +160,12 @@ export abstract class ModelComponent<T extends Model,TKey =number | string>
 
     ngAfterViewInit(){
         super.ngAfterViewInit();
-        this.updateModelFormYasar();
+        this.updateModelForms();
     }
 
     @Virtual()
-    public getPopupTitle(model:Text,operations:ModelOperation):string{
-        return this.getPopupTitleYasar;
+    public getPopupTitle(model:T,operations:ModelOperation):string{
+        return this.popupOptions.Title;
     }
 
     @Virtual()
@@ -167,7 +173,10 @@ export abstract class ModelComponent<T extends Model,TKey =number | string>
         
     }
 
-yasarrrrBurada bir method eksik
+    @Virtual()
+    public validateModel(model:T,operation: ModelOperation):T{
+        return model;        
+    }
 
     @Virtual()
     public parseModelID(modelID:any):TKey{
@@ -177,23 +186,31 @@ yasarrrrBurada bir method eksik
 
     public setModelOperation(operation:ModelOperation):void{
         this._modelOperation = operation;
-        this.updateModelForm();
+        this.updateModelForms();
     }
 
     public setIsModal(isModal:boolean):void{
-        this._ismodel = isModal;
-        this.updateModelForm();
+        this._isModal = isModal;
+        this.updateModelForms();
     }
 
-    private beginModalOperation():void{
-
-yasar burayı fortola....
-
+    private beginModelOperation():void{
         this.loadingPanel.start();
         let $findOperation = this.findModelOperation();
         if(this.beforeExecuteOperation){
-
+            $findOperation = $findOperation.pipe(concatMap((operation:ModelOperation)=>{
+                return this.beforeExecuteOperation(operation);
+            }));
         }
+        $findOperation.subscribe((operation:ModelOperation)=>{
+            this.setModelOperation(operation);
+            setTimeout(()=>{
+                this.loadingPanel.stop();
+                this.executeOperation();
+            },5);
+        },(error:any)=>{
+            this.loadingPanel.stop();
+        });
     }
 
     private findModelOperation():Observable<ModelOperation>{
@@ -203,9 +220,9 @@ yasar burayı fortola....
                     return this.modelOperation;
                 }
 
-                let hasID:Boolean = param.has('id');
+                let hasID:Boolean = params.has('id');
                 if (hasID){
-                    this.modelID = this.parseModalID(param.get('id'));
+                    this.modelID = this.parseModelID(params.get('id'));
                     return ModelOperation.Edit;
                 }
                 return ModelOperation.New;
@@ -219,30 +236,45 @@ yasar burayı fortola....
                     return this.modelOperation;
                 }
 
-                let hasID:Boolean = param.has('copyid');
-                if (hasID){
-                    this.modelID = this.parseModalID(param.get(param_copyid));
+                let param_copyid:string = params.keys.find(param => param.toLowerCase() === 'copyid');
+                if (param_copyid){
+                    this.modelID = this.parseModelID(params.get(param_copyid));
                     return ModelOperation.Copy;
                 }
                 return ModelOperation.New;
             })
         );
 
-        burada eksık alan var.. kontrol et
-        250. satır
-          
+         
         let $findOperation: Observable<ModelOperation> = $paramMap.pipe(
             concatMap((operation:ModelOperation) => {
                 if (operation !== ModelOperation.Edit){
                     return $queryParamMap;
                 }
+                return of(operation);
 
             })
-        )
+        );
+        return $findOperation;
     }
         
+    private executeOperation():void{
+        let operation:ModelOperation = this.modelOperation;
+        switch(operation){
+            case ModelOperation.New:
+                this.newModel();
+                break;
+            case ModelOperation.Edit:
+            case ModelOperation.Copy:
+            case ModelOperation.View:
+                this.getModel();
+                break;
+            default:
+                this.event.toastError(`Invalid Model Operation ${operation}`);
+                break;
+        }
+    }
 
-    275. satırdan devam edıyor...
 
     private createModal():T{
         let modal:T ={} as T;
@@ -255,50 +287,50 @@ yasar burayı fortola....
         return modal;
     }
 
-    private updateModalParams():void{
-        if (this.modalParams){
-            this.modalParams.forEach(form => {
+    private updateModelForms():void{
+        if (this.modelForms){
+            this.modelForms.forEach(form => {
                 form.useRoute = this.useRoute;
                 form.parentModelComponent = this;
                 form.modelOperation = this.modelOperation;
-                form.isModel = this.isModal;
+                form.isModal = this.isModal;
             });
         }
     }
 
-    private emitModelLoadingToModalForms(model:T):void{
+    private emitModelLoadingToModelForms(model:T):void{
         let entity :Model = this.getEntity(model);
         
-        if (this.modalForms){
-            this.modalParams.forEach(form => {
+        if (this.modelForms){
+            this.modelForms.forEach(form => {
                 form.onModelLoading(entity);
             });
         }
     }
 
-    private emitModelLoadedToModalForms(model:T):void{
+    private emitModelLoadedToModelForms(model:T):void{
         let entity :Model = this.getEntity(model);
         
-        if (this.modalForms){
-            this.modalParams.forEach(form => {
+        if (this.modelForms){
+            this.modelForms.forEach(form => {
                 form.onModelLoaded(entity);
             });
         }
     }
 
 
-    private emitReloadFormToModalForms():void{
+    private emitReloadFormToModelForms():void{
          
-        if (this.modalForms){
-            this.modalParams.forEach(form => {
+        if (this.modelForms){
+            this.modelForms.forEach(form => {
                 form.reloadForm();
             });
         }
     }
 
-    private setReturnValue(modal:Text, afterActionType: ModelAfterActionType):void{
+    private setReturnValue(model:T, afterActionType: ModelAfterActionType):void{
 
-        if(modal){
+        if(model){
             if (this.returnValue instanceof Array){
                 this.returnValue.push(model);
             }else if (afterActionType === ModelAfterActionType.ContinueCreate){
@@ -322,46 +354,49 @@ yasar burayı fortola....
 
     private updateModel(model :T,modelState:ModelState):void{
         this.onModelLoading(model);
-
-        348-353 arası kayıp
-
+        this.emitModelLoadingToModelForms(model);
+        this._modelState = modelState;
         this.modelID = this.parseModelID(model.Id);
         this.model = model;
         this.dataContext.dataSource = this.model;
-        this.emitReloadFormToModalForms();
+        this.emitReloadFormToModelForms();
 
-        this.onModalLoaded(this.modal);
-        this.emitModelLoadedToToModalForms(this.model);
+        this.onModelLoaded(this.model);
+        this.emitModelLoadedToModelForms(this.model);
     }
 
-    private getModalFormApi(id:TKey):void{
-        this.loadingPamel.start();
-        this._modalService.getByID(id).subscribe(
+    private getModelFormApi(id:TKey):void{
+        this.loadingPanel.start();
+        this._modelService.getByID(id).subscribe(
             model => {
-                if (yasar 365 .satır){
+                if (!model){
                     this.event.toastError("Model Not Found Operation");
                 }
-                this.loadingPamel.stop();
-                this.setModal(model);
+                this.loadingPanel.stop();
+                this.setModel(model);
             },
             error => {
-                this.handlingPanel.stop();
+                this.loadingPanel.stop();
                 this.event.toastError(`Error: ${error}`);
             }
         );
     }
 
-    379. satır methodu yazımalı
+    newModel():void{
+        this.updateModel(this.createModal(),ModelState.Loading);
+    }
 
-    setModal(model:T):void{
-        if(modal){
-            this.updateModel(model,ModelState.Leading);
+    setModel(model:T):void{
+        if(model){
+            this.updateModel(model,ModelState.Loading);
         }else{
-            388 . satır 
+            this.newModel(); 
         }
     }
 
-    395. satıra kadr kontrol ETIME
+    clearModel():void{
+        this.updateModel(this.createModal(),ModelState.Clearing);
+    }
 
     getModel():void{
         switch(this.modelSource){
@@ -369,30 +404,34 @@ yasar burayı fortola....
                 this.event.toastError("Model Source Unknown");
                 break;
             case ModelSource.Api:
-                this.getModalParamApi(this.modalID);
+                this.getModelFormApi(this.modelID);
                 break;
-            case ModelSource.Manuel:
-                if(this.reloadModal()===false){
-                    this.trloadModalyasarMEthodNAme??();
-                    406.satır
+            case ModelSource.Manual:
+                if(this.reloadModel()===false){
+                    this.reloadModalFromDataContext();
                 }
                 break;
             default:
                 this.event.toastError("Model Source Undefined");
-
-
+                break;
         }
     }
 
-    public reloadModal():boolean{
+    public reloadModel():boolean{
         if (this.model){
-            this.setModal(this.modal);
+            this.setModel(this.model);
             return true;
         }
         return false;
     }
 
-    431.satır method yazılmalı
+    public reloadModelFromApi():boolean{
+        if (this.modelID){
+            this.getModelFormApi(this.modelID);
+            return true;
+        }
+        return false;
+    }
 
     public reloadModalFromDataContext():boolean{
         if (Model.isModel(this.dataContext.dataSource)){
@@ -403,57 +442,133 @@ yasar burayı fortola....
         return false;
     }
 
-create(afterActionType: ModelAfterActionType): Observable<T>{
+    create(afterActionType: ModelAfterActionType): Observable<T>{
 
-    let $create = (model:T) => this._modelService.create(model);
+        let $create = (model:T) => this._modelService.create(model);
+        let $validate = of(this.model);
+        if(this.isValidationEnabledOnCreate){
+            $validate = this.validate(this.model,ModelOperation.New);
+        }
 
-    let $validate = of(this.model);
-    if(this.isValidationEnabledOnCreate){
-        $validate = this.validate(this.model,ModelOperation.New);
+        return $validate.pipe(
+            concatMap(validatedModel => {
+                return $create(validatedModel).pipe(
+                    map(createdModel =>{
+                        this.setModel(createdModel);
+                        this.setReturnValue(createdModel,afterActionType);
+                        return createdModel;
+                    })
+                );
+            })
+        );
     }
 
-    return $validate.pipe(
-        concatMap(validatedModel => {
-            return $create(validatedModel).pipe(
-                map(createdModel =>{
-                    this.setModel(createdModel);
-                    this.setReturnValue(createdModel,afterActionType);
-                    return createdModel;
-                })
-            );
-        })
-    );
-}
+    update(afterActionType:ModelAfterActionType):Observable<T>{
+        let $update = (model:T) => this._modelService.update(model);
+        let $validate = of(this.model);
+        if(this.isValidationEnabledOnUpdate){
+            $validate = this.validate(this.model,ModelOperation.Edit);
+        }
 
-update(afterActionType:ModelAfterActionType):Observable<T>{
-    let $update = (model:T) => this._modelService.update(model);
-}
+        return $validate.pipe(
+            concatMap(validatedModel => {
+                return $update(validatedModel).pipe(
+                    map(updatedModel =>{
+                        this.setModel(updatedModel);
+                        this.setReturnValue(updatedModel,afterActionType);
+                        return updatedModel;
+                    })
+                );
+            })
+        );
+    }
+
+    delete(afterActionType:ModelAfterActionType):Observable<T>{
+        let $delete = (model:T) => this._modelService.delete(model);
+        let $validate = of(this.model);
+        if(this.isValidationEnabledOnDelete){
+            $validate = this.validate(this.model,ModelOperation.Delete);
+        }
+
+        return $validate.pipe(
+            concatMap(validatedModel => {
+                return $delete(validatedModel).pipe(
+                    map(deletedModel =>{
+                        this.setModel(deletedModel);
+                        this.setReturnValue(deletedModel,afterActionType);
+                        return deletedModel;
+                    })
+                );
+            })
+        );
+    }
 
 
-470 - 510 arası yazılamadı
+
 
 ok(afterActionType:ModelAfterActionType):Observable<T>{
-    let $validate =of(this.modal);
-    if(this.modelOperation === ModelOperation.New && this.isValidationEnableOnCreate){
-        $validate = this.validate(this.modal,ModelOperation.New);
-    }else if (this.modelOperation === ModelOperation.Edit && this.isValidationEnableOnUpdate){
-        $validate = this.validate(this.modal,ModelOperation.Edit);
+    let $validate =of(this.model);
+    if(this.modelOperation === ModelOperation.New && this.isValidationEnabledOnCreate){
+        $validate = this.validate(this.model,ModelOperation.New);
+    }else if (this.modelOperation === ModelOperation.Edit && this.isValidationEnabledOnUpdate){
+        $validate = this.validate(this.model,ModelOperation.Edit);
     }
 
     return $validate.pipe(
-        map(validateModal=>{
-            this.setModal(validatedModal);
+        map(validatedModal=>{
+            this.setModel(validatedModal);
             this.setReturnValue(validatedModal,afterActionType);
             return validatedModal;
         })
     );
 }
 
-528 satır bu methodu yaz ve sonmuna kadar
-validate(model:Text,modelOperation:ModelOperation):Observable<T>{
-    let $validate = new Observable<T>(())
 
+validate(model:T,modelOperation:ModelOperation):Observable<T>{
+    let $validate = new Observable<T>((subscriber:Subscriber<T>)=>{
+        let validatedModel:T =this.validateModel(model,modelOperation);
+        let hasRequirement :boolean = false;
+        this.modelForms.forEach(modelForm => {
+            if(modelForm.checkRequiredItems(validatedModel)===false){
+                hasRequirement = true;
+                let errorMessage: ErrorMessage = new ErrorMessage();
+                errorMessage.message = this.localization.getMessage('model.requirements.unsatisfied');
+                subscriber.error(errorMessage);
+            }
+        });
+        if (hasRequirement===false){
+            subscriber.next(validatedModel);
+        }
+        subscriber.complete();
+    })
+    return $validate;
 
+}
+
+onModelLoading(model:T):boolean{
+    let handled : boolean = false;
+    if (this.modelLoadingEvent.observers.length >0){
+        handled = true;
+        this.modelLoadingEvent.emit(model);
+    }
+    return handled;
+}
+
+onModelLoaded(model:T):boolean{
+    let handled : boolean = false;
+    if (this.modelLoadedEvent.observers.length >0){
+        handled = true;
+        if(this.beforeModelLoaded){
+            this.beforeModelLoaded(model).subscribe((modelReturned) => {
+                this.modelLoadedEvent.emit(modelReturned);
+            });
+                 
+        }else{
+            this.modelLoadedEvent.emit(model);
+        }
+    }
+    this._modelState = ModelState.Loaded;
+    return handled;
 }
 
 

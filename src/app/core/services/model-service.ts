@@ -12,14 +12,12 @@ import { DataSourceOptions } from "../data/data-source-options";
 
 export abstract class  ModelService<T extends Model,TKey=number> extends ApiService implements IModelService<T,TKey>{
     
-   // yasar sen sildin controller?: string;
-   
+    controller: string;
 
     constructor(injector:Injector, controller?:string,customUrl?:string){
         super(injector,controller,customUrl);      
     }
-    controller?: string;
-
+    
     getBaseUrl(){
         return this.apiUrl;
     }

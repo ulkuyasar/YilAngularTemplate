@@ -62,7 +62,7 @@ export class ComponentHierarchyService extends BaseService{
         return this.rootComponentHierarchyInfo;
     }
 
-    getRootInfo(hierarchyInfo:ComponentHierarchyInfo) : ComponentHierarchyInfo{
+    getRouteInfo(hierarchyInfo:ComponentHierarchyInfo) : ComponentHierarchyInfo{
         return this.getRouteInfoByName(hierarchyInfo.RouteComponentName);
     }
 

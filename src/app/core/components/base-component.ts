@@ -20,9 +20,9 @@ import { Virtual } from "../decorators/virtual";
 import { AuthenticationService } from "src/app/authentication/authentication.service";
 import { AuthenticationContextType } from "src/app/authentication/authentication-context-type";
 
-@Component({   //yasar sen ekledın
-    template: ''
-})
+// @Component({   //yasar sen ekledın
+//     template: ''
+// })
 export abstract class BaseComponent implements OnInit, OnDestroy, AfterViewInit{
     
     private __componentClassName?: () => string;

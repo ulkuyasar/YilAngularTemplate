@@ -1,6 +1,6 @@
 import { OnChanges, SimpleChange, SimpleChanges } from "@angular/core";
 
-export function Notify(propertyKey?:string ):PropertyDecorator{
+export function Notify(propertyName?:string ):PropertyDecorator{
     return function(target:Object,propertyKey:string ):void{
 
         const _notificationTable_:string = "___notificationTable___";
@@ -39,7 +39,7 @@ export function Notify(propertyKey?:string ):PropertyDecorator{
 
         const createSimpleChange:(previousValue:any,currentValue:any) => SimpleChanges = (previousValue:any,currentValue:any)=>{
             let changes :SimpleChanges={};
-            let change :SimpleChanges=new SimpleChange(previousValue,currentValue,false);
+            let change :SimpleChange=new SimpleChange(previousValue,currentValue,false);
             for (let key of notificationKeys) {
                 changes[key] = change;   
             }

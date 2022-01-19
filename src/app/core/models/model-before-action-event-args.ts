@@ -1,5 +1,6 @@
 import { UUID as uuid} from 'angular2-uuid';
 import { Observable } from 'rxjs';
+import { ModelActionType } from './model-action-type.enum';
 import { ModelValidationStatus } from './model-validation-status.enum';
 
 export  class ModelBeforeActionEventArgs {

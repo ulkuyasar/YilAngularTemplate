@@ -1,10 +1,13 @@
 import { AfterViewInit, Component, ComponentFactory, ComponentRef, Input, OnDestroy, OnInit, QueryList, ViewChildren, ViewContainerRef } from "@angular/core";
 import { AuthenticationService } from "src/app/authentication/authentication.service";
+import { DeleteConfirmComponent } from "src/app/layouts/delete-confirm/delete-confirm.component";
 import { PopupOptions } from "src/app/layouts/popup/popup-options";
+import { PopupRef } from "src/app/layouts/popup/popup-ref";
 import { PopupService } from "src/app/layouts/popup/popup-service";
 import { IReturnValue } from "../component-model/ireturn-value";
 import { DataSourceOptions } from "../data/data-source-options";
 import { IDataSourceOptions } from "../data/idata-source-options";
+import { Override } from "../decorators/override";
 import { Virtual } from "../decorators/virtual";
 import { Model } from "../models/model";
 import { IModelService } from "../services/imodel-service";
@@ -65,11 +68,11 @@ export abstract class ModelListComponent<T extends Model,TKey=number> extends Li
         }
 
       
-        let popupRef : PopupRef<DeleteConfirmComponent> = popupService.openGlobalPrepoptheComponentType(DeleteConfirmComponent,popupOptions,afterDeleteConfirmationCreate);
+        let popupRef : PopupRef<DeleteConfirmComponent> = popupService.openGlobalPopupWithComponentType(DeleteConfirmComponent,popupOptions,afterDeleteConfirmationCreate);
         popupRef.afterClosed().subscribe((returnValue:boolean) =>{
             if(returnValue===true){
                 this.loadingPanel.start();
-                this._modelService.deleteByID(id).sucscribe(
+                this._modelService.deleteByID(id).subscribe(
                     (model) => {
                         this.loadingPanel.stop();
                         this.dataBind();

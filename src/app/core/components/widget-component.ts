@@ -4,9 +4,9 @@ import { EventEmitter } from "stream";
 import { Virtual } from "../decorators/virtual";
 import { BaseComponent } from "./base-component";
 
-@Component({   //yasar sen ekledın
-    template: ''
-})
+// @Component({   //yasar sen ekledın
+//     template: ''
+// })
 export abstract class WidgetComponent extends BaseComponent implements OnInit, OnDestroy{
 
     constructor(viewContainerRef:ViewContainerRef){
