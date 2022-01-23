@@ -5,7 +5,7 @@
         minZoomLevel?:string;
         max?:Date|number|string;
         maxZoomLevel?:string;   
-        zoomlevel?:string;
+        zoomLevel?:string;
         showTodayButton?:boolean;
         readonly?:boolean;
         disabled?:boolean;
