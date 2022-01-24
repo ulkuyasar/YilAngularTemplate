@@ -1,5 +1,5 @@
 import { INumberBoxComponent } from "./inumber-box-component";
 
-export interface INumberBoxInitilizeArgs {
+export interface INumberBoxInitilizedArgs {
     component?:INumberBoxComponent;
 }

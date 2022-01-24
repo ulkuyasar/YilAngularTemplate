@@ -1,5 +1,5 @@
 import { IButtonClickEventArgs } from "./ibutton-click-event-args";
-import { IButtonInitilizedArgs } from "./ibutton-initialize-args";
+import { IButtonInitilizedArgs } from "./ibutton-initialized-args";
 
     export interface IButtonOptions{
         type?: "normal" | "default"| "success" | "back" | "danger";

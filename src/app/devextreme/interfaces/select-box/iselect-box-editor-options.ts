@@ -2,7 +2,7 @@ import DevExpress from "devextreme";
 import { Model } from "src/app/core/models/model";
 import { EnumModel } from "src/app/models/core/enum-model";
 import { ISelectBoxCustomCreatingArgs } from "./iselect-box-custom-creating-args";
-import { ISelectBoxInitilizeArgs } from "./iselect-box-initialize-args";
+import { ISelectBoxInitilizedArgs } from "./iselect-box-initialized-args";
 import { ISelectBoxOpenedEventArgs } from "./iselect-box-opened-event-args";
 import { ISelectBoxSelectionChangedArgs } from "./iselect-box-selection-changed-args";
 import { ISelectBoxValueChangedArgs } from "./iselect-box-value-changed-args";
@@ -11,7 +11,7 @@ import { ISelectBoxValueChangedArgs } from "./iselect-box-value-changed-args";
 
     export interface ISelectBoxEditorOptions<T extends Model|EnumModel>{
         disabled?:boolean;
-        readonly?:boolean;
+        readOnly?:boolean;
         visible?:boolean;
         width?: number|string|Function;
         height?: number|string|Function;
@@ -35,7 +35,7 @@ import { ISelectBoxValueChangedArgs } from "./iselect-box-value-changed-args";
         onValueChanged?:(args:ISelectBoxValueChangedArgs)=>void;
         onSelectionChanged?:(args:ISelectBoxSelectionChangedArgs<T>)=>void;
         onOpened?:(args:ISelectBoxOpenedEventArgs)=>void;
-        onInitilized?:(args:ISelectBoxInitilizeArgs)=>void;
+        onInitilized?:(args:ISelectBoxInitilizedArgs)=>void;
         onCustomItemCreating?:(args:ISelectBoxCustomCreatingArgs)=>void;
         onEnterKey?:()=>void;
     }

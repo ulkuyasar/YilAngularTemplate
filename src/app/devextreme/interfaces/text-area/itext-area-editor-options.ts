@@ -1,4 +1,4 @@
-import { ITextAreaInitilizeArgs } from "./itext-area-initialize-args";
+import { ITextAreaInitilizedArgs } from "./itext-area-initialized-args";
 import { ITextAreaValueChangedArgs } from "./itext-area-value-changed-args";
 
     export interface ITextAreaEditorOptions{
@@ -9,14 +9,15 @@ import { ITextAreaValueChangedArgs } from "./itext-area-value-changed-args";
         maxHeight?: number|string;
         isValid?:boolean;
         placeholder?:string;
-        readonly?:boolean;
+        readOnly?:boolean;
         visible?:boolean;
         disabled?:boolean;
         validationMessageModel?:string;
         stylingMode?:string;
         value?:string;
+        maxLenght?:number;
           
         onValueChanged?:(args:ITextAreaValueChangedArgs)=>void;
-        onInitilized?:(args:ITextAreaInitilizeArgs)=>void;
+        onInitilized?:(args:ITextAreaInitilizedArgs)=>void;
 
     }

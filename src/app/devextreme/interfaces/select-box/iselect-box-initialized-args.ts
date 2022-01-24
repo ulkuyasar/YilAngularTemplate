@@ -1,5 +1,5 @@
 import { ISelectBoxComponent } from "./iselect-box-component";
 
-export interface ISelectBoxInitilizeArgs {
+export interface ISelectBoxInitilizedArgs {
     component?:ISelectBoxComponent;
 }

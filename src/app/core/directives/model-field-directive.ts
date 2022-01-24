@@ -6,6 +6,7 @@ import { DataSourceOptions } from "../data/data-source-options";
 import { Override } from "../decorators/override";
 import { ViewModel } from "../models/view-model";
 import { IModelService } from "../services/imodel-service";
+import { SelectBoxFieldDirective } from "./select-box-field-directive";
 
 export abstract class ModelFieldDirective<T extends Model , TV extends ViewModel<T>, TKey = number> 
                 extends SelectBoxFieldDirective<TV,TKey> implements OnInit,OnDestroy {
@@ -44,9 +45,9 @@ export abstract class ModelFieldDirective<T extends Model , TV extends ViewModel
                dataSourceOptions = this.addQueryParams(dataSourceOptions);
 
            }
-           let curentlyValue:TKey = this.getModelValueOfField(this);
+           let currentValue:TKey = this.getModelValueOfField(this);
            if(this.hasParentField && reset === false && this.isModelLoading === false){
-               this.setKeyMapValue(null);
+               this.setValue(null);
            }
            //this.editorInstance.option('dataSource',this.modelService.getODataSource(dataSourceOptions));
            if(this.isModelLoading === false){

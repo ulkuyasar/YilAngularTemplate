@@ -1,5 +1,5 @@
 import { ITabPanelComponent } from "./itab-panel-component";
 
-export interface ITabPanelInitilizeArgs {
+export interface ITabPanelInitilizedArgs {
     component?:ITabPanelComponent;
 }

@@ -2,11 +2,12 @@ import { EventEmitter, Input, OnDestroy, OnInit, SimpleChange, SimpleChanges, Vi
 import { DxiItemComponent } from "devextreme-angular/ui/nested";
 import { IButtonClickEventArgs } from "src/app/devextreme/interfaces/button/ibutton-click-event-args";
 import { IButtonComponent } from "src/app/devextreme/interfaces/button/ibutton-component";
-import { IButtonInitilizedArgs } from "src/app/devextreme/interfaces/button/ibutton-initialize-args";
+import { IButtonInitilizedArgs } from "src/app/devextreme/interfaces/button/ibutton-initialized-args";
 import { IButtonOptions } from "src/app/devextreme/interfaces/button/ibutton-options";
 import { Notify } from "../decorators/notify";
 import { Override } from "../decorators/override";
 import { Virtual } from "../decorators/virtual";
+import { FormItemDirective } from "./form-Item.directive";
 
 export abstract class ButtonDirective extends FormItemDirective implements OnInit,OnDestroy{
     

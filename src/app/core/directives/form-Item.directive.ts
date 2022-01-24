@@ -40,7 +40,7 @@ export abstract class FormItemDirective implements OnInit,OnDestroy,OnChanges,Af
 
     
     constructor(hostItem: DxiItemComponent,private viewContaiberRef: ViewContainerRef){
-        this.hostItem = hostItem;
+        this._hostItem = hostItem;
         
         Object.defineProperties(hostItem,"disabled",{ writable:true });
         Object.defineProperties(hostItem,"visible",{ writable:true });

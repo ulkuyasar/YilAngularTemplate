@@ -1,13 +1,13 @@
-import { ICheckBoxInitilizeArgs } from "./icheckbox-initialize-args";
+import { ICheckBoxInitilizedArgs } from "./icheckbox-initialized-args";
 import { ICheckBoxValueChangedArgs } from "./icheckBox-value-changed-args";
 
     export interface ICheckBoxOptions{
         value?:boolean;
         text?:string;
-        readonly?:boolean;
+        readOnly?:boolean;
         disabled?:boolean;
         visible?:boolean;
         onValueChanged?:(args:ICheckBoxValueChangedArgs)=>void;
-        onInitilized?:(args:ICheckBoxInitilizeArgs)=>void;
+        onInitilized?:(args:ICheckBoxInitilizedArgs)=>void;
 
     }

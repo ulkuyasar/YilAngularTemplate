@@ -1,6 +1,6 @@
 import {  IDropDownBoxComponent } from "./idrop-down-box-component";
 
 
-export interface IDropDownBoxInitilizeArgs {
+export interface IDropDownBoxInitilizedArgs {
     component?:IDropDownBoxComponent;
 }

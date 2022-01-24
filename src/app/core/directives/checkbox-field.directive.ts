@@ -1,7 +1,7 @@
 import { EventEmitter, Input, OnDestroy, OnInit, SimpleChange, SimpleChanges, ViewContainerRef } from "@angular/core";
 import { DxiItemComponent } from "devextreme-angular/ui/nested";
 import { ICheckBoxComponent } from "src/app/devextreme/interfaces/check-box/icheckbox-component";
-import { ICheckBoxInitilizeArgs } from "src/app/devextreme/interfaces/check-box/icheckbox-initialize-args";
+import { ICheckBoxInitilizedArgs } from "src/app/devextreme/interfaces/check-box/icheckbox-initialized-args";
 import { ICheckBoxOptions } from "src/app/devextreme/interfaces/check-box/icheckbox-options";
 import { ICheckBoxValueChangedArgs } from "src/app/devextreme/interfaces/check-box/icheckBox-value-changed-args";
 import { Override } from "../decorators/override";
@@ -32,38 +32,38 @@ export abstract class CheckboxFieldDirective extends FieldDirective<boolean> imp
 
     @Override()
     protected initializeOptions(): void{
-        super.initializedOptions();
+        super.initializeOptions();
         this.editorOptions.visible = this.visible;
         this.editorOptions.disabled = this.disabled;
-        this.editorOptions.readonly = this.readonly;
+        this.editorOptions.readOnly = this.readOnly;
         this.editorOptions.value = this.value;
-        this.editorOptions.icon = this.buttonIcon;
+
 
         this.hostItem.itemType = "dxCheckBox";
-        this.hostItem.buttonOptions = this.editorOptions;
+        this.hostItem.editorOptions = this.editorOptions;
     }
 
     @Override()
     protected setEditorOptions():void{
         super.setEditorOptions();
         this._editorOptions = {
-            onInitilized:(args:ICheckBoxInitilizeArgs) => this.editorInitialized(args),
+            onInitilized:(args:ICheckBoxInitilizedArgs) => this.editorInitialized(args),
             onValueChanged:(args:ICheckBoxValueChangedArgs) => this.valueChanged(args),
         };
     }
 
-    private editorInitialized(args:ICheckBoxInitilizeArgs):void{
+    private editorInitialized(args:ICheckBoxInitilizedArgs):void{
         this._editorInstance=args.component;
     }
 
     @Override()
     protected valueChanged(args:ICheckBoxValueChangedArgs):void{
-        this.valueChanged(args);
+        super.valueChanged(args);
     }
 
     @Override()
-    protected updateChanged(changes:SimpleChanges):void{
-        super.updateChanged(changes);
+    protected updateChanges(changes:SimpleChanges):void{
+        super.updateChanges(changes);
         if(this.editorInstance){
             if (changes['disabled']){
                 this.editorInstance.option("disabled", this.disabled);

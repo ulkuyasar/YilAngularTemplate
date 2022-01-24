@@ -2,6 +2,6 @@ import { IRadioGroupComponent } from "./iradio-group-component";
 
 
 
-export interface IRadioGroupInitilizeArgs {
+export interface IRadioGroupInitilizedArgs {
     component?:IRadioGroupComponent;
 }

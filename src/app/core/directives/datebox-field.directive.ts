@@ -9,9 +9,10 @@ import { IDateBoxValueChangedArgs } from "src/app/devextreme/interfaces/date-box
 import { format } from "src/app/devextreme/types";
 import { Notify } from "../decorators/notify";
 import { Override } from "../decorators/override";
+import { InputBasedFieldDirective } from "./input-based-field-directive";
 
 
-export abstract class DateBoxFieldDirective extends InputBaseFieldDirective<Date> implements OnInit,OnDestroy{
+export abstract class DateBoxFieldDirective extends InputBasedFieldDirective<Date> implements OnInit,OnDestroy{
     
     @Input('displayFormat')
     @Notify()
@@ -93,8 +94,8 @@ export abstract class DateBoxFieldDirective extends InputBaseFieldDirective<Date
         super.initializeOptions();
         this.editorOptions.visible = this.visible;
         this.editorOptions.disabled = this.disabled;
-        this.editorOptions.readonly = this.readonly;
-        this.editorOptions.placeholder = this.placeholder;
+        this.editorOptions.readonly = this.readOnly;
+        this.editorOptions.placeholder = this.placeHolder;
         this.editorOptions.displayFormat = this.displayFormat;
         this.editorOptions.showClearButton = this.showClearButton;
         this.editorOptions.min = this.min;
@@ -103,7 +104,7 @@ export abstract class DateBoxFieldDirective extends InputBaseFieldDirective<Date
         this.editorOptions.calendarOptions = this.calendarOptions;
 
         this.hostItem.itemType = "dxDateBox";
-        this.hostItem.buttonOptions = this.editorOptions;
+        this.hostItem.editorOptions = this.editorOptions;
     }
 
     @Override()
@@ -119,22 +120,16 @@ export abstract class DateBoxFieldDirective extends InputBaseFieldDirective<Date
         this._editorInstance=args.component;
         this.configureDataType(this.editorInstance);
     }
-    configureDataType(instance: IDateBoxComponent) {
-        let value: Date = instance.option("value");
-        if(isString(value)){
-            value = new Date(value);
-            instance.option("value", value );
-        }
-    }
-
+    
+   
     @Override()
     protected valueChanged(args:IDateBoxValueChangedArgs):void{
-        this.valueChanged(args);
+        super.valueChanged(args);
     }
 
     @Override()
-    protected updateChanged(changes:SimpleChanges):void{
-        super.updateChanged(changes);
+    protected updateChanges(changes:SimpleChanges):void{
+        super.updateChanges(changes);
         if(this.editorInstance){
             if (changes['disabled']){
                 this.editorInstance.option("disabled", this.disabled);

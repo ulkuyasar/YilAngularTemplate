@@ -1,6 +1,6 @@
 import { ICheckBoxComponent } from "./icheckbox-component";
 
 
-export interface ICheckBoxInitilizeArgs {
+export interface ICheckBoxInitilizedArgs {
     component?:ICheckBoxComponent;
 }

@@ -39,10 +39,6 @@ export abstract class FieldDirective<TV> extends FormItemDirective implements On
 
     private _labelElement:JQuery<HTMLElement>;
 
-
-    private _hostItem:DxiItemComponent;
-    private _htmlElement:JQuery<HTMLElement>;
-
     
     constructor(hostItem: DxiItemComponent, viewContaiberRef: ViewContainerRef){
         super(hostItem,viewContaiberRef);
@@ -144,10 +140,7 @@ export abstract class FieldDirective<TV> extends FormItemDirective implements On
         this.onValueChanged(args);
     }
 
-    @Virtual()
-    protected addValidationRules(validationRules:Array<ValidationRule>):void{
-    }
-
+    
     public setValue(value:TV):void{
         this._value = value;
     }
@@ -189,6 +182,11 @@ export abstract class FieldDirective<TV> extends FormItemDirective implements On
         }
         this.addValidationRules(this.hostItem.validationRules);
     }
+
+    @Virtual()
+    protected addValidationRules(validationRules:Array<ValidationRule>):void{
+    }
+
 
     protected onValueChanged(args:IFieldValueChangedArgs):boolean{
         let handled:boolean=false;

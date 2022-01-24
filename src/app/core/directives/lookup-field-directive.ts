@@ -6,7 +6,7 @@ import { Model } from "../models/model";
 import { EnumModel } from "src/app/models/core/enum-model";
 import { Virtual } from "../decorators/virtual";
 import { InputBasedFieldDirective } from "./input-based-field-directive";
-import { IParentField } from "./iparent-fiedl";
+import { IParentField } from "./iparent-field";
 import { DataSourceOptions } from "../data/data-source-options";
 import { ISelectedItemChangedArgs } from "./iselected-item-changed-args";
 import { Override } from "../decorators/override";
@@ -41,8 +41,6 @@ export abstract class LookupFieldDirective<TM extends Model | EnumModel, TKey =n
     private _parentFieldValueChangedSubscription:Subscription;
     private _parentFieldDataLoadedSSubscription:Subscription;
 
-
-    
     constructor(hostItem: DxiItemComponent,private viewContaiberRef: ViewContainerRef){
         super(hostItem,viewContaiberRef);
         this._keyMap = new Map<string,any>();

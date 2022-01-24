@@ -1,4 +1,4 @@
-import { IRadioGroupInitilizeArgs } from "./iradio-group-initialize-args";
+import { IRadioGroupInitilizedArgs } from "./iradio-group-initialized-args";
 import { IRadioGroupValueChangedArgs } from "./iradio-group-value-changed-args";
 
 
@@ -8,6 +8,6 @@ import { IRadioGroupValueChangedArgs } from "./iradio-group-value-changed-args";
         datasource?:any;
         layout?:string;      
         onValueChanged?:(args:IRadioGroupValueChangedArgs)=>void;
-        onInitilized?:(args:IRadioGroupInitilizeArgs)=>void;
+        onInitilized?:(args:IRadioGroupInitilizedArgs)=>void;
 
     }

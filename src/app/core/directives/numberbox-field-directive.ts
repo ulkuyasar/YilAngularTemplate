@@ -3,7 +3,7 @@ import { DxiItemComponent } from "devextreme-angular/ui/nested";
 import { isString } from "lodash";
 import { INumberBoxComponent } from "src/app/devextreme/interfaces/number-box/inumber-box-component";
 import { INumberBoxEditorOptions } from "src/app/devextreme/interfaces/number-box/inumber-box-editor-options";
-import { INumberBoxInitilizeArgs } from "src/app/devextreme/interfaces/number-box/inumber-box-initialize-args";
+import { INumberBoxInitilizedArgs } from "src/app/devextreme/interfaces/number-box/inumber-box-initialized-args";
 import { INumberBoxValueChangedArgs } from "src/app/devextreme/interfaces/number-box/inumber-box-value-changed-args";
 import { Notify } from "../decorators/notify";
 import { Override } from "../decorators/override";
@@ -30,6 +30,10 @@ export abstract class NumberBoxFieldDirective extends InputBasedFieldDirective<n
         return this._editorOptions;
     }
 
+    public get editorInstance():INumberBoxComponent{
+        return this._editorInstance;
+    }
+
     @Override()
     protected setInitialValues(): void {
         super.setInitialValues();
@@ -41,12 +45,12 @@ export abstract class NumberBoxFieldDirective extends InputBasedFieldDirective<n
         this.editorOptions.disabled = this.disabled;
         this.editorOptions.visible = this.visible;
 
-        this.editorOptions.readonly = this.readonly;
-        this.editorOptions.placeholder = this.placeholder;
+        this.editorOptions.readOnly = this.readOnly;
+        this.editorOptions.placeHolder = this.placeHolder;
 
         this.editorOptions.format = this.format;
-        this.editorOptions.editorType = "dxNumberBox";
-        this.editorOptions.editorOptions = this.editorOptions;
+        this.hostItem.editorType = "dxNumberBox";
+        this.hostItem.editorOptions = this.editorOptions;
 
     }
 
@@ -55,15 +59,15 @@ export abstract class NumberBoxFieldDirective extends InputBasedFieldDirective<n
         super.setEditorOptions();
         this._editorOptions={
             format:this.format,
-            onInitilized:(args:INumberBoxInitilizeArgs) => this.editorInitialized(args),
+            onInitilized:(args:INumberBoxInitilizedArgs) => this.editorInitialized(args),
             onValueChanged:(args:INumberBoxValueChangedArgs) => this.valueChanged(args)
         };
     }
 
     @Virtual()
-    protected editorInitialized(args:INumberBoxInitilizeArgs){
-        this.editorInstance = args.component;
-        this.configureDataType(this.editorInstance);
+    protected editorInitialized(args:INumberBoxInitilizedArgs){
+        this._editorInstance = args.component;
+        this.configureDataType(this._editorInstance);
     }
    
     @Override()

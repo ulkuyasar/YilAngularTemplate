@@ -1,4 +1,4 @@
-import { INumberBoxInitilizeArgs } from "./inumber-box-initialize-args";
+import { INumberBoxInitilizedArgs } from "./inumber-box-initialized-args";
 import { INumberBoxValueChangedArgs } from "./inumber-box-value-changed-args";
 
 
@@ -16,13 +16,13 @@ import { INumberBoxValueChangedArgs } from "./inumber-box-value-changed-args";
         onKeyPress?:Function;
         onKeyUp?:Function;
         value?:Number;
-        placeholder?:string;
-        readonly?:boolean;
+        placeHolder?:string;
+        readOnly?:boolean;
         width?: string;
         showSpinButtons?:boolean;
         showClearButtons?:boolean;
 
         onValueChanged?:(args:INumberBoxValueChangedArgs)=>void;
-        onInitilized?:(args:INumberBoxInitilizeArgs)=>void;
+        onInitilized?:(args:INumberBoxInitilizedArgs)=>void;
         onEnterKey?: () => void;      
     }

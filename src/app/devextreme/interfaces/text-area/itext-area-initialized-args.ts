@@ -1,5 +1,5 @@
 import { ITextAreaComponent } from "./itext-area-component";
 
-export interface ITextAreaInitilizeArgs {
+export interface ITextAreaInitilizedArgs {
     component?:ITextAreaComponent;
 }

@@ -1,5 +1,5 @@
 import { ITabPanelContentReadyArgs } from "./itab-panel-content-ready-args";
-import { ITabPanelInitilizeArgs } from "./itab-panel-initialize-args";
+import { ITabPanelInitilizedArgs } from "./itab-panel-initialized-args";
 import { ITabPanelItemClickArgs } from "./itab-panel-item-click-args";
 import { ITabPanelSelectionChangedArgs } from "./itab-panel-item-selection-changed-args";
 import { ITabPanelTitleClickArgs } from "./itab-panel-title-click-args";
@@ -21,7 +21,7 @@ import { ITabPanelTitleClickArgs } from "./itab-panel-title-click-args";
         onItemClick?:(args:ITabPanelItemClickArgs)=>void;
         onSelectionChanged?:(args:ITabPanelSelectionChangedArgs)=>void;
         onTitleClick?:(args:ITabPanelTitleClickArgs)=>void;
-        onInitilized?:(args:ITabPanelInitilizeArgs)=>void;
+        onInitilized?:(args:ITabPanelInitilizedArgs)=>void;
         onContentReady?:(args:ITabPanelContentReadyArgs)=>void;
 
     }

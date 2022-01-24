@@ -1,5 +1,5 @@
 import DevExpress from "devextreme";
-import { IDropDownBoxInitilizeArgs } from "./idrop-down-box-initialize-args";
+import { IDropDownBoxInitilizedArgs } from "./idrop-down-box-initialized-args";
 import { IDropDownBoxOpenedEventArgs } from "./idrop-down-box-opened-event-args";
 import { IDropDownBoxValueChangedArgs } from "./idrop-down-box-value-changed-args";
 
@@ -19,6 +19,6 @@ import { IDropDownBoxValueChangedArgs } from "./idrop-down-box-value-changed-arg
 
         onValueChanged?:(args:IDropDownBoxValueChangedArgs)=>void;
         onOpened?:(args:IDropDownBoxOpenedEventArgs)=>void;
-        onInitilized?:(args:IDropDownBoxInitilizeArgs)=>void;
+        onInitilized?:(args:IDropDownBoxInitilizedArgs)=>void;
 
     }
