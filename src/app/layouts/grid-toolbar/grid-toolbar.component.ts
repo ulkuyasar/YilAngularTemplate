@@ -4,6 +4,8 @@ import { BaseComponent } from "src/app/core/components/base-component";
 import { ComponentName } from "src/app/core/decorators/component-name";
 import { IButtonClickEventArgs } from "src/app/devextreme/interfaces/button/ibutton-click-event-args";
 import { GridEditMode } from "../grid-view/grid-edit-mode.enum";
+import { IGridView } from "../igrid-view";
+import { MenuItem } from "../menu/menu-item";
 
 
 
@@ -96,7 +98,7 @@ export class GridToolbarComponent extends BaseComponent implements OnInit,OnDest
 
     constructor(viewContainerRef:ViewContainerRef){
       super(viewContainerRef);
-      this.exportToExcelMenu = this.createExcelManu();
+      this.exportToExcelMenu = this.createExcelMenu();
                 
     }
 
