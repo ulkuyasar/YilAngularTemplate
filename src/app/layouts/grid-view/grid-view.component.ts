@@ -10,6 +10,11 @@ import { QueryStringParam } from "src/app/core/data/query-string-param";
 import { ComponentName } from "src/app/core/decorators/component-name";
 import { IButtonOptions } from "src/app/devextreme/interfaces/button/ibutton-options";
 import { ICellInfo } from "src/app/devextreme/interfaces/grid/icell-info";
+import { GridCellButtonsHostComponent } from "../grid-cell-buttons-host/grid-cell-buttons-host.component";
+import { GridCellButtonsComponent } from "../grid-cell-buttons/grid-cell-buttons.component";
+import { GridFooterComponent } from "../grid-footer/grid-footer.component";
+import { GridToolbarComponent } from "../grid-toolbar/grid-toolbar.component";
+import { IGridView } from "../igrid-view";
 import { GridEditMode } from "./grid-edit-mode.enum";
 
 
@@ -560,7 +565,7 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
           let interval = setInterval(()=>{
             clearInterval(interval);
             let componentFactory = this.componentFactoryResolver.resolveComponentFactory(GridToolbarComponent);
-            let componentRef:ComponentRef<GridToolbarComponent> = this.componentFactory.create(this.Injector);
+            let componentRef:ComponentRef<GridToolbarComponent> = componentFactory.create(this.Injector);
             this.toolbarComponent.insert(componentRef.hostView);
             this.toolbarComponent = componentRef.instance;
             this.toolbarComponent.gridView = this;           
