@@ -17,6 +17,11 @@
 /***************************************************************************************************
  * BROWSER POLYFILLS
  */
+//ie9 ie10 ie11 icin
+import 'core-js'
+
+//ie10 ie11 ngclass lar için ek eklentılerı
+import 'classlist.js'
 
 /**
  * IE11 requires the following for NgClass support on SVG elements
@@ -63,3 +68,5 @@ import 'zone.js';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+// (wimdow as any).__Zone_enable_cross_context_check = true;   yasar burayı ac sonra

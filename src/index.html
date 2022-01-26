@@ -1,13 +1,51 @@
 <!doctype html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="utf-8">
-  <title>YilAngularTemplate</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
+  
+  <title>YilAngularTemplate-Yaşar</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="description" content="YilAngularTemplate, Ülkü yaşar ürünüdür">
+ 
+  <meta name="theme-color" content="#4285f4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="google" content="nositellinksearchbox">
+  <meta name="google" content="notranslate">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Cache-control" content="private,no-store,must-revalidate,post-check=0,pre-check=0">
+  <meta http-equiv="cache-control" content="max-age=0">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="x-dns-prefetch-control" content="no">
+
+<link rel="preload" as="image" href="assets/img/logo/default/logo_loader.png?v=cacheVersion">
+<link rel="icon" as="image/x-icon" href="favicon.ico?v=cacheVersion" crossorigin>
+
+<script>
+  if(navigator.userAgent.indexOf('MSIE 9.0') !==-1 || navigator.userAgent.indexOf('MSIE 8.0') !==-1 || navigator.userAgent.indexOf('MSIE 7.0') !==-1){
+    window.location.href="./assets/outdated/index.html";}
+</script>
+<style>
+  body{background: #f1f3f4;}
+    .loader-wrapper{position: absolute;top:50%;left:50%;width: 200px;transform:translateX(-50%) translateY(-50%);background: #f1f3f4;}
+    .loader-wrapper .loader-logo{display: block;-o-object-fit: scale-down;object-fit: scale-down;width: 100%;height: 100%;-o-object-position: 0;object-position: 0;position: relative;margin: 0 auto;}
+    .loader-wrapper .loader{position: relative;display: block;width: 80%;height: auto;overflow: hidden;background-color:#d3d3d3 ;margin: 0 auto;}
+</style>
 </head>
 <body class="dx-viewport">
-  <app-root></app-root>
+  <!-- <script src="assets/js/listeners/default-passive-events.js"></script>   20220127 tarihli video -->
+  <script src="assets/environment.js"></script>
+  <app-root class="devcenter-app">
+    <div class="loader-wrapper">
+      <img class="loader-logo" src="assets/img/logo/default/logo_loader.png?v=cacheVersion" />
+      <!-- <img class="loader" src="assets/img/logo/default/logo_loader.png?v=cacheVersion" /> bunada bisi bulmalısın-->
+
+    
+    </div>
+  </app-root>
 </body>
 </html>

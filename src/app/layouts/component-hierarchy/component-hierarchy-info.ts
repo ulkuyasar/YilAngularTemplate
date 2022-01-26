@@ -1,4 +1,3 @@
-import { DxiItemComponent } from "devextreme-angular/ui/nested";
 import { IComponent } from "src/app/core/component-model/icomponent";
 import { ComponentHierarchyService } from "./component-hierarchy-service";
 

@@ -14,7 +14,7 @@
     "allowJs": true,
     "target": "es5",
     "typeRoots": [
-      "node_modules/@type"
+      "node_modules/@types"
     ],
     "lib": [
       "es2017",
@@ -25,9 +25,7 @@
     "esModuleInterop":true,
     "allowSyntheticDefaultImports":true,
     "paths": {
-      "jszip": [
-        "node_modules/jszip/dist/jszip.min.js"
-      ],
+      
       "globalize": [  
         "node_modules/globalize/dist/globalize"  
       ],  
@@ -39,6 +37,9 @@
       ], 
       "cldr/*": [  
         "node_modules/cldrjs/dist/cldr/*"  
+      ],
+      "jszip": [
+        "node_modules/jszip/dist/jszip.min.js"
       ]
     }
     //,
@@ -47,11 +48,7 @@
     // "strict": true,
     // "noImplicitReturns": true,
     // "noFallthroughCasesInSwitch": true,
-    
- 
-
-
-
+  
   }
   //,
   // "angularCompilerOptions": {

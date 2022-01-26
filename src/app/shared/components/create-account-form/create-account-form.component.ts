@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { ValidationCallbackData } from 'devextreme/ui/validation_rules';
 import { DxFormModule } from 'devextreme-angular/ui/form';
 import { DxLoadIndicatorModule } from 'devextreme-angular/ui/load-indicator';
 import notify from 'devextreme/ui/notify';
@@ -34,9 +33,9 @@ export class CreateAccountFormComponent {
     }
   }
 
-  confirmPassword = (e: ValidationCallbackData) => {
-    return e.value === this.formData.password;
-  }
+  // confirmPassword = (e: ValidationCallbackData) => {
+  //   return e.value === this.formData.password;
+  // }
 }
 @NgModule({
   imports: [
