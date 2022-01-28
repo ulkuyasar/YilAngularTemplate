@@ -1,0 +1,86 @@
+/* app-main{float:left;}
+
+.header{
+  position: relative;
+  width: var(--app-main-widht);
+  float: left;
+  overflow: hidden;
+  border-bottom: 3px solid #fff;
+  display: none;
+} */
+
+.main{
+  float:left;
+  width: calc(100vw-320px);
+  background-color: #f1f3f4;
+  overflow-x: hidden;
+}
+
+.main app-content{
+  float:left;
+  padding: 10px 10px 0 10px;
+  width: 100%;
+}
+
+@media(max-width:1200px){
+
+  .header,
+  .main{
+    position: absolute;
+    right: 0;
+    width: calc(100vw-50px);
+    float: left;
+
+  }
+}
+
+@media(max-width:400px){
+
+  .header,
+  .main{
+    width: 100vw;
+    float:left;
+    top: 50px;
+   padding-bottom: 55px;
+   background-color: #f1f3f4;
+
+  }
+}
+
+.not-found{
+  background-image: url("src/assets/img/404-man.gif");
+  background-size: cover;
+  height: 100vh;
+  display: block;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position:top left;
+  background-color: #f1f3f4;
+  padding: 1em 0 0 3em;;
+}
+
+.not-found .code{
+  font-size: 10em;
+  font-weight: 900;
+  color: white;
+  text-shadow: 5px 7px 3px #2D2C37;
+}
+
+.not-found h6{
+  color:black;
+}
+
+
+@media(max-width:1199px){
+
+  .main{
+    position: absolute;
+    right: 0;
+    width: calc(100vw-50px);
+    float: right;
+
+  }
+}
+
+
+

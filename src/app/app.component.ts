@@ -1,5 +1,5 @@
-import { Component, HostBinding } from '@angular/core';
-import { AuthService, ScreenService, AppInfoService } from './shared/services';
+import { Component, HostBinding, Inject } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +7,13 @@ import { AuthService, ScreenService, AppInfoService } from './shared/services';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent  {
+  title = "Yil Yasar Template";
   @HostBinding('class') get getClass() {
     return Object.keys(this.screen.sizes).filter(cl => this.screen.sizes[cl]).join(' ');
   }
 
-  constructor(private authService: AuthService, private screen: ScreenService, public appInfo: AppInfoService) { }
+  constructor(@Inject("exceljs") private exceljs: unknown, public test: VersionCheckService) {
 
-  isAuthenticated() {
-    return this.authService.loggedIn;
+      test.initVersionCheck(environment.versionCheckURL);
   }
 }

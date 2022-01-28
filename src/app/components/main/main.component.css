@@ -1,0 +1,41 @@
+app-main{float:left;}
+
+.header{
+  position: relative;
+  width: var(--app-main-widht);
+  float: left;
+  overflow: hidden;
+  border-bottom: 3px solid #fff;
+  display: none;
+}
+
+.main{
+  float:left;
+  width: var(--app-main-widht);
+  background-color: #f1f3f4;
+}
+
+@media(max-width:1366px){
+  .main{
+    width:var(--app-main-width-sm);
+  }
+  .header,
+  .main{
+    position: absolute;
+    right: 0;
+    width: calc(100vw-50px);
+    float:right;
+    background: white;
+  }
+}
+
+@media(max-width:586px){
+  .header,
+  .main{
+    width: 100vw;
+    float:left;
+    top: 50px;
+    max-height: calc(100vw-50px);
+    background: #f1f3f4;
+  }
+}

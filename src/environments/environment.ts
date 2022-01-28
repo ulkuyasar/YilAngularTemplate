@@ -2,9 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+declare let publicEnvironment;
+
 export const environment = {
   production: false,
-  version: '0.0.0',VersionCheckURL:'version.json',
+  version: '0.0.0',
+  versionCheckURL:'version.json',
   apiUrl:'http://localhost/Devboard.Api/api'
 };
 

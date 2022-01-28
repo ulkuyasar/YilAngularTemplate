@@ -8,7 +8,7 @@ import { AuthService, AppInfoService } from './shared/services';
 import { UnauthenticatedContentModule } from './unauthenticated-content';
 import { AppRoutingModule } from './app-routing.module';
 import {LayoutModule} from './layouts/layout.module'
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LocalizationModule } from './localization/localization.module';
 import { EventModule } from './event/event-module';
 import { StartupModule } from './startup/startup.module';
@@ -16,13 +16,17 @@ import { ConfigModule } from './config/config.module';
 import { ServicesModule } from './services/services.module';
 import { BaseService } from './core/services/base-sevice';
 import { LoginModule } from './login/login-model';
+import { MainComponent } from './components/main/main.component';
+import { RootComponent } from './components/root/root.component';
+import { RouteNotFoundComponent } from './components/route-not-found/route-not-found.component';
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
   declarations: [
     AppComponent,
-    // MainComponent,
-    // RoorComponent,
-    // RouteNotFountComponent
+    MainComponent,
+    RootComponent,
+    RouteNotFoundComponent
   ],
   entryComponents:[],
   imports: [
@@ -35,20 +39,28 @@ import { LoginModule } from './login/login-model';
     ConfigModule,
     LayoutModule,
     ServicesModule,
+    AppRoutingModule,
     LoginModule,
 
-    SingleCardModule,
-    FooterModule,
-    ResetPasswordFormModule,
-    CreateAccountFormModule,
-    ChangePasswordFormModule,
-    LoginFormModule,
-
-    UnauthenticatedContentModule,
-    AppRoutingModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName:'X-XSRF-TOKEN',
+      headerName:'XSRF-TOKEN',
+    }),
+    MarkdownModule.forRoot()
 
   ],
-  providers: [AuthService,  AppInfoService],
+  providers: [
+  {
+    provide:HTTP_INTERCEPTORS,
+    useClass:RefreshTokenInterceptor  ---- ysarrr     authentication classlarını yaz
+  }
+
+
+
+
+    AuthService,  AppInfoService
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

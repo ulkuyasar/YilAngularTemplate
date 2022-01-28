@@ -3,10 +3,8 @@ import { EventEmitter, Injectable, Injector } from "@angular/core"
 import { ApiService } from "../core/services/api-service"
 import { User } from "../models/user"
 import { ConfigService } from "../config/config.service";
-import { AppConfig } from "../config/app.config";
-import { LoginFormComponent } from "../shared/components";
-import { Observable } from "rxjs";
-import { map } from "lodash";
+import { Observable, Subscriber } from "rxjs";
+
 import { Base64 } from "js-base64";
 import { AuthenticationContextType } from "./authentication-context-type";
 import { AuthenticationConstants } from "./authentication-constants";
@@ -119,7 +117,7 @@ export class AuthenticationService extends ApiService{
 
     // renewToken():Observable<void>{
     //     let $a: Observable<void> = Observable<void>((subscriber:Subscriber<void>) =>{
-    //         let user = <User>JSON.parse(this._storageService.getItem(AuthenticationConstants.USER) as string);
+    //        let user = <User>JSON.parse(this._storageService.getItem(AuthenticationConstants.USER));
     //         this.setUser(user);
     //         subscriber.next();
     //     });
