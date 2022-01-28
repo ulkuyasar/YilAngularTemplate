@@ -7,7 +7,7 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module":"ESNext",
+    "module":"esnext",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -25,18 +25,18 @@
     "esModuleInterop":true,
     "allowSyntheticDefaultImports":true,
     "paths": {
-      
-      "globalize": [  
-        "node_modules/globalize/dist/globalize"  
-      ],  
-      "globalize/*": [  
-        "node_modules/globalize/dist/globalize/*"    
-      ], 
-      "cldr": [  
-        "node_modules/cldrjs/dist/cldr"     
-      ], 
-      "cldr/*": [  
-        "node_modules/cldrjs/dist/cldr/*"  
+
+      "globalize": [
+        "node_modules/globalize/dist/globalize"
+      ],
+      "globalize/*": [
+        "node_modules/globalize/dist/globalize/*"
+      ],
+      "cldr": [
+        "node_modules/cldrjs/dist/cldr"
+      ],
+      "cldr/*": [
+        "node_modules/cldrjs/dist/cldr/*"
       ],
       "jszip": [
         "node_modules/jszip/dist/jszip.min.js"
@@ -48,7 +48,7 @@
     // "strict": true,
     // "noImplicitReturns": true,
     // "noFallthroughCasesInSwitch": true,
-  
+
   }
   //,
   // "angularCompilerOptions": {

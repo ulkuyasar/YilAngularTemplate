@@ -1,8 +1,20 @@
-import { AfterContentInit, AfterViewInit, Component, ComponentRef, ContentChild, ContentChildren, EventEmitter, Input, Input, OnDestroy, OnInit, Output, QueryList, Renderer2, SimpleChange, ViewChild, ViewContainerRef, ViewEncapsulation } from "@angular/core";
-import DevExpress from "devextreme";
+import { AfterContentInit, AfterViewInit, Component, ComponentRef, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, Renderer2, SimpleChange, ViewChild, ViewContainerRef, ViewEncapsulation } from "@angular/core";
 import { DxDataGridComponent, DxTemplateDirective, DxTemplateHost, IDxTemplateHost, INestedOptionContainer, NestedOptionHost } from "devextreme-angular";
-import { DxiColumnComponent, DxoColumnChooserComponent, DxoColumnFixingComponent, DxoEditingComponent, DxoFilterRowComponent, DxoGroupPanelComponent, DxoHeaderFilterComponent, DxoLoadPanelComponent, DxoPagerComponent, DxoPagingComponent, DxoRemoteOperationsComponent, DxoScrollingComponent, DxoSelectionComponent, DxoSortingComponent, DxoSummaryComponent } from "devextreme-angular/ui/nested";
-import { template } from "lodash";
+import { DxiColumnComponent } from "devextreme-angular/ui/nested/column-dxi";
+import { DxoSummaryComponent } from "devextreme-angular/ui/nested/summary";
+import { DxoColumnChooserComponent } from "devextreme-angular/ui/nested/column-chooser";
+import { DxoEditingComponent } from "devextreme-angular/ui/nested/editing";
+import { DxoPagingComponent } from "devextreme-angular/ui/nested/paging";
+import { DxoPagerComponent } from "devextreme-angular/ui/nested/pager";
+import { DxoColumnFixingComponent } from "devextreme-angular/ui/nested/column-fixing";
+import { DxoSelectionComponent } from "devextreme-angular/ui/nested/selection";
+import { DxoGroupPanelComponent } from "devextreme-angular/ui/nested/group-panel";
+import { DxoFilterRowComponent } from "devextreme-angular/ui/nested/filter-row";
+import { DxoSortingComponent } from "devextreme-angular/ui/nested/sorting";
+import { DxoLoadPanelComponent } from "devextreme-angular/ui/nested/load-panel";
+import { DxoScrollingComponent } from "devextreme-angular/ui/nested/scrolling";
+import { DxoRemoteOperationsComponent } from "devextreme-angular/ui/nested/remote-operations";
+import { DxoHeaderFilterComponent } from "devextreme-angular/ui/nested/header-filter";
 import { Subscription } from "rxjs";
 import { BaseComponent } from "src/app/core/components/base-component";
 import { ListComponent } from "src/app/core/components/list-component";
@@ -16,6 +28,9 @@ import { GridFooterComponent } from "../grid-footer/grid-footer.component";
 import { GridToolbarComponent } from "../grid-toolbar/grid-toolbar.component";
 import { IGridView } from "../igrid-view";
 import { GridEditMode } from "./grid-edit-mode.enum";
+import DevExpress from "devextreme/bundles/dx.all";
+import { IColumnOptions } from "src/app/devextreme/interfaces/grid/icolumn-options";
+import { GridCellButtonComponent } from "../grid-cell-button/grid-cell-button.component";
 
 
 @Component({
@@ -28,7 +43,7 @@ import { GridEditMode } from "./grid-edit-mode.enum";
 @ComponentName(GridViewComponent,"GridViewComponent")
 export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy,AfterViewInit,
                                 AfterContentInit, INestedOptionContainer, IDxTemplateHost,IGridView{
- 
+
   @ContentChildren(DxiColumnComponent)
   columnChildren:QueryList<DxiColumnComponent>
 
@@ -66,22 +81,26 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
   loadPanel:DxoLoadPanelComponent;
 
   @ContentChild(DxoScrollingComponent, {static:false})
-  srolling:DxoScrollingComponent;
+  scrolling:DxoScrollingComponent;
 
   @ContentChild(DxoRemoteOperationsComponent, {static:false})
   remoteOperations:DxoRemoteOperationsComponent;
+
+  @ContentChild(DxoHeaderFilterComponent, {static:false})
+  headerFilter:DxoHeaderFilterComponent;
+
 
   @ContentChild(GridToolbarComponent, {static:false})
   toolbarComponent:GridToolbarComponent;
 
   @ContentChild(GridFooterComponent, {static:false})
   footerComponent:GridFooterComponent;
-  
+
   @ContentChild(GridCellButtonsComponent, {static:false})
   cellButtonsComponent:GridCellButtonsComponent;
 
-  @ContentChild(DxDataGridComponent, {static:false})
-  dataGrid:DxDataGridComponent;
+  @ContentChild(DxDataGridComponent, {static:true})
+   dataGrid:DxDataGridComponent;
 
    @ViewChild('toolbarContainer',{read:ViewContainerRef,static:true})
    toolbarContainer:ViewContainerRef;
@@ -89,8 +108,8 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
    @ViewChild('cellButtonsContainer',{read:ViewContainerRef,static:true})
    cellButtonsContainer:ViewContainerRef;
 
-   @ViewChild('toolbarContainerDiv',{read:ViewContainerRef,static:true})
-   toolbarContainerDiv:ViewContainerRef;
+   @ViewChild('toolbarContainerDiv',{read:ElementRef,static:true})
+   toolbarContainerDiv:ElementRef;
 
    @Input('keyExpr')
    keyExpr:string;
@@ -100,22 +119,22 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
 
    @Input('showToolbar')
    showToolbar:boolean=true;
-   
+
    @Input('showFooter')
    showFooter:boolean=false;
-   
+
    @Input('permanentFilters')
    permanentFilters:Array<QueryStringParam>;
-   
+
    @Input('showPageSizeSelector')
    showPageSizeSelector:boolean=false;
-   
+
    @Input('allowedPageSize')
    allowedPageSize:boolean=false;
 
    @Input('errorRowEnabled')
    errorRowEnabled:boolean=true;
-   
+
    @Input('disabled')
    disabled:boolean=false;
 
@@ -127,7 +146,7 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
 
    @Input('highlightChanges')
    highlightChanges:boolean=false;
-   
+
    @Input('rowTemplate')
    rowTemplate:string | Function | Node | JQuery;
 
@@ -136,7 +155,7 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
 
    @Input('activeStateEnabled')
    activeStateEnabled:boolean=false;
-   
+
    @Input('rowAlternationEnabled')
    rowAlternationEnabled:boolean=true;
 
@@ -247,6 +266,9 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
   @Output('onEditingStart')
   editingStartEvent = new EventEmitter<any>();
 
+  @Output('onDataErrorOccured')
+  dataErrorOccuredEvent = new EventEmitter<any>();
+
   @Output('onToolbarPreparing')
   toolbarPreparingEvent = new EventEmitter<any>();
 
@@ -262,7 +284,7 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
   editMode :GridEditMode = GridEditMode.Custom;
 
   private _templates : DxTemplateDirective[] = new Array<DxTemplateDirective>();
-  private _cellButtonsColumn : IButtonOptions;
+  private _cellButtonsColumn : IColumnOptions;
   private _cellButtonsMap : Map<number,GridCellButtonsHostComponent> = new  Map<number,GridCellButtonsHostComponent>();
   private _cellButtonsPropertyChangedSubscription: Subscription;
 
@@ -282,9 +304,9 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
 
    onCustomizeExcelCell(data:any){
       let handled:boolean = false;
-      if(this.customizeExcellCellEvent.observers.length > 0){
+      if(this.customizeExcelCellEvent.observers.length > 0){
         handled = true;
-        this.customizeExcellCellEvent.emit(data);
+        this.customizeExcelCellEvent.emit(data);
       }
       return handled;
    }
@@ -297,12 +319,12 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
     return this.dataGrid.isLinked;
    }
 
-   get optionChangeHandlers():EventEmitter<any>{
+   get optionChangedHandlers():EventEmitter<any>{
     return new EventEmitter<any>();
    }
 
    setTemplate(template:DxTemplateDirective){
-     this._template.push(template);
+     this._templates.push(template);
    }
 
    private subscribeToCellButtonsPropertyChanged():void{
@@ -332,11 +354,11 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
        this.dataSourceChanged(args);
      });
      this.subscribeToCellButtonsPropertyChanged();
-       
+
    }
 
    ngOnDestroy() {
-    
+
     this.unsubscribeFromCellButtonsPropertyChanged();
     super.ngOnDestroy();
   }
@@ -375,41 +397,41 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
   }
 
 
-   private configureColumns(){   
-      if (this.columnsChildren && this.columnsChildren.length >0){
-        this.dataGrid.columnsChildren = this.columnsChildren;
+   private configureColumns(){
+      if (this.columnChildren && this.columnChildren.length >0){
+        this.dataGrid.columnsChildren = this.columnChildren;
       }else{
         this.dataGrid.columns = this.columns;
       }
 
-      Object.defineProperties(this.dataGrid,"columnsChildren",{writable:true});
-   } 
+      Object.defineProperty(this.dataGrid,"columnsChildren",{ writable : true });
+   }
 
 
 
 
-   private  configureColumnChooser(){  
+   private  configureColumnChooser(){
       if (!this.columnChooser){
         let defaultCollumnChooser : DxoColumnChooserComponent = new DxoColumnChooserComponent(this.nestedOptionHost,this.nestedOptionHost);
         defaultCollumnChooser.enabled = false;
         defaultCollumnChooser.mode = 'select';
-        this.columnChooser = defaultCollumnChooser;      
+        this.columnChooser = defaultCollumnChooser;
       }
       this.columnChooser.setHost(this,(<any>this.columnChooser)._optionPath);
       this.dataGrid.columnChooser = this.columnChooser;
-    } 
+    }
 
-    private configureSummary(){ 
+    private configureSummary(){
       if (this.summary){
         this.summary.setHost(this,(<any>this.summary)._optionPath);
         this.dataGrid.summary = this.summary;
-        Object.defineProperties(this.dataGrid,"summary",{writable:true});
+        Object.defineProperty(this.dataGrid,"summary",{writable:true});
       }
-    } 
+    }
 
 
 
-    private configureEditing(){ 
+    private configureEditing(){
       if (this.editing){
         if (!this.editing.texts){
           this.editing.texts = {confirmDeleteMessage:''};
@@ -421,8 +443,29 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
 
 
         this.editing.setHost(this,(<any>this.editing)._optionPath);
-        this.dataGrid.editing = <{ allowAdding?:boolean;allowDeleting?:boolean | Function; allowUpdating?:boolean | Function; forms:DataYasar };
-        this.editMode = GridEditMode.Inline;
+        this.dataGrid.editing = <{
+          allowAdding?:boolean;
+          allowDeleting?:boolean |
+          Function; allowUpdating?:boolean |
+          Function; form?:DevExpress.ui.dxFormOptions;
+          mode?:string;
+          popup?:DevExpress.ui.dxPopupOptions<DevExpress.ui.dxPopup>;
+          refreshMode?:string;
+          texts?:{
+            addRow?:string;
+            cancelAllChanges?:string;
+            cancelRowChanges?:string;
+            confirmDeleteMessage?:string;
+            confirmDeleteTitle?:string;
+            deleteRow?:string;
+            editRow?:string;
+            saveAllChanges?:string;
+            saveRowChanges?:string;
+            undeleteRow?:string;
+            validationCancelChanges?:string;};
+            useIcons?:boolean;}>
+            this.editing;
+            this.editMode = GridEditMode.Inline;
       }else{
         //cell buttons
         if(!this.cellButtonsComponent){
@@ -435,9 +478,9 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
         this.cellButtonsComponent.useRoute = this.useRoute;
         this.editMode = GridEditMode.Custom;
       }
-    } 
+    }
 
-    private configurePaging(){     
+    private configurePaging(){
       if (!this.paging){
         let defaultPaging:DxoPagingComponent = new DxoPagingComponent(this.nestedOptionHost,this.nestedOptionHost);
         defaultPaging.enabled = true;
@@ -448,9 +491,9 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
 
       this.paging.setHost(this,(<any>this.paging)._optionPath);
       this.dataGrid.paging = this.paging;
-    } 
-    
-    private configurePager(){   
+    }
+
+    private configurePager(){
 
       if (!this.pager){
         let defaultPager:DxoPagerComponent = new DxoPagerComponent(this.nestedOptionHost,this.nestedOptionHost);
@@ -463,9 +506,9 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
       }
       this.pager.setHost(this,(<any>this.pager)._optionPath);
       this.dataGrid.pager = this.pager;
-    } 
-    
-    private configureColumnFixing(){ 
+    }
+
+    private configureColumnFixing(){
       if (!this.columnFixing){
         this.columnFixing = new DxoColumnFixingComponent(this.nestedOptionHost,this.nestedOptionHost);
         this.columnFixing.enabled=true;
@@ -474,8 +517,8 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
       this.dataGrid.columnFixing = this.columnFixing;
 
 
-    } 
-    private configureSelection(){  
+    }
+    private configureSelection(){
 
       if (!this.selection){
         this.selection = new DxoSelectionComponent(this.nestedOptionHost,this.nestedOptionHost);
@@ -487,7 +530,7 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
       this.selection.setHost(this,(<any>this.selection)._optionPath);
       this.dataGrid.selection = this.selection;
 
-    } 
+    }
     private configureGroupPanel(){
 
       if (!this.groupPanel){
@@ -497,41 +540,41 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
       this.groupPanel.setHost(this,(<any>this.groupPanel)._optionPath);
       this.dataGrid.groupPanel = this.groupPanel;
 
-    } 
-    
-    private configureFilterRow(){  
+    }
+
+    private configureFilterRow(){
       if (!this.filterRow){
         this.filterRow = new DxoFilterRowComponent(this.nestedOptionHost,this.nestedOptionHost);
         this.filterRow.visible= false;
       }
       this.filterRow.setHost(this,(<any>this.filterRow)._optionPath);
       this.dataGrid.filterRow = this.filterRow;
-    } 
-    
-    private configureExport(){ 
+    }
+
+    private configureExport(){
       this.dataGrid.export.customizeExcelCell = (data:any) => this.customizeExcelCell(data);
     }
 
-    private configureHeaderFilter(){ 
+    private configureHeaderFilter(){
       if (!this.headerFilter){
         this.headerFilter = new DxoHeaderFilterComponent(this.nestedOptionHost,this.nestedOptionHost);
         this.headerFilter.visible= false;
       }
       this.headerFilter.setHost(this,(<any>this.headerFilter)._optionPath);
       this.dataGrid.headerFilter = this.headerFilter;
-    } 
-    
-    private configureSorting(){ 
+    }
+
+    private configureSorting(){
       if (!this.sorting){
         this.sorting = new DxoSortingComponent(this.nestedOptionHost,this.nestedOptionHost);
         this.sorting.mode= 'multiple';
       }
       this.sorting.setHost(this,(<any>this.sorting)._optionPath);
       this.dataGrid.sorting = this.sorting;
-    } 
+    }
 
 
-    private configureLoadPanel(){   
+    private configureLoadPanel(){
 
       if (!this.loadPanel){
         this.loadPanel = new DxoLoadPanelComponent(this.nestedOptionHost,this.nestedOptionHost);
@@ -543,22 +586,22 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
       this.loadPanel.setHost(this,(<any>this.loadPanel)._optionPath);
       this.dataGrid.loadPanel = this.loadPanel;
 
-    } 
-    private configureScrolling(){ 
+    }
+    private configureScrolling(){
       if (!this.scrolling){
         this.scrolling.setHost(this,(<any>this.scrolling)._optionPath);
         this.dataGrid.scrolling = this.scrolling;
       }
-    } 
-    private configureRemoteOperations(){ 
+    }
+    private configureRemoteOperations(){
       if (!this.remoteOperations){
         this.remoteOperations.setHost(this,(<any>this.remoteOperations)._optionPath);
         this.dataGrid.remoteOperations = this.remoteOperations;
       }else{
         // CustomStore seçildiginde duzenlenecek
       }
-    } 
-    private configureToolbar(){   
+    }
+    private configureToolbar(){
 
       if (this.showToolbar===true){
         if (!this.toolbarComponent){
@@ -566,9 +609,9 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
             clearInterval(interval);
             let componentFactory = this.componentFactoryResolver.resolveComponentFactory(GridToolbarComponent);
             let componentRef:ComponentRef<GridToolbarComponent> = componentFactory.create(this.Injector);
-            this.toolbarComponent.insert(componentRef.hostView);
+            this.toolbarContainer.insert(componentRef.hostView);
             this.toolbarComponent = componentRef.instance;
-            this.toolbarComponent.gridView = this;           
+            this.toolbarComponent.gridView = this;
           },10);
         }
         else{
@@ -580,31 +623,31 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
         this.renderer2.setStyle(this.toolbarContainerDiv.nativeElement,'display','none');
       }
     }
-    
-    
-    private configureFooter(){ 
+
+
+    private configureFooter(){
 
       if (this.showFooter === true){
         if (!this.footerComponent){
           let interval = setInterval(()=>{
             clearInterval(interval);
             let componentFactory = this.componentFactoryResolver.resolveComponentFactory(GridFooterComponent);
-            let componentRef:ComponentRef<GridFooterComponent> = this.componentFactory.create(this.Injector);
+            let componentRef:ComponentRef<GridFooterComponent> = componentFactory.create(this.Injector);
             this.footerComponent = componentRef.instance;
-            this.footerComponent.gridView = this;           
+            this.footerComponent.gridView = this;
           },10);
         }
         else{
             this.footerComponent.gridView = this;
         }
       }
-    } 
-    
-    private configureTemplates(){   
+    }
+
+    private configureTemplates(){
       if (this._templates){
         this._templates.forEach(template=>this.dataGrid.templates.push(template));
       }
-    } 
+    }
 
     public prepareCellButtons(onlyCustomActions:boolean = false):IColumnOptions{
       let columnOptions:IColumnOptions = {};
@@ -612,7 +655,7 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
       columnOptions.width = this.cellButtonsComponent.width;
       columnOptions.dataField = this.keyExpr;
       columnOptions.cellTemplate = (cellElement:any,cellInfo:ICellInfo)=>{
-        this.createCellButoonsTemplate(cellElement,cellInfo,onlyCustomActions);
+        this.createCellButtonsTemplate(cellElement,cellInfo,onlyCustomActions);
       }
       columnOptions.showInColumnChooser = false;
       columnOptions.caption = '';
@@ -630,6 +673,7 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
       columnOptions.allowSorting = false;
       columnOptions.autoExpandGroup = false;
       this.dataGrid.instance.addColumn(columnOptions);
+      this._cellButtonsColumn = columnOptions;
       return columnOptions;
     }
 
@@ -660,17 +704,17 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
       cellButtonsHostComponent.canDeleteButtonBeVisible = this.cellButtonsComponent.canDeleteButtonBeVisible;
       cellButtonsHostComponent.overrideActionVisibility = this.cellButtonsComponent.overrideActionVisibility;
       //cellbuttonsPrepring eventta tum component gonderiliyor. Buna gerek yok. duzeltilmesi lazım
-      this.cellButtonsHostComponent.onCellButtonsPreparing(cellButtonsHostComponent);
-      let cellButtons:GridCellButtonComponent[] = this.cellButtonsHostComponent.cellButtons.toArray();
+      this.cellButtonsComponent.onCellButtonsPreparing(cellButtonsHostComponent);
+      let cellButtons:GridCellButtonComponent[] = this.cellButtonsComponent.cellButtons.toArray();
       if (cellButtons && cellButtons.length>0){
         cellButtons.forEach((button:GridCellButtonComponent) => {
             button.cellInfo = cellInfo;
             this.cellButtonsComponent.onCellButtonsPreparing(button);
         });
-        this.cellButtonsComponent.cellButtons = cellButtons;
+        cellButtonsHostComponent.cellButtons = cellButtons;
       }
       this._cellButtonsMap.set(cellInfo.rowIndex,cellButtonsHostComponent);
-
+      $(cellElement).append($(cellButtonsHostComponent.viewContainerRef.element.nativeElement));
     }
 
     public getCellButtons(rowIndex:number):GridCellButtonsHostComponent{
@@ -681,7 +725,7 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
       }
     }
 
-    public getCurrentCellButtons(rowIndex:number):GridCellButtonsHostComponent{
+    public getCurrentCellButtons():GridCellButtonsHostComponent{
       return this.getCellButtons(this.getCurrentRowIndex());
     }
 
@@ -739,7 +783,7 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
       return handled;
     }
 
-    private onRowCollapsingEvent(data:any):boolean{
+    private onRowCollapsing(data:any):boolean{
       let handled:boolean=false;
       if (this.rowCollapsingEvent.observers.length >0){
         handled = true;
@@ -831,18 +875,18 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
 
     private onEditingStart(data:any):boolean{
       let handled:boolean=false;
-      if (this.edittingStartEvent.observers.length >0){
+      if (this.editingStartEvent.observers.length >0){
         handled = true;
-        this.edittingStartEvent.emit(data);
+        this.editingStartEvent.emit(data);
       }
       return handled;
     }
 
     private onDataErrorOccurred(data:any):boolean{
       let handled:boolean=false;
-      if (this.dataErrorOccurredEvent.observers.length >0){
+      if (this.dataErrorOccuredEvent.observers.length >0){
         handled = true;
-        this.dataErrorOccurredEvent.emit(data);
+        this.dataErrorOccuredEvent.emit(data);
       }
       return handled;
     }
@@ -850,9 +894,9 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
 
     private onToolbarPreparing(data:any):boolean{
       let handled:boolean=false;
-      if (this.dataErrorOccurredEvent.observers.length >0){
+      if (this.toolbarPreparingEvent.observers.length >0){
         handled = true;
-        this.dataErrorOccurredEvent.emit(data);
+        this.toolbarPreparingEvent.emit(data);
       }
       return handled;
     }
@@ -981,7 +1025,7 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
     public edittingStart(args:any):void{
       if (args.key!== undefined && args.key!== null){
         let rowKey = args.key;
-        this.selectedRowKeys(rowKey,false);
+        this.selectRowsByKeys(rowKey,false);
       }
       if(this.onEditingStart(args)){
         return;
@@ -1004,10 +1048,10 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
         }
     }
 
-    yasarrrrr asagisini acmalisin
-    // refreshData():Promise<void> && JQueryPromise<void>{
-    //     return this.dataGrid.instance.refresh();
-    // }
+
+    refreshData():Promise<void> & JQueryPromise<void>{
+        return this.dataGrid.instance.refresh();
+    }
 
     clearSelection():void{
       this.dataGrid.instance.clearSelection();
@@ -1033,18 +1077,18 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
       return this.dataGrid.instance.getRowIndexByKey(key);
     }
 
-    getCurrentRowIndex(key:any):number{
+    getCurrentRowIndex():number{
       let currentItem = this.dataContext.current;
       if(currentItem){
         return this.getRowIndexByKey(currentItem.Id);
       }
       return -1;
-      
+
     }
 
     selectRowsByIndexes(rowIndex:number | number[]): Promise<void> & JQueryPromise<void> {
       let indexes: number[] = rowIndex instanceof Array ? rowIndex : [rowIndex];
-      return this.dataGrid.instance.selectRowsByIndexes(keys,preserve);
+      return this.dataGrid.instance.selectRowsByIndexes(indexes);
     }
 
     selectRowsByKeys(rowKey:any|any[],preserve:boolean): Promise<void> & JQueryPromise<void> {
@@ -1086,7 +1130,7 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
         if (this.editing.allowUpdating === true){
           let rowIndex : number = this.getRowIndexByKey(currentItem.Id);
           this.dataGrid.instance.editRow(rowIndex);
-        }        
+        }
       }
     }
 
@@ -1100,7 +1144,7 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
         if (this.editing.allowUpdating === true){
           let rowIndex : number = this.getRowIndexByKey(currentItem.Id);
           this.dataGrid.instance.editRow(rowIndex);
-        }        
+        }
       }
     }
 

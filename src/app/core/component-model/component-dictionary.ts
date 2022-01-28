@@ -28,7 +28,7 @@ export class ComponentDictionary{
         if (ComponentDictionary._mapByName.has(name)){
             return ComponentDictionary._mapByName.get(name) as Type<any>;
         }
-        return null as any;
+        return null;
     }
 
     public static printComponents(){

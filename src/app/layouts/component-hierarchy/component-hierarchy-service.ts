@@ -76,7 +76,7 @@ export class ComponentHierarchyService extends BaseService{
             let componentid :string = this._mapRouteComponents.get(componentName) as string;
             return this._mapHierarchy.get(componentid) as ComponentHierarchyInfo;
         }
-        return null as any;
+        return null;
     }
 
     getParentRouteInfo(hierarchyInfo:ComponentHierarchyInfo):ComponentHierarchyInfo{
@@ -89,7 +89,7 @@ export class ComponentHierarchyService extends BaseService{
         }else if (activatedRoute.parent){
             return this.getRouteComponentName(activatedRoute.parent);
         }
-        return null as any;
+        return null;
     }
 
     calculateUrl(activatedRoute:ActivatedRoute):string{
@@ -101,7 +101,7 @@ export class ComponentHierarchyService extends BaseService{
             let urlSegments : Array<any> = activatedRoute.snapshot.url;
 
             urlSegments.forEach(element => {
-                url += '/' + element.path;              
+                url += '/' + element.path;
             });
         }
         return url;
@@ -111,7 +111,7 @@ export class ComponentHierarchyService extends BaseService{
             if (activatedRoute.parent){
                 return this.getRouteComponentName(activatedRoute.parent);
             }
-            return null as any;
+            return null;
     }
 
     private getComponentName(component:string | Type<any>) : string{
@@ -123,7 +123,7 @@ export class ComponentHierarchyService extends BaseService{
             return ComponentDictionary.getComponentNameByType(component) as string;
         }
 
-        return null as any;
+        return null;
     }
 
     print(){
@@ -133,10 +133,10 @@ export class ComponentHierarchyService extends BaseService{
             console.log(key);
             console.log(value.ComponentID, value.ComponentName,value.RouteComponentName,value.ParentRouteComponentName);
             console.log("----------");
-            
+
         });
 
     }
 
-    
+
 }

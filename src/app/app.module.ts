@@ -2,7 +2,7 @@ import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AppComponent } from './app.component';
-import { SideNavOuterToolbarModule,  SingleCardModule } from './layouts';
+import {   SingleCardModule } from './layouts';
 import { FooterModule, ResetPasswordFormModule, CreateAccountFormModule, ChangePasswordFormModule, LoginFormModule } from './shared/components';
 import { AuthService, AppInfoService } from './shared/services';
 import { UnauthenticatedContentModule } from './unauthenticated-content';
@@ -15,6 +15,7 @@ import { StartupModule } from './startup/startup.module';
 import { ConfigModule } from './config/config.module';
 import { ServicesModule } from './services/services.module';
 import { BaseService } from './core/services/base-sevice';
+import { LoginModule } from './login/login-model';
 
 @NgModule({
   declarations: [
@@ -34,17 +35,18 @@ import { BaseService } from './core/services/base-sevice';
     ConfigModule,
     LayoutModule,
     ServicesModule,
-  
-    SideNavOuterToolbarModule,
+    LoginModule,
+
     SingleCardModule,
     FooterModule,
     ResetPasswordFormModule,
     CreateAccountFormModule,
     ChangePasswordFormModule,
     LoginFormModule,
+
     UnauthenticatedContentModule,
     AppRoutingModule,
-    
+
   ],
   providers: [AuthService,  AppInfoService],
   bootstrap: [AppComponent]

@@ -13,13 +13,13 @@ import $ from 'jquery';
 })
 @ComponentName(PopupPanelComponent,"PopupPanelComponent")
 export class PopupPanelComponent extends PanelComponent implements OnInit,OnDestroy{
- 
+
    @ViewChild(DxPopupComponent, { static: true })
    popup!: DxPopupComponent;
-   
+
    @ViewChild("componentContainer", { read:ViewContainerRef, static: true })
    componentContainer!: ViewContainerRef;
-   
+
    Animation?:{
       duration:0
    }
@@ -53,7 +53,7 @@ export class PopupPanelComponent extends PanelComponent implements OnInit,OnDest
    showTitle:boolean =true;
 
    @Input()
-   fullscreen:boolean =false;
+   fullScreen:boolean =false;
 
    @Input()
    resizeEnabled:boolean =false;
@@ -62,13 +62,13 @@ export class PopupPanelComponent extends PanelComponent implements OnInit,OnDest
    shading:boolean =true;
 
    @Input()
-   shadigColor:string ="";
+   shadingColor:string ="";
 
    @Input()
    showCloseButton:boolean =true;
 
    @Input()
-   clseOutsideClick:boolean =false;
+   closeOnOutsideClick:boolean =false;
 
    @Input()
    dragEnabled:boolean =true;
@@ -79,14 +79,14 @@ export class PopupPanelComponent extends PanelComponent implements OnInit,OnDest
    @Input()
    elementAttr:object ={};
 
-   
-   
+
+
    @Output('onShowing')
    showingEvent : EventEmitter<any> = new EventEmitter<any>();
 
    @Output('onShown')
    shownEvent : EventEmitter<any> = new EventEmitter<any>();
-      
+
    @Output('onHiding')
    hidingEvent : EventEmitter<any> = new EventEmitter<any>();
 
@@ -97,7 +97,7 @@ export class PopupPanelComponent extends PanelComponent implements OnInit,OnDest
 
    containerDivID :string;
    isOpened:boolean;
-   initilizeContentTemplate:boolean;
+   initalizeContentTemplate:boolean;
 
 
    constructor(private element:ElementRef,viewContainerRef:ViewContainerRef){
@@ -105,7 +105,7 @@ export class PopupPanelComponent extends PanelComponent implements OnInit,OnDest
          this.visible = false;
          this.containerDivID = 'Container_Div_'+this.componentID;
          this.isOpened = false;
-         this.initilizeContentTemplate=false;
+         this.initalizeContentTemplate=false;
    }
 
    ngOnInit(): void {
@@ -143,7 +143,7 @@ export class PopupPanelComponent extends PanelComponent implements OnInit,OnDest
    return handled;
   }
 
-  
+
   onHidden(data:any): boolean {
    let handled:boolean = false;
    if(this.hiddenEvent.observers.length>0){
@@ -162,7 +162,7 @@ export class PopupPanelComponent extends PanelComponent implements OnInit,OnDest
    return handled;
   }
 
-  showing(args:any) { 
+  showing(args:any) {
    if(this.onShowing(args)){
     return;
    }
@@ -174,7 +174,7 @@ export class PopupPanelComponent extends PanelComponent implements OnInit,OnDest
      this.onShown(args);
   }
 
-  hiding(args:any) { 
+  hiding(args:any) {
    if(this.onHiding(args)){
     return;
    }
@@ -193,18 +193,18 @@ export class PopupPanelComponent extends PanelComponent implements OnInit,OnDest
       $('#'+this.containerDivID).appendTo(this.element.nativeElement);
    }
 
-   this.initilizeContentTemplate = false;
+   this.initalizeContentTemplate = false;
    this.popup.instance.repaint();
    this.onHidden(args);
    this.onClose(this.componentID);
   }
 
-  open() { 
+  open() {
       this.initilize();
       this.popup.instance.show();
    }
 
-   close() { 
+   close() {
       this.popup.instance.hide();
    }
 
@@ -215,12 +215,12 @@ export class PopupPanelComponent extends PanelComponent implements OnInit,OnDest
 
    private setContentTemplate():void{
       this.popup.contentTemplate = (element:any) =>{
-         this.initilizeContentTemplate = true;
+         this.initalizeContentTemplate = true;
          if(this.panelViewType === PanelViewType.Router ){
-            this.moveDivRouterOutlet(element);        
+            this.moveDivRouterOutlet(element);
          }else{
             $('#'+this.containerDivID).appendTo(element);
-            $('#'+this.containerDivID).css('display','');           
+            $('#'+this.containerDivID).css('display','');
          }
       }
    }
@@ -229,7 +229,7 @@ export class PopupPanelComponent extends PanelComponent implements OnInit,OnDest
       let componentName = this.componentHierarchyService.getRouteComponentName(this.activatedRoute);
       if ( $(`#Div_${componentName}_Router_Outlet`).length >0){
          $('#'+this.containerDivID).appendTo(element);
-         $('#'+this.containerDivID).css('display','');  
+         $('#'+this.containerDivID).css('display','');
       }
    }
 }

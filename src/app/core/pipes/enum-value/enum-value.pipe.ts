@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
+import { EnumService } from "src/app/services/core/enum.service";
 
 @Pipe({
     name:'enumValue'

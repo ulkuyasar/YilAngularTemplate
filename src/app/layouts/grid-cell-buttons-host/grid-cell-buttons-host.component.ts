@@ -1,4 +1,4 @@
-import { AfterContentInit, Component,  EventEmitter,  Input,  OnDestroy, OnInit, Output,  
+import { AfterContentInit, Component,  EventEmitter,  Input,  OnDestroy, OnInit, Output,
    SimpleChanges, ViewContainerRef } from "@angular/core";
 import { AuthenticationService } from "src/app/authentication/authentication.service";
 import { BaseComponent } from "src/app/core/components/base-component";
@@ -14,11 +14,11 @@ import { IGridView } from "../igrid-view";
   selector: 'app-grid-cell-buttons-host',
   templateUrl: './grid-cell-buttons-host.component.html',
   styleUrls: ['./grid-cell-buttons-host.component.css']
-  
+
 })
 @ComponentName(GridCellButtonsHostComponent,"GridCellButtonsHostComponent")
 export class GridCellButtonsHostComponent extends BaseComponent implements OnInit,OnDestroy{
-    
+
     gridView:IGridView;
     cellElement:any;
     cellInfo:ICellInfo;
@@ -32,9 +32,9 @@ export class GridCellButtonsHostComponent extends BaseComponent implements OnIni
     addIcon:string;
     editIcon:string;
     deleteIcon:string;
-    addTooltip:string;
-    editTooltip:string;
-    deleteTooltip:string;
+    addToolTip:string;
+    editToolTip:string;
+    deleteToolTip:string;
     addButtonClickEvent = new EventEmitter<ICellInfo>();
     editButtonClickEvent = new EventEmitter<ICellInfo>();
     deleteButtonClickEvent = new EventEmitter<ICellInfo>();
@@ -66,9 +66,9 @@ export class GridCellButtonsHostComponent extends BaseComponent implements OnIni
     }
 
     ngAfterViewInit(): void {
-        
+
     }
-    
+
     get isAddButtonVisible():boolean{
       let isVisible:boolean = true;
       if(this.allowAdd === false){
@@ -76,11 +76,11 @@ export class GridCellButtonsHostComponent extends BaseComponent implements OnIni
       }
 
       if(this.checkOrganizationLevel()===false){
-        return false; 
+        return false;
       }
 
       if(this.getVisiblityDefaultByLicenseType()===false){
-        return false; 
+        return false;
       }
 
       if(this.gridView.useRoute===false){
@@ -103,7 +103,7 @@ export class GridCellButtonsHostComponent extends BaseComponent implements OnIni
       }
 
       if(this.checkOrganizationLevel()===false){
-        return false; 
+        return false;
       }
 
       if(this.gridView.useRoute===false){
@@ -119,7 +119,7 @@ export class GridCellButtonsHostComponent extends BaseComponent implements OnIni
 
     }
 
-    
+
     get isDeleteButtonVisible():boolean{
       let isVisible:boolean = true;
       if(this.allowDelete === false){
@@ -127,11 +127,11 @@ export class GridCellButtonsHostComponent extends BaseComponent implements OnIni
       }
 
       if(this.checkOrganizationLevel()===false){
-        return false; 
+        return false;
       }
 
       if(this.getVisiblityDefaultByLicenseType()===false){
-        return false; 
+        return false;
       }
 
       if(isVisible===true){
@@ -208,11 +208,11 @@ export class GridCellButtonsHostComponent extends BaseComponent implements OnIni
     }
 
     getClassName(): string {
-      let className:string = ''; 
+      let className:string = '';
       if(this.gridView.getSelectedRowKeys().length>1 ){
         className = 'isDisabled';
-      } 
-      return className;  
+      }
+      return className;
     }
 
     private getVisiblityDefaultByLicenseType():boolean{

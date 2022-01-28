@@ -1,0 +1,24 @@
+
+<div class="logout-confirm">
+  <div class="logout-confirm-header">
+    <span class="icon-header">
+      <em class="icon icon-exit-run"></em>
+    </span>
+  </div>
+  <div class="logout-confirm-body">
+    <div class="logout-confirm-title">
+      <p>{{'logout-caption'| translate }}</p>
+    </div>
+    <div class="logout-confirm-content">
+      <div>
+        <p class="logout-confirm-message">{{ 'sure.continue' | translate}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="logout-confirm-footer">
+    <dx-button [hint]="'global.cancel' | translate" stylingmode="text" [text]="'global.cancel' | translate" (onclick)="cancel()"></dx-button>
+    <dx-button [hint]="'global.ok' | translate" class="dx-button-orange" stylingmode="text" [text]="'global.ok' | translate" (onclick)="ok()" (onenterkey)="ok()"
+            (oninitialized)="getInstance($event)"></dx-button>
+  </div>
+</div>

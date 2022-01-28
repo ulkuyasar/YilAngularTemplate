@@ -1,12 +1,9 @@
 import { Observable, Subscriber } from "rxjs";
-import { IPanelInstanceRef } from "src/app/core/component-model/ipanel-instance-ref";
 import { BaseComponent } from "src/app/core/components/base-component";
+import { IPopupRef } from './ipopup-ref'
+import { PopupService } from "./popup-service";
 
-export class PopupRef<T extends BaseComponent> extends IPopupRef{
-
-    panelComponentID:string;
-    containerDivID:string;  
-    alwaysReturn:boolean=false;
+export class PopupRef<T extends BaseComponent> implements IPopupRef {
 
     componentInstance:T;
 
@@ -18,12 +15,15 @@ export class PopupRef<T extends BaseComponent> extends IPopupRef{
     private _popupService:PopupService;
 
     constructor(popupService:PopupService){
-        _popupService = popupService;
+        this._popupService = popupService;
         //  this.beforeOpenedSubscriber=Subscriber<any>();
         //  this.afterOpenedSubscriber=Subscriber<any>();
         //  this.beforeClosedSubscriber=Subscriber<any>();
         //  this.afterClosedSubscriber=Subscriber<any>();
     }
+    panelComponentID: string;
+    containerDivID: string;
+    alwaysReturn:boolean=false;
 
     getComponentInstance():BaseComponent{
         return this.componentInstance;

@@ -9,14 +9,14 @@ import { GridCellButtonComponent } from "../grid-cell-button/grid-cell-button.co
   selector: 'app-grid-cell-buttons',
   templateUrl: './grid-cell-buttons.component.html',
   styleUrls: ['./grid-cell-buttons.component.css']
-  
+
 })
 @ComponentName(GridCellButtonsComponent,"GridCellButtonsComponent")
 export class GridCellButtonsComponent extends BaseComponent implements OnInit,OnDestroy,AfterContentInit,OnChanges{
-    
+
     @ContentChildren(GridCellButtonComponent)
-    cellButtons:QueryList<GridCellButtonComponent>;  
-  
+    cellButtons:QueryList<GridCellButtonComponent>;
+
 
     @Input()
     allowAdd: boolean = false;
@@ -43,16 +43,16 @@ export class GridCellButtonsComponent extends BaseComponent implements OnInit,On
     checkIcon: string = 'icon icon-close';
 
     @Input()
-    addTooltip: string;
+    addToolTip: string;
 
     @Input()
-    editTooltip: string;
+    editToolTip: string;
 
     @Input()
-    deleteTooltip: string;
+    deleteToolTip: string;
 
     @Input()
-    checkTooltip: string;
+    checkToolTip: string;
 
     @Input()
     width: number | string = 60;
@@ -119,9 +119,9 @@ export class GridCellButtonsComponent extends BaseComponent implements OnInit,On
     }
 
     ngAfterViewInit(): void {
-        
+
     }
-    
+
     ngOnChanges(changes: SimpleChanges): void {
         this.onPropertyChanged(changes);
     }

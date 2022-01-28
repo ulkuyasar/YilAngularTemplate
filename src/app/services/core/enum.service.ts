@@ -3,6 +3,7 @@ import DataSource from "devextreme/data/data_source";
 import { BaseService } from "src/app/core/services/base-sevice";
 import { LocalizationService } from "src/app/localization/localization.service";
 import { EnumModel } from "src/app/models/core/enum-model";
+import { ComparisonOperator } from "src/app/utilities/comparison-operator.enum";
 import { StringUtilities } from "src/app/utilities/string-utilities";
 
 export class EnumService extends BaseService{
@@ -38,7 +39,7 @@ export class EnumService extends BaseService{
                 const searchPattern = StringUtilities.getValueForComparison(description);
                 let itemOfDescription :EnumModel[];
                 switch(operator){
-                    case ComparisonOperator.Equels:
+                    case ComparisonOperator.Equals:
                         itemOfDescription = dataSource.items().filter((enumModel:EnumModel)=> StringUtilities.getValueForComparison(enumModel.Description)===searchPattern);
                         break;
 
@@ -54,7 +55,7 @@ export class EnumService extends BaseService{
                         itemOfDescription = dataSource.items().filter((enumModel:EnumModel)=> StringUtilities.getValueForComparison(enumModel.Description).endsWith(searchPattern));
                         break;
 
-                    case ComparisonOperator.NowEquels:
+                    case ComparisonOperator.NotEquals:
                         itemOfDescription = dataSource.items().filter((enumModel:EnumModel)=> StringUtilities.getValueForComparison(enumModel.Description)!=(searchPattern));
                         break;
 
@@ -77,7 +78,7 @@ export class EnumService extends BaseService{
                 if (itemOfDescription.length>0){
                     return itemOfDescription.map(item=>item.Value);
                 }
-            }   
+            }
         }
         if(displayNone){
             return "undefined";
@@ -97,17 +98,17 @@ export class EnumService extends BaseService{
 
     public getFwAccessFlowEnum(enumName:string):DataSource {
         const enumList: EnumModel[] = [
-            {Description:this._localizationService.getMessage('accessreq.openflowrequest.enum.text'),Value:AccessFlowType.OpenFlow},
-            {Description:this._localizationService.getMessage('accessreq.addserverrequest.enum.text'),Value:AccessFlowType.AddServer}
+            // {Description:this._localizationService.getMessage('accessreq.openflowrequest.enum.text'),Value:AccessFlowType.OpenFlow},
+            // {Description:this._localizationService.getMessage('accessreq.addserverrequest.enum.text'),Value:AccessFlowType.AddServer}
         ]
         return new DataSource(enumList);
     }
 
     public getFwAccessPortEnum(enumName:string):DataSource {
         const enumList: EnumModel[] = [
-            {Description:this._localizationService.getMessage('accessreq.tcp.enum.text'),Value:AccessFlowPortType.Tcp},
-            {Description:this._localizationService.getMessage('accessreq.udp.enum.text'),Value:AccessFlowPortType.Udp},
-            {Description:this._localizationService.getMessage('accessreq.icpmping.enum.text'),Value:AccessFlowPortType.IcpmPing}
+            // {Description:this._localizationService.getMessage('accessreq.tcp.enum.text'),Value:AccessFlowPortType.Tcp},
+            // {Description:this._localizationService.getMessage('accessreq.udp.enum.text'),Value:AccessFlowPortType.Udp},
+            // {Description:this._localizationService.getMessage('accessreq.icpmping.enum.text'),Value:AccessFlowPortType.IcpmPing}
         ]
         return new DataSource(enumList);
     }

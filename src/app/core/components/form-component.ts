@@ -1,16 +1,14 @@
 import {  Component, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewContainerRef } from "@angular/core";
 import { DxFormComponent } from "devextreme-angular";
-import { DxiItemComponent } from "devextreme-angular/ui/nested";
+import { DxiItemComponent } from "devextreme-angular/ui/nested/item-dxi";
 import { Virtual } from "../decorators/virtual";
 import { IFormOption } from "../directives/iform-option";
 import { BaseComponent } from "./base-component";
 
-@Component({   //yasar sen ekledın
-    template: ''
-})
+
 export abstract class FormComponent extends BaseComponent implements OnInit, OnDestroy{
 
-    
+
     @ViewChild(DxFormComponent,{static:true})
     form:DxFormComponent;
 
@@ -18,12 +16,12 @@ export abstract class FormComponent extends BaseComponent implements OnInit, OnD
     itemsChildren: QueryList<DxiItemComponent>;
 
     @Input('readOnly')
-    readOnly:boolean=false; 
-    
+    readOnly:boolean=false;
+
     @Output('onOptionChanged')
     optionChangedEvent = new EventEmitter<IFormOption>();
 
-    constructor(public viewContainerRef:ViewContainerRef){
+    constructor(viewContainerRef:ViewContainerRef){
         super(viewContainerRef);
     }
 
@@ -39,7 +37,7 @@ export abstract class FormComponent extends BaseComponent implements OnInit, OnD
 
     @Virtual()
     public model():object{
-        return null as any;  // yasar   return null
+        return null;
     }
 
     public reloadForm():void{
@@ -53,9 +51,6 @@ export abstract class FormComponent extends BaseComponent implements OnInit, OnD
             return;
         }
     }
-
-
-
 
     ngOnInit() {
         super.ngOnInit();

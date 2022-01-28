@@ -55,7 +55,7 @@ export class LocalizationService extends BaseService{
                 Globalize.loadMessages(messages);
             })
         );
-        return $messages as any;
+        return $messages;
     }
 
     getMessage(key:string | string[], args?:string |object |string[]):string{
@@ -63,13 +63,13 @@ export class LocalizationService extends BaseService{
         let formattedMessage:string;
         try {
             formattedMessage = Globalize.formatMessage(key,args);
-            
+
         } catch (error) {
             if (key instanceof Array){
                 formattedMessage = key[0];
             }else{
                 formattedMessage = key;
-            }           
+            }
         }
         return formattedMessage;
     }

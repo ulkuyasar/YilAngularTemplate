@@ -22,7 +22,7 @@ export abstract class Model {
 
         public static createModel<T>(modelType : {new():T}):T{
             let model : T = new modelType();
-            if ((model as any).hasOwnProperty("Id")){
+            if ((model).hasOwnProperty("Id")){
 
             }
             return model;

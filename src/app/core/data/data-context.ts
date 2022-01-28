@@ -4,7 +4,7 @@ import { isDataGroupItemArray } from "./idata-group-item";
 
 
 export class DataContext{
-    
+
     private _dataSource:any;
     private _position:number;
     private _selectedPositions:number[];
@@ -62,7 +62,7 @@ export class DataContext{
             let datasource = <DataSource>(this.dataSource);
             return this.getActualItemsOfDataSource(datasource.items());
         }
-        return null as any;
+        return null;
     }
 
     get current():any{
@@ -86,7 +86,7 @@ export class DataContext{
             });
             return selectedItemList;
         }
-        return null as any;
+        return null;
     }
 
     private getCurrentItem(item:any):any{

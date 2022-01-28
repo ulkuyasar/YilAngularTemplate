@@ -7,7 +7,7 @@ export  class ModelBeforeActionEventArgs {
     private readonly _actionType:ModelActionType;
     private readonly _validationStatus:ModelValidationStatus;
     public cancel:boolean;
-    public beforeAction:Observable<void> = null as any; // yasar
+    public beforeAction:Observable<void> = null;
 
 
     constructor(actionType:ModelActionType,validationStatus:ModelValidationStatus){

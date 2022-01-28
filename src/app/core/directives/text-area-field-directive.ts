@@ -1,5 +1,5 @@
 import { Input,OnDestroy, OnInit, SimpleChanges, ViewContainerRef } from "@angular/core";
-import { DxiItemComponent } from "devextreme-angular/ui/nested";
+import { DxiItemComponent } from "devextreme-angular/ui/nested/item-dxi";
 import { ITextAreaComponent } from "src/app/devextreme/interfaces/text-area/itext-area-component";
 import { ITextAreaEditorOptions } from "src/app/devextreme/interfaces/text-area/itext-area-editor-options";
 import { ITextAreaInitilizedArgs } from "src/app/devextreme/interfaces/text-area/itext-area-initialized-args";
@@ -10,14 +10,14 @@ import { TextBasedFieldDirective } from "./text-based-field-directive";
 
 
 export abstract class TextAreaFieldDirective extends TextBasedFieldDirective  implements OnInit,OnDestroy{
-    
+
     @Input('height')
     @Notify()
     public height:string;
 
     private _editorOptions:ITextAreaEditorOptions;
-    private _editorInstance:ITextAreaComponent;  
-    
+    private _editorInstance:ITextAreaComponent;
+
     constructor(hostItem: DxiItemComponent, viewContaiberRef: ViewContainerRef){
         super(hostItem,viewContaiberRef);
     }
@@ -44,7 +44,7 @@ export abstract class TextAreaFieldDirective extends TextBasedFieldDirective  im
         this.editorOptions.placeholder = this.placeHolder;
         this.editorOptions.maxLenght = this.maxLenght;
         this.editorOptions.height = this.height;
-       
+
         this.hostItem.itemType = "dxTextArea";
         this.hostItem.editorOptions = this.editorOptions;
     }

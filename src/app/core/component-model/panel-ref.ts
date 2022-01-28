@@ -16,7 +16,7 @@ export abstract class PanelRef<T extends PanelComponent>{
     parentComponentName?:string;
     currentUrl?:string;
 
-    currentPanelInstanceRef?:IPanelInstanceRef;
+    currentPanelInstanceRef:IPanelInstanceRef;
 
     getComponent<C>():C{
         let viewContainerObject :object =  this.viewContainerRef as ViewContainerRef;

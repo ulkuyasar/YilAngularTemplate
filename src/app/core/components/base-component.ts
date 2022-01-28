@@ -24,14 +24,14 @@ import { AuthenticationContextType } from "src/app/authentication/authentication
 //     template: ''
 // })
 export abstract class BaseComponent implements OnInit, OnDestroy, AfterViewInit{
-    
+
     private __componentClassName?: () => string;
-    
+
     @Input('id')
-    Id:string="";       // yasar
+    Id:string;
 
     @Input()
-    name:string="";     // yasar
+    name:string;
 
     @Input('visible')
     visible:boolean;
@@ -40,7 +40,7 @@ export abstract class BaseComponent implements OnInit, OnDestroy, AfterViewInit{
     useRoute:boolean;
 
     @Input('title')
-    private _title: string | Function = Object; // yasar
+    private _title: string | Function;
 
     @Input('dataContext')
     private _dataContext: DataContext;
@@ -50,7 +50,7 @@ export abstract class BaseComponent implements OnInit, OnDestroy, AfterViewInit{
     private _componentID: string;
     private _hierarchyInfo: ComponentHierarchyInfo;
 
-    private _authenticationKey: string = ""; //yasar
+    private _authenticationKey: string;
     private _router : Router;
     private _activatedRoute : ActivatedRoute;
     private _componentFactoryResolver : ComponentFactoryResolver;
@@ -59,19 +59,19 @@ export abstract class BaseComponent implements OnInit, OnDestroy, AfterViewInit{
 
     private _componentHierarchyService: ComponentHierarchyService;
 
-    public panelInstanceRef: IPanelInstanceRef = Object as any; // yasar 
+    public panelInstanceRef: IPanelInstanceRef;
 
     public globalConstants: IGlobalConstants;
 
     public authentiticationKeyChangedEvent: EventEmitter<string>;
 
     //Subscrribers
-    private _appConfigSubscription: Subscription; 
+    private _appConfigSubscription: Subscription;
     ;
     private _settingSubscription: Subscription;
 
     constructor(public viewContainerRef:ViewContainerRef){
-   
+
         this._componentID = GlobalUtilities.NewGuid();
         this.visible = true;
         this.useRoute = true;
@@ -86,15 +86,9 @@ export abstract class BaseComponent implements OnInit, OnDestroy, AfterViewInit{
 
         this._dataContextService.register(this.Instance);
         this.globalConstants = GlobalConstants;
-        this._dataContext = this.Injector.get<DataContext>(DataContext); // yasar
-        this._hierarchyInfo = this.Injector.get<ComponentHierarchyInfo>(ComponentHierarchyInfo); //yasar
-        this._appConfigSubscription = this.Injector.get<Subscription>(Subscription);//yasar
-        this._settingSubscription = this.Injector.get<Subscription>(Subscription);//yasar
-
-
         this.authentiticationKeyChangedEvent = new EventEmitter<string>();
         this.setAuthenticationKey();
-        
+
     }
 
     public getClassName():string {
@@ -140,7 +134,7 @@ export abstract class BaseComponent implements OnInit, OnDestroy, AfterViewInit{
         return this.viewContainerRef.element;
     }
 
-    get rootData():Observable<Data> {       
+    get rootData():Observable<Data> {
         return (this._activatedRoute.root.firstChild as ActivatedRoute).data;
     }
 
@@ -169,7 +163,7 @@ export abstract class BaseComponent implements OnInit, OnDestroy, AfterViewInit{
     }
 
     @Virtual()
-    get Title():string | any{  //yasar   anyı koydun
+    get Title():string {
         if(!this._title){
             return null;
         }
@@ -185,23 +179,23 @@ export abstract class BaseComponent implements OnInit, OnDestroy, AfterViewInit{
     }
 
     get title():string|Function {
-        return this.Title();        
+        return this.Title;
     }
 
     set title(value:string|Function) {
-        this._title = value;        
+        this._title = value;
     }
 
     get Instance():IComponent {
-        return <IComponent>this;        
+        return <IComponent>this;
     }
 
     get hierarchyInfo():ComponentHierarchyInfo {
-        return this._hierarchyInfo;        
+        return this._hierarchyInfo;
     }
 
     get authonticationKey():string {
-        return this._authenticationKey;        
+        return this._authenticationKey;
     }
 
     protected injectOptimal<T>(serviceType: Type<T> | InjectionToken<T>) : T{
@@ -209,7 +203,7 @@ export abstract class BaseComponent implements OnInit, OnDestroy, AfterViewInit{
         try {
             service = this.Injector.get<T>(serviceType);
         } catch (error) {
-            service = null as any; // yasar burası degıstı    service = null boyleydı
+            service = null ;
         }
         return service;
     }
@@ -239,7 +233,7 @@ export abstract class BaseComponent implements OnInit, OnDestroy, AfterViewInit{
 
     private setAuthenticationKey():void{
         this.activatedRoute.data.subscribe((data:Data) =>{
-            let authenticationService :AuthenticationService =this.Injector.get<AuthenticationService>(AuthenticationService); 
+            let authenticationService :AuthenticationService =this.Injector.get<AuthenticationService>(AuthenticationService);
             authenticationService.changeAuthenticationContextType(AuthenticationContextType.Default);
             this.evalusteAuthonticationContextType();
         });
@@ -267,7 +261,7 @@ export abstract class BaseComponent implements OnInit, OnDestroy, AfterViewInit{
     private registerAppConfiguration():void{
         this.unregisterAppConfiguration();
         if ((<any>this).updateConfiguration){
-            let configService :ConfigService = this.Injector.get<ConfigService>(ConfigService); 
+            let configService :ConfigService = this.Injector.get<ConfigService>(ConfigService);
             this._appConfigSubscription = configService.requestAppConfig().subscribe(appConfig=>{
                 let configSubscriber:IConfigSubscriber = (<any>this) as IConfigSubscriber;
                 configSubscriber.updateConfiguration(appConfig);
@@ -278,7 +272,7 @@ export abstract class BaseComponent implements OnInit, OnDestroy, AfterViewInit{
     private unregisterAppConfiguration():void{
         if (this._appConfigSubscription){
             this._appConfigSubscription.unsubscribe();
-            this._appConfigSubscription = null as any; // yasar degisrdi   this._appConfigSubscription = null  boyleydı
+            this._appConfigSubscription = null ;
         }
 
     }
@@ -290,8 +284,8 @@ export abstract class BaseComponent implements OnInit, OnDestroy, AfterViewInit{
     private unregisterSetting():void{
         if(this._settingSubscription){
             this._settingSubscription.unsubscribe();
-            this._settingSubscription = null as any; // yasar degisrdi   this._appConfigSubscription = null  boyleydı
-         }  
+            this._settingSubscription = null ;
+         }
     }
 
 }

@@ -1,7 +1,8 @@
 import { Observable } from "rxjs";
 import { IPanelInstanceRef } from "../component-model/ipanel-instance-ref";
 import { Model } from "../models/model";
-import { ModelAfterActionType } from '../models/model-after-action-event-args'
+import { ModelAfterActionType } from "../models/model-after-action-type.enum";
+import { ModelOperation } from "../models/model-operation.enum";
 
 
 export interface IModelComponent{

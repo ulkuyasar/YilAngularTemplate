@@ -13,11 +13,12 @@ import { ComponentHierarchyService } from "../component-hierarchy/component-hier
 import { IPopupOptions } from "./ipopup-options";
 import { PopupOptions } from "./popup-options";
 import { PopupPanelRef } from "./popup-panel-ref";
+import { PopupPanelComponent } from "./popup-panel/popup-panel.component";
 import { PopupRef } from "./popup-ref";
 
 export class PopupService extends BaseService{
     private _map: Map<string,PopupPanelRef>;
-    private _isInNavigation:boolean = false; // yasar
+    private _isInNavigation:boolean;
 
     constructor(injector:Injector){
         super(injector);
@@ -48,17 +49,17 @@ export class PopupService extends BaseService{
         let popupOptions = { ...defaultPopupOptions, ...options };
 
         if(popupPanelInstance.panelViewType === PanelViewType.Component){
-            this.initiliaze(popupPanelInstance,popupOptions);
+            this.initialize(popupPanelInstance,popupOptions);
             popupPanelInstance.open();
         }else{
 
             let internal = setInterval(() => {
                 if (popupPanelInstance.initalizeContentTemplate ===false){
-                    this.initilize(popupPanelInstance,popupOptions);
+                    this.initialize(popupPanelInstance,popupOptions);
                     popupPanelInstance.open();
-                    clearInterval(interval);
+                    clearInterval(internal);
                 }else{
-                    clearInterval(interval);
+                    clearInterval(internal);
                 }
 
 
@@ -105,7 +106,7 @@ export class PopupService extends BaseService{
             let count:number = this.openedPanelCount;
             let offsetX:number = count*15;
             let offsetY:number = (count*15)+55;
-            let offset:number = `-${offsetX} ${offsetY}`;
+            let offset:string = `-${offsetX} ${offsetY}`;
             popupPanelInstance.position = {my:'top',at:'top',of:window,offset:offset};
         }
 
@@ -149,8 +150,8 @@ export class PopupService extends BaseService{
             popupPanelInstance.elementAttr = options.ElementAttr;
         }
 
-        if (options.MgClass != undefined){
-            popupPanelInstance.mgClass = options.MgClass;
+        if (options.NgClass != undefined){
+            popupPanelInstance.ngClass = options.NgClass;
         }
     }
 
@@ -192,7 +193,7 @@ export class PopupService extends BaseService{
     openGlobalPopupWithComponent<T extends BaseComponent>(componentRef:ComponentRef<T>,options?: Partial<IPopupOptions>): PopupRef<T>{
         let componentHierarchyService : ComponentHierarchyService = this.Injector.get<ComponentHierarchyService>(ComponentHierarchyService);
         let rootHierarchyInfo: ComponentHierarchyInfo = componentHierarchyService.RootComponentHierarchyInfo;
-        return this.openPopupWithComponent<T>(componentRef,rootHierarchyInfo.ComponentInstance?.viewContainerRef,options);
+        return this.openPopupWithComponent<T>(componentRef,rootHierarchyInfo.ComponentInstance.viewContainerRef,options);
 
     }
 
@@ -205,10 +206,10 @@ export class PopupService extends BaseService{
 
         let componentInstance: T = componentRef.instance;
 
-        let popupRef: PopupRef<T> = new  PopupRef<T>(this); 
+        let popupRef: PopupRef<T> = new  PopupRef<T>(this);
         popupRef.panelComponentID = popupPanelInstance.componentID;
         popupRef.containerDivID = popupPanelInstance.containerDivID;
-        popupRef.componentInstance = popupPanelInstance.componentInstance;
+        popupRef.componentInstance = componentInstance;
 
         componentInstance.useRoute = false;
         componentInstance.panelInstanceRef = popupRef;
@@ -219,13 +220,13 @@ export class PopupService extends BaseService{
 
     }
 
-    openGlobalPopupWithComponentType<T extends BaseComponent>(componentType:Type<T>,options?:Partial<IPopupOptions>,afterCreaterComponentAction?:yasarrrrrr){
+    openGlobalPopupWithComponentType<T extends BaseComponent>(componentType:Type<T>,options?:Partial<IPopupOptions>,afterCreaterComponentAction?:(componentIntance:T)=>void){
         let componentHierarchyService : ComponentHierarchyService = this.Injector.get<ComponentHierarchyService>(ComponentHierarchyService);
-        let rootHierarchyInfo: ComponentHierarchyInfo = componentHierarchyService.RootComponentHierarchyInfo; 
-        return this.openPopupWithComponentType<T>(componentType,rootHierarchyInfo.ComponentInstance?.viewContainerRef,options,afterCreaterComponentAction);
+        let rootHierarchyInfo: ComponentHierarchyInfo = componentHierarchyService.RootComponentHierarchyInfo;
+        return this.openPopupWithComponentType<T>(componentType,rootHierarchyInfo.ComponentInstance.viewContainerRef,options,afterCreaterComponentAction);
     }
 
-    openPopupWithComponentType<T extends BaseComponent>(componentType:Type<T>,viewContainerRef: ViewContainerRef, options?:Partial<IPopupOptions>,afterCreaterComponentAction?:yasarrrrrr){
+    openPopupWithComponentType<T extends BaseComponent>(componentType:Type<T>,viewContainerRef: ViewContainerRef, options?:Partial<IPopupOptions>,afterCreaterComponentAction?:(componentIntance:T)=>void):PopupRef<T>{
 
         let popupPanelRef:PopupPanelRef = this.createPopupPanel(viewContainerRef,PanelViewType.Component, componentType.name);
         let popupPanelInstance : PopupPanelComponent = popupPanelRef.panelComponentRef.instance;
@@ -253,16 +254,16 @@ export class PopupService extends BaseService{
 
     openPopupInRouter<T extends PageComponent>(hiearachyInfo: ComponentHierarchyInfo,options?:Partial<IPopupOptions>):PopupRef<T>{
 
-        let parentPopupPanelRef:PopupPanelRef = this.findByOwnerComponent(hiearachyInfo.ParentRouteComponentName  yasarrrrr);  271.satır
+        let parentPopupPanelRef:PopupPanelRef = this.findByOwnerComponent(hiearachyInfo.ParentRouteComponentName).find(value=>value.panelViewType=PanelViewType.Router);
         let popupPanelInstance : PopupPanelComponent = parentPopupPanelRef.panelComponentRef.instance;
 
-        let componentHierarchyService:ComponentHierarchyService = parentPopupPanelRef.viewContainerRef.     274.satır
+        let componentHierarchyService:ComponentHierarchyService = parentPopupPanelRef.viewContainerRef.injector.get<ComponentHierarchyService>(ComponentHierarchyService);
 
         let activatedRoute: ActivatedRoute = parentPopupPanelRef.getActivatedRoute();
         let currentUrl:string = componentHierarchyService.calculateUrl(activatedRoute);
         parentPopupPanelRef.currentUrl = currentUrl;
 
-        let ownedPopupPanelRef:PopupPanelRef= this.findByOwnerAndParentComponent(hiearachyInfo  yasarrrrr);  280.satır
+        let ownedPopupPanelRef:PopupPanelRef= this.findByOwnerAndParentComponent(hiearachyInfo.RouteComponentName,hiearachyInfo.ParentRouteComponentName).find(value=>value.panelViewType=PanelViewType.Router);
         let componentInstance : T = ownedPopupPanelRef.getComponent<T>();
         let componentName = componentInstance.Instance.getClassName();
 
@@ -282,8 +283,10 @@ export class PopupService extends BaseService{
         popupRef.alwaysReturn = true;
         popupRef.afterClosed().subscribe(
             ()=> {
-                let parentComponentInstance:IListComponent = parentPopupPanelRef.getComponent    
-                301.satır to 304
+                let parentComponentInstance:IListComponent = parentPopupPanelRef.getComponent<IListComponent>();
+                if( parentComponentInstance && parentComponentInstance.dataBind && parentComponentInstance.autoRefresh===true){
+                  parentComponentInstance.dataBind();
+                }
             });
 
         return popupRef;
@@ -292,17 +295,17 @@ export class PopupService extends BaseService{
     createPopupPanel(viewContainerRef: ViewContainerRef,panelViewType : PanelViewType = PanelViewType.Component,componentName?:string):PopupPanelRef{
 
         let injector:Injector = viewContainerRef.injector;
-        let activatedRoute : Router = injector.get<ActivatedRoute>(ActivatedRoute);
+        let activatedRoute : ActivatedRoute = injector.get<ActivatedRoute>(ActivatedRoute);
         let componentHierarchyService : ComponentHierarchyService = this.Injector.get<ComponentHierarchyService>(ComponentHierarchyService);
-        
+
         let ownerComponentName:string;
         let parentComponentName:string;
 
         if (panelViewType === PanelViewType.Router){
-            let rootHierarchyInfo: ComponentHierarchyInfo = componentHierarchyService.getRouteInfoByActivatedRoute(activatedRoute); 
+            let rootHierarchyInfo: ComponentHierarchyInfo = componentHierarchyService.getRouteInfoByActivatedRoute(activatedRoute);
              ownerComponentName= rootHierarchyInfo.RouteComponentName;
              parentComponentName= rootHierarchyInfo.ParentRouteComponentName;
-        
+
             let existingPopupPanelRef:PopupPanelRef = this.findByOwnerComponent(ownerComponentName).find(value => value.panelViewType === panelViewType);
             if (existingPopupPanelRef){
                 return existingPopupPanelRef;
@@ -312,7 +315,7 @@ export class PopupService extends BaseService{
             parentComponentName= componentHierarchyService.getRouteComponentName(activatedRoute);
         }
 
-        let componentFactoryResolver:ComponentFactoryResolver = injector.get<ComponentFactoryResolver>(ComponentFactoryResolver);
+        let componentFactoryResolver:ComponentFactoryResolver = injector.get(ComponentFactoryResolver);
         let componentFactory:ComponentFactory<PopupPanelComponent> = componentFactoryResolver.resolveComponentFactory(PopupPanelComponent);
         let componentRef: ComponentRef<PopupPanelComponent> = viewContainerRef.createComponent(componentFactory);
         let componentInstance :PopupPanelComponent= componentRef.instance;
@@ -327,11 +330,11 @@ export class PopupService extends BaseService{
         let popupPanelRef: PopupPanelRef = new PopupPanelRef();
 
         popupPanelRef.Id = componentInstance.componentID;
-        popupPanelRef.panelViewType = componentInstance.panelViewType;
-        popupPanelRef.viewContainerRef = componentInstance.viewContainerRef;
-        popupPanelRef.panelComponentRef = componentInstance.panelComponentRef;
-        popupPanelRef.ownerComponentName = componentInstance.ownerComponentName;
-        popupPanelRef.parentComponentName = componentInstance.parentComponentName;
+        popupPanelRef.panelViewType = panelViewType;
+        popupPanelRef.viewContainerRef = viewContainerRef;
+        popupPanelRef.panelComponentRef = componentRef;
+        popupPanelRef.ownerComponentName = ownerComponentName;
+        popupPanelRef.parentComponentName = parentComponentName;
 
         this._map.set(popupPanelRef.Id,popupPanelRef);
         return popupPanelRef;
@@ -342,15 +345,15 @@ export class PopupService extends BaseService{
             let popupPanelRef:PopupPanelRef = this._map.get(popupPanelID);
 
             if(popupPanelRef.panelViewType === PanelViewType.Router){
-                let parentpopupPanelRef: PopupPanelRef = this.findByOwnerComponent(popupPanelRef.parentComponentName).find(value=>value.parentViewType ===PanelViewType.Router );
-                if(parentpopupPanelRef && parentpopupPanelRef.panelComponentRef.Instance.isOpened === true){
-                    parentpopupPanelRef.panelComponentRef.Instance.close();
+                let parentpopupPanelRef: PopupPanelRef = this.findByOwnerComponent(popupPanelRef.parentComponentName).find(value=>value.panelViewType ===PanelViewType.Router );
+                if(parentpopupPanelRef && parentpopupPanelRef.panelComponentRef.instance.isOpened === true){
+                    parentpopupPanelRef.panelComponentRef.instance.close();
                 }
             }
 
             let ownedPopupPanelRefList: PopupPanelRef[] = this.findByParentComponent(popupPanelRef.ownerComponentName).filter(value=>value.panelViewType ===PanelViewType.Component);
             ownedPopupPanelRefList.forEach(ownedPopupPanelRef => {
-                ownedPopupPanelRef.panelComponentRef.Instance.cpmponentContainer.clear();
+                ownedPopupPanelRef.panelComponentRef.instance.componentContainer.clear();
                 this.destroyPopupPanel(ownedPopupPanelRef.Id);
                 this._map.delete(ownedPopupPanelRef.Id);
             });
@@ -361,7 +364,7 @@ export class PopupService extends BaseService{
         }
     }
     private destroyPopupPanel(popupPanelID: string):void {
-        if(this._map.has(popupPanelID)){     
+        if(this._map.has(popupPanelID)){
             let popupPanelRef:PopupPanelRef = this._map.get(popupPanelID);
             popupPanelRef.panelComponentRef.destroy();
         }
@@ -382,7 +385,7 @@ export class PopupService extends BaseService{
         let popupPanelInstanceRef : IPanelInstanceRef = popupPanelRef.currentPanelInstanceRef;
 
         if (popupPanelInstanceRef && popupPanelInstanceRef.beforeOpenedSubscriber){
-            let returnValue :any = this.getReturnValue(popupPanelInstanceRef); 
+            let returnValue :any = this.getReturnValue(popupPanelInstanceRef);
             if (returnValue){
                 popupPanelInstanceRef.beforeOpenedSubscriber.next(returnValue);
             }else if (popupPanelInstanceRef.alwaysReturn){
@@ -396,7 +399,7 @@ export class PopupService extends BaseService{
         let popupPanelInstanceRef : IPanelInstanceRef = popupPanelRef.currentPanelInstanceRef;
 
         if (popupPanelInstanceRef && popupPanelInstanceRef.afterOpenedSubscriber){
-            let returnValue :any = this.getReturnValue(popupPanelInstanceRef); 
+            let returnValue :any = this.getReturnValue(popupPanelInstanceRef);
             if (returnValue){
                 popupPanelInstanceRef.afterOpenedSubscriber.next(returnValue);
             }else if (popupPanelInstanceRef.alwaysReturn){
@@ -410,7 +413,7 @@ export class PopupService extends BaseService{
         let popupPanelInstanceRef : IPanelInstanceRef = popupPanelRef.currentPanelInstanceRef;
 
         if (popupPanelInstanceRef && popupPanelInstanceRef.beforeClosedSubscriber){
-            let returnValue :any = this.getReturnValue(popupPanelInstanceRef); 
+            let returnValue :any = this.getReturnValue(popupPanelInstanceRef);
             if (returnValue){
                 popupPanelInstanceRef.beforeClosedSubscriber.next(returnValue);
             }else if (popupPanelInstanceRef.alwaysReturn){
@@ -421,11 +424,11 @@ export class PopupService extends BaseService{
 
     private afterClosed = (popupPanelId:string ,args:any)=> {
         let popupPanelRef : PopupPanelRef = this.getByPopupPanelID(popupPanelId);
-        let popupPanel:PopupPanelComponent = popupPanelRef.panelComponentRef.Instance;
+        let popupPanel:PopupPanelComponent = popupPanelRef.panelComponentRef.instance;
         let popupPanelInstanceRef : IPanelInstanceRef = popupPanelRef.currentPanelInstanceRef;
 
         if (popupPanelInstanceRef && popupPanelInstanceRef.afterClosedSubscriber){
-            let returnValue :any = this.getReturnValue(popupPanelInstanceRef); 
+            let returnValue :any = this.getReturnValue(popupPanelInstanceRef);
             if (returnValue){
                 popupPanelInstanceRef.afterClosedSubscriber.next(returnValue);
             }else if (popupPanelInstanceRef.alwaysReturn){
@@ -436,12 +439,12 @@ export class PopupService extends BaseService{
         if(popupPanelRef.panelViewType === PanelViewType.Router){
             if (this._isInNavigation===false){
                 let router:Router = popupPanel.Injector.get<Router>(Router);
-                router.navigate(popupPanelRef.currentUrl);
+                router.navigate([popupPanelRef.currentUrl]);
             } else {
                 popupPanel.componentContainer.clear();
-                this.removePopupPanel(popupPanelID);
+                this.removePopupPanel(popupPanelId);
             }
-        }       
+        }
     }
 
     public close(popupPanelId:string ):void {
@@ -489,5 +492,5 @@ export class PopupService extends BaseService{
             console.log(value.Id,value.ownerComponentName,value.parentComponentName,value.panelViewType);
             console.log('-------------------');
         });
-    }    
+    }
 }

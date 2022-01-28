@@ -3,8 +3,8 @@ import { BaseComponent } from "../components/base-component";
 
 export interface IPanelInstanceRef{
 
-    panelComponentId:string;
-    containerDivId:string;
+    panelComponentID:string;
+    containerDivID:string;
     alwaysReturn:boolean;
 
     beforeOpenedSubscriber:Subscriber<any>;
@@ -16,11 +16,11 @@ export interface IPanelInstanceRef{
     afterOpened():Observable<any>;
     beforeClosed():Observable<any>;
     afterClosed():Observable<any>;
-    close():Observable<any>;
+    close():void;
 
     updateTitle(title:string):void;
     updateSize(size :{ width?:number | string | Function, height?:number | string | Function, }):void;
-    
+
     getComponentInstance():BaseComponent;
 
 }

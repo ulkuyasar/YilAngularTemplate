@@ -1,10 +1,8 @@
-import DevExpress from "devextreme";
-import { StringChain } from "lodash";
-import { ICellElement } from "./icell-element";
-import { IRowInfo } from "./irow-info";
+
+import DevExpress from "devextreme/bundles/dx.all";
 
     export interface IColumnOptions{
-        aligment?:string;
+        alignment?:string;
         allowEditing?:boolean;
         allowExporting?:boolean;
         allowFiltering?:boolean;
@@ -13,17 +11,17 @@ import { IRowInfo } from "./irow-info";
         allowHeaderFiltering?:boolean;
         allowHiding?:boolean;
         allowReordering?:boolean;
-
         allowResizing?:boolean;
         allowSearch?:boolean;
         allowSorting?:boolean;
         allowExpandGroup?:boolean;
+        autoExpandGroup?:boolean;
         caption?:string;
-        cellTemplate?:DevExpress.ui.Template;
+        cellTemplate?:DevExpress.ui.template;
         columns?:IColumnOptions[];
         cssClass?:string;
         dataField?:string;
-        dataType?:string;  // string  number date boolean pbject  datetime 
+        dataType?:string;  // string  number date boolean pbject  datetime
         falseText?:string;
         filterOperations?:string[];  // =  <> <  > <=  >= notcontains
         fitterType?:string;
@@ -31,10 +29,10 @@ import { IRowInfo } from "./irow-info";
         fitterValues?:any[];
         fixed?:boolean;
         fixedPosition?:string;  //left right
-        format?:DevExpress.ui.Format;
+        format?:DevExpress.ui.format;
         groupIndex?:number;
         minWidth?:number;
-        name?:StringChain;
+        name?:string;
         showInColumnChooser?:boolean;
         showWhenGrouped?:boolean;
         sortIndex?:number;

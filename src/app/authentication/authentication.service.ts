@@ -17,7 +17,7 @@ import { StorageService } from "../storage/storage-service";
 
 @Injectable({providedIn:'root'})
 export class AuthenticationService extends ApiService{
-    
+
     private _currentUser?:User;
     currentUserChangedEvent:EventEmitter<User>;
     private _currentAuthenticationContextType: AuthenticationContextType = AuthenticationContextType.Default;
@@ -43,7 +43,7 @@ export class AuthenticationService extends ApiService{
     }
 
 
-    login(userName: string,password:string,capthaKey?:string,encriptionKey?:string)
+    public login(userName: string,password:string,capthaKey?:string,encriptionKey?:string)
     :Observable<AuthenticationResponce>{
         let authenticationRequest : AuthenticationRequest = new AuthenticationRequest(this._clientId as string);
         authenticationRequest.UserName = userName;
@@ -58,19 +58,19 @@ export class AuthenticationService extends ApiService{
         let authenticationRequest : AuthenticationRequest = new AuthenticationRequest(this._clientId as string);
         authenticationRequest.RefreshToken = refreshToken;
         return this._login(authenticationRequest.generateBodyForRefreshToken());
-         
+
     }
 
     private _login(tokenBody:string):Observable<AuthenticationResponce>{
         let $token : Observable<AuthenticationResponce> = this.postRequest<AuthenticationResponce>(this.baseUrl+'/token',tokenBody);
-        
+
         //Beceremedin. Burayı kesın  acmalisin
         //25.12 fotoları
         // return $token.pipe(
-        //     map(responce=>{          
+        //     map(responce=>{
         //         this._processLogInResponce(responce );
         //         return responce ;
-               
+
         //     })
         // ) ;
         return $token;
@@ -152,8 +152,8 @@ export class AuthenticationService extends ApiService{
     get isAuthenticated():boolean{
         return this._storageService.getItem(AuthenticationConstants.ACCESSTOKEN) != null;
     }
-    
-    
+
+
     public hasRole(roleName:string):boolean{
         let user = this._currentUser;
         return user!=undefined && user.roles && (user.roles.indexOf(roleName)>-1);

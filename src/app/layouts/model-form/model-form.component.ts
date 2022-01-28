@@ -1,12 +1,11 @@
-import { typeWithParameters } from "@angular/compiler/src/render3/util";
 import { AfterContentInit, AfterViewInit, Component, ContentChildren, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewContainerRef, ViewEncapsulation } from "@angular/core";
-import DevExpress from "devextreme";
 import { DxTemplateDirective, DxTemplateHost, IDxTemplateHost, INestedOptionContainer, NestedOptionHost } from "devextreme-angular";
-import { DxiItemComponent, DxiValidationRuleComponent } from "devextreme-angular/ui/nested";
+import { DxiItemComponent } from "devextreme-angular/ui/nested/item-dxi";
+import { DxiValidationRuleComponent } from "devextreme-angular/ui/nested/validation-rule-dxi";
+import DevExpress from "devextreme/bundles/dx.all";
 import { FormComponent } from "src/app/core/components/form-component";
 import { IModelComponent } from "src/app/core/components/imodel-component";
 import { ErrorMessage } from "src/app/core/data/error-message";
-import { ErrorSource } from "src/app/core/data/error-source.enum";
 import { ComponentName } from "src/app/core/decorators/component-name";
 import { Override } from "src/app/core/decorators/override";
 import { Model } from "src/app/core/models/model";
@@ -16,6 +15,7 @@ import { ModelAfterActionType } from "src/app/core/models/model-after-action-typ
 import { ModelBeforeActionEventArgs } from "src/app/core/models/model-before-action-event-args";
 import { ModelOperation } from "src/app/core/models/model-operation.enum";
 import { ModelValidationStatus } from "src/app/core/models/model-validation-status.enum";
+import { ErrorService } from "src/app/core/services/error-service";
 import { DeleteConfirmComponent } from "../delete-confirm/delete-confirm.component";
 import { PopupOptions } from "../popup/popup-options";
 import { PopupRef } from "../popup/popup-ref";
@@ -28,11 +28,11 @@ import { PopupService } from "../popup/popup-service";
   styleUrls: ['./model-form.component.css'],
   providers:[NestedOptionHost,DxTemplateHost],
   encapsulation:ViewEncapsulation.None
-  
+
 })
 @ComponentName(ModelFormComponent,"ModelFormComponent")
 export class ModelFormComponent extends FormComponent implements OnInit,OnDestroy,AfterViewInit,AfterContentInit,INestedOptionContainer,IDxTemplateHost{
-    
+
    getSizeQualifier(width:number){
       if(width<960) return "xs";
       if(width<1366) return "sm";
@@ -117,7 +117,7 @@ export class ModelFormComponent extends FormComponent implements OnInit,OnDestro
     }
 
     get isLinked():boolean{
-      return this.form.isLinked; 
+      return this.form.isLinked;
     }
 
     get optionChangedHandlers():EventEmitter<any>{
@@ -207,11 +207,11 @@ export class ModelFormComponent extends FormComponent implements OnInit,OnDestro
       }else{
         this.form.items = this.items;
       }
-      Object.defineProperties(this.form,"itemsChildren", { writable : true });
+      Object.defineProperty(this.form,"itemsChildren", { writable : true });
     }
 
     private configureTemplates():void{
-      
+
        if (this._templates){
          this._templates.forEach(template=>{
             this.form.templates.push(template);
@@ -220,8 +220,10 @@ export class ModelFormComponent extends FormComponent implements OnInit,OnDestro
     }
 
     private configureValidations():void{
-      let validatedDataFieldItems : DxiItemComponent[] = this.allNestedItems.filter(item => item.dataField!=null && (item.validationRules && item.validationRules.length>0) || )
-    
+      let validatedDataFieldItems : DxiItemComponent[] = this.allNestedItems.filter(item => item.dataField!=null &&
+                                                                                           (item.validationRules && item.validationRules.length>0) ||
+                                                                                           (item.validationRulesChildren && item.validationRulesChildren.length>0));
+
       validatedDataFieldItems.forEach(item =>{
         if (item.dataField){
           item.validationRulesChildren.forEach(rule=>{
@@ -355,7 +357,7 @@ public okModel():void{
   }
 
   private validateModel():ModelValidationStatus{
-    if (this.form.validationGroup{
+    if (this.form.validationGroup){
       let validationResult : DevExpress.ui.dxValidationGroupResult = this.form.instance.validate();
       if(!validationResult){
         return ModelValidationStatus.Valid;
@@ -387,7 +389,7 @@ public okModel():void{
               this.event.toastError(error);
             }
           );
-        } 
+        }
         else{
           if (beforeActionEventArgs.cancel===false){
             action(this);
@@ -399,7 +401,7 @@ public okModel():void{
             actionWhenInvalid(this);
           }
           break;
-        default;
+        default:
           break;
     }
   }
@@ -424,7 +426,7 @@ public okModel():void{
         }else{
           that.event.toastError(that.localization.getMessage('model.created.error'));
         }
-      }     
+      }
       );
    }
 
@@ -439,7 +441,7 @@ public okModel():void{
          that.onAfterAction(afterActionEventArrgs);
          that.event.toastSuccess(that.localization.getMessage('model.copied'));
          that.afterCreate();
- 
+
        },
        (error) =>{
          that.loadingPanel.stop();
@@ -450,7 +452,7 @@ public okModel():void{
          }else{
            that.event.toastError(that.localization.getMessage('model.copied.error'));
          }
-       }     
+       }
        );
    }
 
@@ -476,7 +478,7 @@ public okModel():void{
         }else{
           that.event.toastError(that.localization.getMessage('model.copied.error'));
         }
-      }     
+      }
       );
   }
 
@@ -502,7 +504,7 @@ public okModel():void{
         }else{
           that.event.toastError(that.localization.getMessage('model.copied.error'));
         }
-       }     
+       }
       );
   }
 
@@ -542,7 +544,7 @@ public okModel():void{
         }else{
           that.event.toastError(errorMessage);
         }
-      }     
+      }
       );
   }
 

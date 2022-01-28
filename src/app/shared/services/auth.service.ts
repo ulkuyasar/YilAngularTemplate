@@ -133,7 +133,7 @@ export class AuthGuardService implements CanActivate {
       'reset-password',
       'create-account',
       'change-password/:recoveryCode'
-    ].includes(route.routeConfig?.path || defaultPath);
+    ].includes(route.routeConfig.path || defaultPath);
 
     if (isLoggedIn && isAuthForm) {
       this.authService.lastAuthenticatedPath = defaultPath;
@@ -146,7 +146,7 @@ export class AuthGuardService implements CanActivate {
     }
 
     if (isLoggedIn) {
-      this.authService.lastAuthenticatedPath = route.routeConfig?.path || defaultPath;
+      this.authService.lastAuthenticatedPath = route.routeConfig.path || defaultPath;
     }
 
     return isLoggedIn || isAuthForm;
