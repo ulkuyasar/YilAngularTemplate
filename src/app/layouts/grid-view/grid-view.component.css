@@ -8,7 +8,7 @@ app-grid-view{
 
 .grid-view-body{
     width:100%;
-    user-select:none;
+    /* user-select:none; */
     background: #fff;
     border-radius: 5px;
     box-shadow: var(--box-shadow);

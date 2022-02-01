@@ -1,5 +1,5 @@
 import { Input, OnDestroy, OnInit, SimpleChanges, ViewContainerRef } from "@angular/core";
-import { DxiItemComponent } from "devextreme-angular/ui/nested";
+import { DxiItemComponent } from "devextreme-angular/ui/nested/item-dxi";
 import { isString } from "lodash";
 import { ICalendarEditorOptions } from "src/app/devextreme/interfaces/calendar/ibutton-options";
 import { IDateBoxComponent } from "src/app/devextreme/interfaces/date-box/idate-box-component";
@@ -13,7 +13,7 @@ import { InputBasedFieldDirective } from "./input-based-field-directive";
 
 
 export abstract class DateBoxFieldDirective extends InputBasedFieldDirective<Date> implements OnInit,OnDestroy{
-    
+
     @Input('displayFormat')
     @Notify()
     public displayFormat:format;
@@ -71,7 +71,7 @@ export abstract class DateBoxFieldDirective extends InputBasedFieldDirective<Dat
 
     constructor(hostItem: DxiItemComponent, viewContaiberRef: ViewContainerRef){
         super(hostItem,viewContaiberRef);
-        Object.defineProperties(hostItem,"type",{ writable:true });
+        Object.defineProperty(hostItem,"type",{ writable:true });
     }
 
     public get editorOptions():IDateBoxEditorOptions{
@@ -120,8 +120,8 @@ export abstract class DateBoxFieldDirective extends InputBasedFieldDirective<Dat
         this._editorInstance=args.component;
         this.configureDataType(this.editorInstance);
     }
-    
-   
+
+
     @Override()
     protected valueChanged(args:IDateBoxValueChangedArgs):void{
         super.valueChanged(args);
@@ -181,7 +181,7 @@ export abstract class DateBoxFieldDirective extends InputBasedFieldDirective<Dat
             instance.option("value",value);
         }
     }
-    
+
     ngOnInit(): void {
         super.ngOnInit();
     }

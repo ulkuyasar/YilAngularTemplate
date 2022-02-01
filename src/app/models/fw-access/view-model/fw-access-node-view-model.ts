@@ -1,6 +1,6 @@
 import { Model } from "src/app/core/models/model";
 
-export class FWAccessModelViewModel extends Model{
+export class FWAccessNodeViewModel extends Model{
     Name?:string;
     DeviceType?:number;
     BrandType?:number;

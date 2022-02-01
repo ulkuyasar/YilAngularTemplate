@@ -5,7 +5,7 @@ import { Data } from "@angular/router";
 import { AuthenticationService } from "src/app/authentication/authentication.service";
 import { LoginService } from "src/app/login/login.service";
 import { ErrorService } from "src/app/core/services/error-service";
-import { AuthenticationContextType } from "src/app/authentication/authentication-context-type";
+import { AuthenticationContextType } from "src/app/authentication/authentication-context-type.enum";
 
 @Component({
   selector: 'app-root',

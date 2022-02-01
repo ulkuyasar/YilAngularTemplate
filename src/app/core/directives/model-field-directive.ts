@@ -1,5 +1,4 @@
 import {  OnDestroy, OnInit, ViewContainerRef } from "@angular/core";
-import { DxiItemComponent } from "devextreme-angular/ui/nested";
 
 import { Model } from "../models/model";
 import { DataSourceOptions } from "../data/data-source-options";
@@ -7,8 +6,9 @@ import { Override } from "../decorators/override";
 import { ViewModel } from "../models/view-model";
 import { IModelService } from "../services/imodel-service";
 import { SelectBoxFieldDirective } from "./select-box-field-directive";
+import { DxiItemComponent } from "devextreme-angular/ui/nested/item-dxi";
 
-export abstract class ModelFieldDirective<T extends Model , TV extends ViewModel<T>, TKey = number> 
+export abstract class ModelFieldDirective<T extends Model , TV extends ViewModel<T>, TKey = number>
                 extends SelectBoxFieldDirective<TV,TKey> implements OnInit,OnDestroy {
 
     private _modelService:IModelService<T,TKey>;
@@ -16,7 +16,7 @@ export abstract class ModelFieldDirective<T extends Model , TV extends ViewModel
         super(hostItem,viewContaiberRef);
         this._modelService = modelService;
     }
-   
+
     @Override()
     protected setInitialValues():void{
        super.setInitialValues();
@@ -57,15 +57,15 @@ export abstract class ModelFieldDirective<T extends Model , TV extends ViewModel
                    this.setValue(currentValue);
                }
            }
-           this.onDataLoaded();         
+           this.onDataLoaded();
        }
     }
 
     @Override()
-    protected isLoadOnInitEnabled():boolean{  
+    protected isLoadOnInitEnabled():boolean{
         return this.hasParentField === false;
     }
-   
+
 
     ngOnInit(): void {
         super.ngOnInit();
@@ -75,6 +75,6 @@ export abstract class ModelFieldDirective<T extends Model , TV extends ViewModel
        super.ngOnDestroy();
     }
 
-    
-    
+
+
 }

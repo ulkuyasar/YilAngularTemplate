@@ -1,0 +1,81 @@
+<div class="grid-tree bg-transparent border-0">
+  <div class="grid-tree-header">
+    <div>
+
+        <ng-content select ="app-grid-toolbar"></ng-content>
+        <ng-container #toolbarContainer></ng-container>
+
+    </div>
+  </div>
+
+<div class="grid-tree-body">
+
+    <dx-tree-list
+      [id]="'dx-grid-tree'+Id"
+      class="data-grid fade-in"
+      [parentIdExpr]="parentExpr"
+      [dataSource]="dataContext.dataSource"
+      [dataStructure]="dataStructure"
+      [rootValue]="rootValue"
+      [autoExpandAll]="autoExpandAll"
+      [(selectedRowKeys)]="selectedRowKeys"
+      [disabled]="disabled"
+      [cacheEnabled]="cacheEnabled"
+      [highlightChanges]="highlightChanges"
+      [hoverStateEnabled]="hoverStateEnabled"
+      [activeStateEnabled]="activeStateEnabled"
+      [rowAlternationEnabled]="rowAlternationEnabled"
+      [allowColumnReordering]="allowColumnReordering"
+      [alowColumnResing]="alowColumnResing"
+      [columnResingMode]="columnResingMode"
+      [columnHidingEnabled]="columnHidingEnabled"
+      [columnAutoWidth]="columnAutoWidth"
+      [wordWrapEnabled]="wordWrapEnabled"
+      [cellHintEnabled]="cellHintEnabled"
+      [showBorders]="showBorders"
+      [showColumnHeaders]="showColumnHeaders"
+      [showColumnLines]="showColumnLines"
+      [showRowLines]="showRowLines"
+      [focusedColumnIndex]="focusedColumnIndex"
+      [focusedRowEnabled]="focusedRowEnabled"
+      [focusedRowIndex]="focusedRowIndex"
+      [focusedRowKey]="focusedRowKey"
+      [focusStateEnabled]="focusStateEnabled"
+      [renderAsync]="renderAsync"
+      [repaintChangesOnly]="repaintChangesOnly"
+      (onSelectionChanged)="selectionChanged($event)"
+      (onContentReady)="contentReady($event)"
+      (onExporting)="exporting($event)"
+      (onCellPrepared)="cellPrepared($event)"
+      (onRowClick)="rowClick($event)"
+      (onRowCollepsed)="rowCollepsed($event)"
+      (onRowCollopsing)="rowCollopsing($event)"
+      (onRowExpanded)="rowExpanded($event)"
+      (onRowExpanding)="rowExpanding($event)"
+      (onRowInserted)="rowInserted($event)"
+      (onRowInserting)="rowInserting($event)"
+      (onRowPrepared)="rowPrepared($event)"
+      (onRowRemoved)="rowRemoved($event)"
+      (onRowRemoving)="rowRemoving($event)"
+      (onRowUpdated)="rowUpdated($event)"
+      (onRowUpdating)="rowUpdating($event)"
+      (onEditingStart)="editingStart($event)"
+
+      (onToolbarPreparing)="toolbarPreparing($event)">
+      <ng-content select="dxi-column"></ng-content>
+
+      <dxo-export [enabled]="false"></dxo-export>
+
+    </dx-tree-list>
+  </div>
+
+  <div class="grid-tree-footer" *ngif="showFooter === true && footerCpmponent">
+    <ng-content select="app-grid-footer"></ng-content>
+  </div>
+</div>
+
+<div [attr.id]="cellButtonsContainerDivID" style="display: none">
+  <ng-container #cellButtonsContainer></ng-container>
+</div>
+
+

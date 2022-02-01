@@ -1,5 +1,5 @@
 import { EventEmitter, Input, OnDestroy, OnInit, SimpleChange, SimpleChanges, ViewContainerRef } from "@angular/core";
-import { DxiItemComponent } from "devextreme-angular/ui/nested";
+import { DxiItemComponent } from "devextreme-angular/ui/nested/item-dxi";
 import { IButtonClickEventArgs } from "src/app/devextreme/interfaces/button/ibutton-click-event-args";
 import { IButtonComponent } from "src/app/devextreme/interfaces/button/ibutton-component";
 import { IButtonInitilizedArgs } from "src/app/devextreme/interfaces/button/ibutton-initialized-args";
@@ -10,19 +10,19 @@ import { Virtual } from "../decorators/virtual";
 import { FormItemDirective } from "./form-Item.directive";
 
 export abstract class ButtonDirective extends FormItemDirective implements OnInit,OnDestroy{
-    
+
     @Input('buttonCssClass')
     @Notify()
     public buttonCssClass:string;
-    
+
     @Input('buttonText')
     @Notify()
     public buttonText:string;
-    
+
     @Input('buttonHint')
     @Notify()
     public buttonHint:string;
-    
+
     @Input('buttonIcon')
     @Notify()
     public buttonIcon:string;

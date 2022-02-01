@@ -17,40 +17,40 @@ import { MenuItem } from "../menu/menu-item";
 })
 @ComponentName(GridToolbarComponent,"GridToolbarComponent")
 export class GridToolbarComponent extends BaseComponent implements OnInit,OnDestroy {
-   
+
    @Input()
    allowAdd:boolean=true;
 
    @Input()
    addButtonText:string="grid.toolbar.addbutton.text";
-   
+
    @Input()
    addButtonIcon:string="icon icon-plus icon-20px";
-   
+
    @Input()
    allowEdit:boolean=true;
 
    @Input()
    editButtonText:string="grid.toolbar.editbutton.text";
-   
+
    @Input()
    editButtonIcon:string="icon icon-pencil icon-20px";
-   
+
    @Input()
    allowDelete:boolean=true;
 
    @Input()
    deleteButtonText:string="grid.toolbar.deletebutton.text";
-   
+
    @Input()
    deleteButtonIcon:string="icon icon-close icon-20px";
-   
+
    @Input()
    enableRefresh:boolean=false;
 
    @Input()
    refreshButtonText:string="grid.toolbar.refreshbutton.text";
-   
+
    @Input()
    refreshButtonIcon:string="icon icon-sync icon-16px";
 
@@ -59,7 +59,7 @@ export class GridToolbarComponent extends BaseComponent implements OnInit,OnDest
 
    @Input()
    showColumnChooserButtonText:string="grid.toolbar.columnchooserbutton.text";
-   
+
    @Input()
    ColumnChooserButtonIcon:string="icon icon-filter icon-16px";
 
@@ -71,7 +71,7 @@ export class GridToolbarComponent extends BaseComponent implements OnInit,OnDest
 
    @Input()
    clearSelectionButtonText:string="grid.toolbar.clearSelectionbutton.text";
-   
+
    @Input()
    clearSelectionButtonIcon:string="icon icon-sync icon-20px";
 
@@ -80,7 +80,7 @@ export class GridToolbarComponent extends BaseComponent implements OnInit,OnDest
 
    @Input()
    overrideActionVisibility:boolean=false;
-   
+
     @Output('onAddButtonClick')
     addButtonClickEvent = new EventEmitter<IButtonClickEventArgs>();
 
@@ -99,7 +99,7 @@ export class GridToolbarComponent extends BaseComponent implements OnInit,OnDest
     constructor(viewContainerRef:ViewContainerRef){
       super(viewContainerRef);
       this.exportToExcelMenu = this.createExcelMenu();
-                
+
     }
 
    ngOnInit() {
@@ -148,7 +148,7 @@ export class GridToolbarComponent extends BaseComponent implements OnInit,OnDest
     }
 
     if (this.gridView){
-      if (this.gridView.editMode === GridEditMode.Inline){  
+      if (this.gridView.editMode === GridEditMode.Inline){
           return false;
       }
     }else{
@@ -168,7 +168,7 @@ export class GridToolbarComponent extends BaseComponent implements OnInit,OnDest
     }
 
     if (this.gridView){
-      if (this.gridView.editMode === GridEditMode.Inline){  
+      if (this.gridView.editMode === GridEditMode.Inline){
           return false;
       }
     }else{
@@ -190,7 +190,7 @@ export class GridToolbarComponent extends BaseComponent implements OnInit,OnDest
     if (this.allowEdit === false){
       return true;
     };
-    
+
     if(this.gridView){
       if (this.gridView.editMode === GridEditMode.Custom){
         let currentModel = this.gridView.getCurrentItem();
@@ -208,7 +208,7 @@ export class GridToolbarComponent extends BaseComponent implements OnInit,OnDest
     if (this.allowDelete === false){
       return true;
     };
-    
+
     if(this.gridView){
       if (this.gridView.editMode === GridEditMode.Custom){
         let currentModel = this.gridView.getCurrentItem();
@@ -241,14 +241,14 @@ export class GridToolbarComponent extends BaseComponent implements OnInit,OnDest
     mnExportAll.Code = "mnExportAll";
     mnExportAll.Caption = this.localization.getMessage('grid.toolbar.exportall.text');
     mnExportAll.ParentID = 1;
-    mnExportAll.Action = () => this.exportToExcelMenu();
+    mnExportAll.Action = () => this.exportToExcel();
 
     let mnExportSelected:MenuItem = new MenuItem();
     mnExportSelected.Id = 3;
     mnExportSelected.Code = "mnExportSelected";
     mnExportSelected.Caption = this.localization.getMessage('grid.toolbar.exportselected.text');
     mnExportSelected.ParentID = 1;
-    mnExportSelected.Action = () => this.exportToExcelMenu(true);
+    mnExportSelected.Action = () => this.exportToExcel(true);
 
     mnExportToExcel.items.push(mnExportAll);
     mnExportToExcel.items.push(mnExportSelected);
@@ -301,7 +301,7 @@ export class GridToolbarComponent extends BaseComponent implements OnInit,OnDest
   }
 
   refreshButtonClick(args:IButtonClickEventArgs):void{
-    
+
     if (this.onRefreshButtonClick(args)){
       return;
     }
@@ -309,7 +309,7 @@ export class GridToolbarComponent extends BaseComponent implements OnInit,OnDest
     this.gridView.refreshData();
   }
 
-  clearSelectionButtonClick(args:IButtonClickEventArgs):void{    
+  clearSelectionButtonClick(args:IButtonClickEventArgs):void{
     this.gridView.clearSelection();
   }
 

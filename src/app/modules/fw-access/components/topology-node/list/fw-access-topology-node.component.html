@@ -1,0 +1,28 @@
+
+<app-page-header title="{{'fw.access.topology.node.header.title'|translate}}"
+    imageSource="assets/img/icon/8-bill-50.png">
+</app-page-header>
+
+<app-filter-panel #filterfwaccesstopologynode [filtermodel]="fwAccessTopologyNodeFilterModel" [showfilterbutton]="false">
+  <dxi-item itemtype="group" [colcount]="12">
+    <dxi-item datafield="Name" editortype="dxTextBox" [colspan]="2"
+      [label]="{text:'fw.access.topology.node.filter.name' | translate}">
+    </dxi-item>
+
+    <dxi-item itemtype="button" [buttonoptions]="filterbuttonoptions">
+    </dxi-item>
+  </dxi-item>
+</app-filter-panel>
+
+<app-grid-view id="gridfwaccesstopologynode" #gridfwaccesstopologynode [datacontext]="datacontext">
+  <app-grid-toolbar [allowadd]="true" [allowdelete]="false">
+  </app-grid-toolbar>
+  <dxi-column datafield="Name" caption="{{'fw.access.topology.node.name.caption'|translate}}"></dxi-column>
+  <dxi-column datafield="Model" caption="{{'fw.access.topology.node.model.caption'|translate}}"></dxi-column>
+  <dxi-column datafield="Version" caption="{{'fw.access.topology.node.version.caption'|translate}}"></dxi-column>
+  <dxi-column datafield="Ip" caption="{{'fw.access.topology.node.ip.caption'|translate}}"></dxi-column>
+
+  <app-grid-cell-buttons [allowedit]="true" [allowdelete]="false" [allowadd]="false"></app-grid-cell-buttons>
+
+</app-grid-view>
+

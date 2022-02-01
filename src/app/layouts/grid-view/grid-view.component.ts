@@ -208,7 +208,7 @@ export class GridViewComponent extends BaseComponent implements OnInit,OnDestroy
    focusedStateEnabled:boolean=false;
 
    @Input('renderAsync')
-   renderAsync:boolean=true;
+   renderAsync:boolean=false;
 
    @Input('repaintChangesOnly')
    repaintChangesOnly:boolean=false;

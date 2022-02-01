@@ -2,15 +2,16 @@ import {  AfterContentInit, Component,  EventEmitter,  Input, OnDestroy, OnInit,
 import { ComponentName } from "src/app/core/decorators/component-name";
 import { FormComponent } from "src/app/core/components/form-component";
 import { DxTemplateDirective, DxTemplateHost, DxTextBoxComponent, IDxTemplateHost, INestedOptionContainer, NestedOptionHost } from "devextreme-angular";
-import { DxiItemComponent } from "devextreme-angular/ui/nested";
 import { GridViewComponent } from "../grid-view/grid-view.component";
 import { ListComponent } from "src/app/core/components/list-component";
 import { FilterModel } from "src/app/core/models/filter-model";
-import DevExpress from "devextreme";
 import { Override } from "src/app/core/decorators/override";
 import { QueryStringParam } from "src/app/core/data/query-string-param";
 import { IGridView } from "../igrid-view";
 import { DataSourceOptions } from "src/app/core/data/data-source-options";
+import { DxiItemComponent } from "devextreme-angular/ui/nested/item-dxi";
+import { GridTreeComponent } from "../grid-tree/grid-tree.component";
+import DevExpress from "devextreme/bundles/dx.all";
 
 @Component({
   selector: 'app-filter-panel',
@@ -21,7 +22,7 @@ import { DataSourceOptions } from "src/app/core/data/data-source-options";
 })
 @ComponentName(FilterPanelComponent,"FilterPanelComponent")
 export class FilterPanelComponent extends FormComponent implements OnInit,OnDestroy,AfterContentInit,INestedOptionContainer,IDxTemplateHost{
- 
+
 
    getSizeQualifier(width:number){
       if(width <=767) return "xs";
@@ -32,7 +33,7 @@ export class FilterPanelComponent extends FormComponent implements OnInit,OnDest
 
    @ViewChild('itemHost',{static:false})
    itemHost: DxiItemComponent;
-   
+
    @ViewChild('txtSearchKey',{static:false})
    txtSearchKey: DxTextBoxComponent;
 
@@ -146,7 +147,7 @@ export class FilterPanelComponent extends FormComponent implements OnInit,OnDest
       }else{
          this.form.items = this.items;
       }
-      Object.defineProperties(this.form,"itemsChildren", { writable :true } );
+      Object.defineProperty(this.form,"itemsChildren", { writable :true } );
    }
 
    private configureTemplates(){
@@ -170,12 +171,12 @@ export class FilterPanelComponent extends FormComponent implements OnInit,OnDest
             filterObj.value = this.filterModel[key];
             filterObj.removeQuotes = true;
             filterExpr.push(filterObj);
-         }       
+         }
       }
 
       if(this.grid instanceof Array){
          for (const gridItem of this.grid) {
-           this.dataBind(gridItem,filterExpr);           
+           this.dataBind(gridItem,filterExpr);
          }
       }else{
          this.dataBind(this.grid,filterExpr);

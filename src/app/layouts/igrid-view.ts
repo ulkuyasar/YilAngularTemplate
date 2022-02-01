@@ -1,8 +1,8 @@
-import { DxoEditingComponent } from "devextreme-angular/ui/nested";
+
+import { DxoEditingComponent } from "devextreme-angular/ui/nested/editing";
 import { ListComponent } from "../core/components/list-component";
 import { QueryStringParam } from "../core/data/query-string-param";
 import { GridCellButtonsHostComponent } from "./grid-cell-buttons-host/grid-cell-buttons-host.component";
-import { GridCellButtonsComponent } from "./grid-cell-buttons/grid-cell-buttons.component";
 import { GridEditMode } from "./grid-view/grid-edit-mode.enum";
 
 

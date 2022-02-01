@@ -1,28 +1,29 @@
 import { AfterViewInit, Component, ComponentFactory, ComponentRef, Input, OnDestroy, OnInit, QueryList, ViewChildren, ViewContainerRef } from "@angular/core";
 import { AuthenticationService } from "src/app/authentication/authentication.service";
+import { GridTreeComponent } from "src/app/layouts/grid-tree/grid-tree.component";
+import { GridViewComponent } from "src/app/layouts/grid-view/grid-view.component";
+import { IDataSourceOptions } from "../data/idata-source-options";
 import { Virtual } from "../decorators/virtual";
 import { PageComponent } from "./page-component";
 
-@Component({   //yasar sen ekledın
-    template: ''
-})
+
 export abstract class ListComponent extends PageComponent implements OnInit, OnDestroy, AfterViewInit{
 
     @ViewChildren(GridViewComponent)
-    gridViews: QueryList<GridViewComponent>; 
+    gridViews: QueryList<GridViewComponent>;
 
     @ViewChildren(GridTreeComponent)
-    gridTrees: QueryList<GridTreeComponent>; 
-    
+    gridTrees: QueryList<GridTreeComponent>;
+
     @Input('autoBind')
-    autoBind: boolean;       
+    autoBind: boolean;
 
     autoRefresh: boolean;
 
     constructor(public viewContainerRef:ViewContainerRef){
         super(viewContainerRef);
         this.autoBind = true;
-        this.autoRefresh = true;         
+        this.autoRefresh = true;
     }
 
 
@@ -49,12 +50,11 @@ export abstract class ListComponent extends PageComponent implements OnInit, OnD
             this.gridTrees.forEach(tree=>{
                 tree.parentListComponent = this;
             });
-        } 
+        }
     }
 
     @Virtual()
     dataBind(options?:Partial<IDataSourceOptions>,load:boolean=false):void{
-
     }
 
     @Virtual()

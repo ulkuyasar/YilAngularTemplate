@@ -1,5 +1,5 @@
 import { Input,OnDestroy, OnInit, SimpleChanges, ViewContainerRef } from "@angular/core";
-import { DxiItemComponent } from "devextreme-angular/ui/nested";
+import { DxiItemComponent } from "devextreme-angular/ui/nested/item-dxi";
 import { ITextBoxComponent } from "src/app/devextreme/interfaces/text-box/itext-box-component";
 import { ITextBoxEditorOptions } from "src/app/devextreme/interfaces/text-box/itext-box-editor-options";
 import { ITextBoxInitilizedArgs } from "src/app/devextreme/interfaces/text-box/itext-box-initialized-args";
@@ -10,7 +10,7 @@ import { TextBasedFieldDirective } from "./text-based-field-directive";
 
 
 export abstract class TextBoxFieldDirective extends TextBasedFieldDirective  implements OnInit,OnDestroy{
-    
+
     @Input('mask')
     @Notify()
     public mask:string;
@@ -23,10 +23,10 @@ export abstract class TextBoxFieldDirective extends TextBasedFieldDirective  imp
     public maskInvalidMessage:string;
 
     private _editorOptions:ITextBoxEditorOptions;
-    private _editorInstance:ITextBoxComponent; 
-    
-    
-    
+    private _editorInstance:ITextBoxComponent;
+
+
+
     constructor(hostItem: DxiItemComponent, viewContaiberRef: ViewContainerRef){
         super(hostItem,viewContaiberRef);
     }

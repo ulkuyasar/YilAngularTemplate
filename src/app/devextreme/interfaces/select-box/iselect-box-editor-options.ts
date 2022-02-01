@@ -1,4 +1,5 @@
-import DevExpress from "devextreme";
+
+import DevExpress from "devextreme/bundles/dx.all";
 import { Model } from "src/app/core/models/model";
 import { EnumModel } from "src/app/models/core/enum-model";
 import { ISelectBoxCustomCreatingArgs } from "./iselect-box-custom-creating-args";
@@ -31,7 +32,7 @@ import { ISelectBoxValueChangedArgs } from "./iselect-box-value-changed-args";
         itemTemplate?:string;
         placeholder?:string;
         value?:string|Function|number;
-        
+
         onValueChanged?:(args:ISelectBoxValueChangedArgs)=>void;
         onSelectionChanged?:(args:ISelectBoxSelectionChangedArgs<T>)=>void;
         onOpened?:(args:ISelectBoxOpenedEventArgs)=>void;

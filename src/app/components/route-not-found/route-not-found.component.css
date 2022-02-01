@@ -1,13 +1,3 @@
-/* app-main{float:left;}
-
-.header{
-  position: relative;
-  width: var(--app-main-widht);
-  float: left;
-  overflow: hidden;
-  border-bottom: 3px solid #fff;
-  display: none;
-} */
 
 .main{
   float:left;

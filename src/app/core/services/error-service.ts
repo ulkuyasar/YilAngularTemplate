@@ -8,6 +8,7 @@ import { PopupOptions } from "src/app/layouts/popup/popup-options";
 import { PopupRef } from "src/app/layouts/popup/popup-ref";
 import { PopupService } from "src/app/layouts/popup/popup-service";
 import { LocalizationService } from "src/app/localization/localization.service";
+import { LoginService } from "src/app/login/login.service";
 import { ErrorDetail } from "../data/error-detail";
 import { ErrorMessage } from "../data/error-message";
 import { ErrorSource } from "../data/error-source.enum";
@@ -17,7 +18,7 @@ import { BaseService } from "./base-sevice";
 
 @Injectable({providedIn:'root'})
 export class ErrorService extends BaseService{
-    
+
     public static errorNotifier:Subject<ErrorMessage> = new Subject<ErrorMessage>();
 
     private _eventService:EventService;
@@ -25,11 +26,11 @@ export class ErrorService extends BaseService{
 
     constructor(injector:Injector, controller?:string,customUrl?:string){
         super(injector);
-        this._eventService = this.Injector.get<EventService>(EventService);  
-        this._localizationService = this.Injector.get<LocalizationService>(LocalizationService);     
+        this._eventService = this.Injector.get<EventService>(EventService);
+        this._localizationService = this.Injector.get<LocalizationService>(LocalizationService);
 
     }
-    
+
     initialize(){
         ErrorService.errorNotifier.subscribe(errorMessage =>{
             this.processError(errorMessage);
@@ -61,7 +62,7 @@ export class ErrorService extends BaseService{
             };
             ErrorService.errorNotifier.next(errorMessage);
         }else if (isOAuthErrorDetail(httpErrorResponce.error)){
-            
+
             let errorMessage: ErrorMessage = {
                 source:ErrorSource.OAuth,
                 httpStatus:httpErrorResponce.status,
@@ -81,7 +82,7 @@ export class ErrorService extends BaseService{
             };
             ErrorService.errorNotifier.next(errorMessage);
         }
-        return throwError('Something bad happeded;please try again later.'); 
+        return throwError('Something bad happeded;please try again later.');
     }
 
     private processError(errorMessage:ErrorMessage){
@@ -258,7 +259,7 @@ export class ErrorService extends BaseService{
                     }else if (obj.ExceptionMessage){
                         errMsg += obj.ExceptionMessage + '. ';
                     }
-                
+
 
                 if(obj.error){
                     if(obj.error.message){

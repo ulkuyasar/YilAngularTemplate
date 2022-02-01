@@ -8,7 +8,8 @@ export const environment = {
   production: false,
   version: '0.0.0',
   versionCheckURL:'version.json',
-  apiUrl:'http://localhost/Devboard.Api/api'
+  apiUrl:'http://localhost/Devboard.Api/api',
+  refreshToken:'http://localhost/User.Api/api',
 };
 
 

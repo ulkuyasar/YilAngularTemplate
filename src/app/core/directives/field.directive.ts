@@ -1,5 +1,4 @@
 import { AfterContentInit,   EventEmitter,  Input,  OnDestroy, OnInit, Output, SimpleChanges, ViewContainerRef } from "@angular/core";
-import { DxiItemComponent } from "devextreme-angular/ui/nested";
 import { Notify } from "../decorators/notify";
 import { Override } from "../decorators/override";
 import { Virtual } from "../decorators/virtual";
@@ -7,13 +6,14 @@ import { IFormOption } from "./iform-option";
 import { FormItemDirective } from "./form-Item.directive";
 import { IFieldValueChangedArgs } from "./ifield-value-changed-args";
 import { ValidationRule } from "src/app/devextreme/types";
+import { DxiItemComponent } from "devextreme-angular/ui/nested/item-dxi";
 
 export abstract class FieldDirective<TV> extends FormItemDirective implements OnInit,OnDestroy,AfterContentInit{
-    
+
     @Input('caption')
     @Notify()
     public caption:string;
-    
+
     @Input('readOnly')
     @Notify('readOnly')
     public _readOnly:boolean;
@@ -39,10 +39,10 @@ export abstract class FieldDirective<TV> extends FormItemDirective implements On
 
     private _labelElement:JQuery<HTMLElement>;
 
-    
+
     constructor(hostItem: DxiItemComponent, viewContaiberRef: ViewContainerRef){
         super(hostItem,viewContaiberRef);
-        Object.defineProperties(hostItem,"caption",{ writable:true });
+        Object.defineProperty(hostItem,"caption",{ writable:true });
 
     }
 
@@ -67,7 +67,7 @@ export abstract class FieldDirective<TV> extends FormItemDirective implements On
         this._labelVisible =value;
     }
 
-    
+
     public get labelElement():JQuery<HTMLElement>{
         return this._labelElement;
     }
@@ -113,7 +113,7 @@ export abstract class FieldDirective<TV> extends FormItemDirective implements On
     @Override()
     protected updateChanges(changes:SimpleChanges):void{
         super.updateChanges(changes);
-       
+
         if(this.labelElement){
 
             if (changes['visible']){
@@ -140,7 +140,7 @@ export abstract class FieldDirective<TV> extends FormItemDirective implements On
         this.onValueChanged(args);
     }
 
-    
+
     public setValue(value:TV):void{
         this._value = value;
     }

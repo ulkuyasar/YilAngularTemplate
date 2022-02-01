@@ -41,7 +41,7 @@ export function Notify(propertyName?:string ):PropertyDecorator{
             let changes :SimpleChanges={};
             let change :SimpleChange=new SimpleChange(previousValue,currentValue,false);
             for (let key of notificationKeys) {
-                changes[key] = change;   
+                changes[key] = change;
             }
             return changes;
         }
@@ -55,7 +55,7 @@ export function Notify(propertyName?:string ):PropertyDecorator{
             let currentValue = this[propertyKey];
             if (currentValue !== value){
                 _valueMap.set(this,value);
-            
+
                 if (this.ngOnChanges){
                     let changes:SimpleChanges = createSimpleChange(currentValue,value);
                     this.ngOnChanges(changes);
@@ -63,7 +63,7 @@ export function Notify(propertyName?:string ):PropertyDecorator{
             }
         }
 
-        Object.defineProperties(target,propertyKey,{
+        Object.defineProperty(target,propertyKey,{
             get:getter,
             set:setter,
             configurable:true,

@@ -1,4 +1,4 @@
-import DevExpress from "devextreme";
+import DevExpress from "devextreme/bundles/dx.all";
 import { IElementAttributes } from "../base/ielement-attributes";
 import { ICalendarEditorOptions } from "../calendar/ibutton-options";
 import { IDateBoxInitilizedArgs } from "./idate-box-initialized-args";
@@ -19,7 +19,7 @@ import { IDateBoxValueChangedArgs } from "./idate-Box-value-changed-args";
         height?: number|string|Function;
         placeholder?:string;
         pickerType?:string;
-        displayFormat?:DevExpress.ui.Format;
+        displayFormat?:DevExpress.ui.format;
         elementAttr?:IElementAttributes;
         value?:string | number | Date;
         visible?:boolean;

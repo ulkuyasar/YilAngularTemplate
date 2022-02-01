@@ -1,4 +1,4 @@
-import DevExpress from "devextreme";
+import DevExpress from "devextreme/bundles/dx.all";
 import { IComponent } from "./icomponent";
 import { IElementAttributes } from "./ielement-attributes";
 import { IInitilizedArgs } from "./iinitilized-args";
@@ -11,7 +11,7 @@ export interface IEditorOptions<TComponent extends IComponent=IComponent,TValue=
     width?:number|string|Function,
     height?:number|string|Function,
     isValid?:boolean,
-    displayFormat?:DevExpress.ui.Format,
+    displayFormat?:DevExpress.ui.format,
     cssClass?:string,
     placeholder?:string,
     elementAttr?:IElementAttributes,

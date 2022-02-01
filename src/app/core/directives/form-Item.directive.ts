@@ -1,5 +1,4 @@
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, EventEmitter, Injector, Input,Type, OnChanges, OnDestroy, OnInit, Output, SimpleChange, SimpleChanges, ViewContainerRef } from "@angular/core";
-import { DxiItemComponent } from "devextreme-angular/ui/nested";
 import { Notify } from "../decorators/notify";
 import $ from 'jquery';
 import { Subscription } from "rxjs";
@@ -13,14 +12,15 @@ import { EnumModel } from "src/app/models/core/enum-model";
 import { Virtual } from "../decorators/virtual";
 import { IFormOption } from "./iform-option";
 import { FieldDirective } from "./field.directive";
+import { DxiItemComponent } from "devextreme-angular/ui/nested/item-dxi";
 
 
 export abstract class FormItemDirective implements OnInit,OnDestroy,OnChanges,AfterViewInit,AfterContentInit{
-    
+
     @Input('disabled')
     @Notify()
     public disabled:boolean;
-    
+
     @Input('visible')
     @Notify()
     public visible:boolean;
@@ -38,12 +38,12 @@ export abstract class FormItemDirective implements OnInit,OnDestroy,OnChanges,Af
     private _optionChangedSubscription:Subscription;
     private _contentReadySubscription:Subscription;
 
-    
+
     constructor(hostItem: DxiItemComponent,private viewContaiberRef: ViewContainerRef){
         this._hostItem = hostItem;
-        
-        Object.defineProperties(hostItem,"disabled",{ writable:true });
-        Object.defineProperties(hostItem,"visible",{ writable:true });
+
+        Object.defineProperty(hostItem,"disabled",{ writable:true });
+        Object.defineProperty(hostItem,"visible",{ writable:true });
 
         this._id = GlobalUtilities.NewGuid();
         this._changeDetector = this.injector.get(ChangeDetectorRef);
@@ -79,7 +79,7 @@ export abstract class FormItemDirective implements OnInit,OnDestroy,OnChanges,Af
 
         let filterPanel:FilterPanelComponent = this.injectOptional<FilterPanelComponent>(FilterPanelComponent);
         return filterPanel;
-       
+
     }
 
     public get model():Model | FilterModel | EnumModel{
@@ -93,7 +93,7 @@ export abstract class FormItemDirective implements OnInit,OnDestroy,OnChanges,Af
     public get isDestroyed():boolean{
         return this._isDestroyed;
     }
-   
+
     public detectChanges():void{
         if(this.isDestroyed === false){
             this._changeDetector.detectChanges();
@@ -136,7 +136,7 @@ export abstract class FormItemDirective implements OnInit,OnDestroy,OnChanges,Af
                 return value;
             }
             value = value[path];
-            
+
         });
         return value;
     }
@@ -146,7 +146,7 @@ export abstract class FormItemDirective implements OnInit,OnDestroy,OnChanges,Af
         let lastPath:string = propertyPath;
         let pathList:string[] = propertyPath.split(".");
         let valueOwner = model;
-        
+
         pathList.forEach((path,index) => {
             lastPath = path;
             if(isOK && index < pathList.length-1){
@@ -155,7 +155,7 @@ export abstract class FormItemDirective implements OnInit,OnDestroy,OnChanges,Af
                 }else{
                     valueOwner = valueOwner[path];
                 }
-            }           
+            }
         });
         if (valueOwner){
             valueOwner[lastPath] = value;
@@ -289,11 +289,11 @@ export abstract class FormItemDirective implements OnInit,OnDestroy,OnChanges,Af
     }
 
     ngAfterViewInit(): void {
-        
+
     }
 
     ngAfterContentInit(): void {
-        
+
     }
-    
+
 }

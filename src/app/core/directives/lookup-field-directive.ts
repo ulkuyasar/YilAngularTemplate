@@ -1,5 +1,4 @@
 import {  EventEmitter,  Input, OnDestroy, OnInit, Output,  ViewContainerRef } from "@angular/core";
-import { DxiItemComponent } from "devextreme-angular/ui/nested";
 import { Notify } from "../decorators/notify";
 import { Subscription } from "rxjs";
 import { Model } from "../models/model";
@@ -12,13 +11,14 @@ import { ISelectedItemChangedArgs } from "./iselected-item-changed-args";
 import { Override } from "../decorators/override";
 import { IFieldValueChangedArgs } from "./ifield-value-changed-args";
 import { QueryStringParam } from "../data/query-string-param";
+import { DxiItemComponent } from "devextreme-angular/ui/nested/item-dxi";
 
 export abstract class LookupFieldDirective<TM extends Model | EnumModel, TKey =number> extends InputBasedFieldDirective<TKey> implements OnInit,OnDestroy {
 
-    
+
     @Input('parentFields')
     public parentFields:Array<IParentField>;
-    
+
     @Input('modelField')
     public modelField:string;
 
@@ -58,7 +58,7 @@ export abstract class LookupFieldDirective<TM extends Model | EnumModel, TKey =n
     public get selectedItem():TM{
         return this._selectedItem;
     }
-   
+
     @Override()
     protected setInitialValues():void{
        super.setInitialValues();
@@ -67,7 +67,7 @@ export abstract class LookupFieldDirective<TM extends Model | EnumModel, TKey =n
 
     }
 
-   
+
     @Virtual()
     protected loadData(options?:DataSourceOptions,reset:boolean=false):void{
         this.onDataLoaded();
@@ -78,7 +78,7 @@ export abstract class LookupFieldDirective<TM extends Model | EnumModel, TKey =n
         return true;
     }
 
-    
+
     @Virtual()
     protected selectedItemChanged(args: ISelectedItemChangedArgs<TM>):void{
         this._selectedItem = args.selectedItem;
@@ -105,7 +105,7 @@ export abstract class LookupFieldDirective<TM extends Model | EnumModel, TKey =n
                                 this.loadData(this.defaultDataSourceOptions,false);
                             });
 
-                }               
+                }
             });
         }
     }
@@ -143,7 +143,7 @@ export abstract class LookupFieldDirective<TM extends Model | EnumModel, TKey =n
 
         this.keyMap.forEach((value,key) => {
             options.queryParams.push({key:key,value:value});
-            
+
         });
         return options;
     }
@@ -186,5 +186,5 @@ export abstract class LookupFieldDirective<TM extends Model | EnumModel, TKey =n
         }
         return handled;
     }
-    
+
 }

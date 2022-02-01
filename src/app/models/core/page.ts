@@ -16,7 +16,7 @@ export class Column {
             public showOnDelete:boolean=false,public tooltipType:TooltipType.None){}
 
     get isPulledRight():boolean{
-        return this.columnType === ColumnType.Number || this.columnType === ColumnType.Date; 
+        return this.columnType === ColumnType.Number || this.columnType === ColumnType.Date;
     }
 
 }

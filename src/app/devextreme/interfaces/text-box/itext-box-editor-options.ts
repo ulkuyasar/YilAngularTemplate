@@ -1,15 +1,15 @@
-import DevExpress from "devextreme";
+import DevExpress from "devextreme/bundles/dx.all";
 import { ITextBoxContentReadyArgs } from "./itext-box-content-ready-args";
 import { ITextBoxInitilizedArgs } from "./itext-box-initialized-args";
 import { ITextBoxValueChangedArgs } from "./itext-box-value-changed-args";
 
     export interface ITextBoxEditorOptions{
-        
+
         mask?:string;
         maskRules?:Object;
         maskInvalidMessage?:string;
         maxLenght?: number;
-        format?:DevExpress.ui.Format;
+        format?:DevExpress.ui.format;
         useMaskedValue?:boolean;
         isValid?:boolean;
         placeholder?:string;
@@ -27,6 +27,6 @@ import { ITextBoxValueChangedArgs } from "./itext-box-value-changed-args";
         onValueChanged?:(args:ITextBoxValueChangedArgs)=>void;
         onInitilized?:(args:ITextBoxInitilizedArgs)=>void;
         onContentReady?:(args:ITextBoxContentReadyArgs)=>void;
-        onEnterKey?: () => void;      
+        onEnterKey?: () => void;
 
     }

@@ -1,17 +1,15 @@
 import { EventEmitter, Injectable, Injector } from "@angular/core"
-
 import { ApiService } from "../core/services/api-service"
 import { User } from "../models/user"
 import { ConfigService } from "../config/config.service";
-import { Observable, Subscriber } from "rxjs";
-
+import { Observable } from "rxjs";
 import { Base64 } from "js-base64";
-import { AuthenticationContextType } from "./authentication-context-type";
-import { AuthenticationConstants } from "./authentication-constants";
+import { AuthenticationConstants } from "./authentication.constants";
 import { AuthenticationResponce } from "./authentication-responce";
 import { AuthenticationRequest } from "./authentication-request";
 import { ActivatedRouteSnapshot } from "@angular/router";
 import { StorageService } from "../storage/storage-service";
+import { AuthenticationContextType } from "./authentication-context-type.enum";
 
 @Injectable({providedIn:'root'})
 export class AuthenticationService extends ApiService{

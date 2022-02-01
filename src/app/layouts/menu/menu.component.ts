@@ -12,12 +12,12 @@ import { AppConfig } from "src/app/config/app.config";
 import { logoImageProfileAccount, logoImageTopMenu } from "./menu-images";
 import { ITreeViewComponent } from "src/app/devextreme/interfaces/tree-view/itree-view-component";
 import { ITreeViewEventArgs } from "src/app/devextreme/interfaces/tree-view/itree-view-event-args";
-import { AuthenticationContextType } from "src/app/authentication/authentication-context-type";
-import { AuthenticationConstants } from "src/app/authentication/authentication-constants";
+import { AuthenticationConstants } from "src/app/authentication/authentication.constants";
 import { PopupOptions } from "../popup/popup-options";
 import { PopupService } from "../popup/popup-service";
 import { numberFormatter } from "globalize";
 import { MenuService } from "./menu.service";
+import { AuthenticationContextType } from "src/app/authentication/authentication-context-type.enum";
 
 @Component({
   selector: 'app-menu',
@@ -27,7 +27,7 @@ import { MenuService } from "./menu.service";
 })
 @ComponentName(MenuComponent,"MenuComponent")
 export class MenuComponent extends BaseComponent implements OnInit,OnDestroy,AfterViewInit,IConfigSubscriber{
- 
+
 
   @Output('onCollapse')
   collapseEvent: EventEmitter<boolean>;
@@ -51,7 +51,7 @@ export class MenuComponent extends BaseComponent implements OnInit,OnDestroy,Aft
    constructor(injector: Injector,
         private _menuService:MenuService,
         private _authenticationService:AuthenticationService,
-        private _storageService:StorageService, 
+        private _storageService:StorageService,
         viewContainerRef:ViewContainerRef){
          super(viewContainerRef);
          this.collapseEvent = new EventEmitter<boolean>();
@@ -60,7 +60,7 @@ export class MenuComponent extends BaseComponent implements OnInit,OnDestroy,Aft
            this.setUser(user);
          });
          this.templateKey = "default";
-         
+
          this._storageService = injector.get<StorageService>(StorageService);
 
    }
@@ -158,7 +158,7 @@ export class MenuComponent extends BaseComponent implements OnInit,OnDestroy,Aft
     this.menuItemClick(event,items);
   }
 
-  actionMenuItemClick(event:ITreeViewEventArgs<MenuItem>){  
+  actionMenuItemClick(event:ITreeViewEventArgs<MenuItem>){
     this.mainMenuItemClick(event);
   }
 
@@ -184,7 +184,7 @@ export class MenuComponent extends BaseComponent implements OnInit,OnDestroy,Aft
       Title :this.localization.getMessage('releass.title'),
       Position:{ my:'center',at:'center',of:window},
       Height:"900",
-      Width:"850" 
+      Width:"850"
     });
     let popupService : PopupService = this.Injector.get<PopupService>(PopupService);
    //   popupService.openGlobalPopupWithComponentType(ReleaseNotesComponent,popupOptions);
@@ -213,9 +213,9 @@ export class MenuComponent extends BaseComponent implements OnInit,OnDestroy,Aft
       if(predicate(array[i])){
           return array.splice(i,1);
       }
-    } 
+    }
   }
-   
+
    ngOnInit(): void {
        super.ngOnInit();
 
