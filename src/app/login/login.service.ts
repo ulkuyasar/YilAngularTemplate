@@ -2,8 +2,6 @@ import { Injectable, Injector } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { ModelService } from "src/app/core/services/model-service";
-import { FWAccessModelViewModel } from "src/app/models/fw-access/view-model/fw-access-node-view-model";
 import { AuthenticationResponce } from "../authentication/authentication-responce";
 import { AuthenticationService } from "../authentication/authentication.service";
 import { BaseService } from "../core/services/base-sevice";

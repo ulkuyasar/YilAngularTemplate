@@ -21,33 +21,31 @@ import { IModelService } from "../services/imodel-service";
 import { IModelComponent } from "./imodel-component";
 import { PageComponent } from "./page-component";
 
-// @Component({   //yasar sen ekledın
-//     template: ''
-// })
-export abstract class ModelComponent<T extends Model,TKey =number | string> 
-                                       extends PageComponent implements OnInit, OnDestroy, AfterViewInit, IModelComponent, 
+
+export abstract class ModelComponent<T extends Model,TKey =number | string>
+                                       extends PageComponent implements OnInit, OnDestroy, AfterViewInit, IModelComponent,
                                        IReturnValue<T | Array<T>>{
 
     @ViewChildren(ModelFormComponent)
     modelForms:QueryList<ModelFormComponent>;
-    
+
     @Input()
-    model: T;       
+    model: T;
 
     @Input('isValidationEnabledOnCreate')
-    isValidationEnabledOnCreate:boolean;   
+    isValidationEnabledOnCreate:boolean;
 
     @Input('isValidationEnabledOnUpdate')
-    isValidationEnabledOnUpdate:boolean; 
+    isValidationEnabledOnUpdate:boolean;
 
     @Input('isValidationEnabledOnDelete')
-    isValidationEnabledOnDelete:boolean; 
+    isValidationEnabledOnDelete:boolean;
 
 
     @Output('onModelLoading')
     modelLoadingEvent:EventEmitter<T>;
-    
-    
+
+
     @Output('onModelLoaded')
     modelLoadedEvent:EventEmitter<T>;
 
@@ -88,7 +86,7 @@ export abstract class ModelComponent<T extends Model,TKey =number | string>
         this._isModal = false;
         this._modelSource = ModelSource.Api;
     }
-    
+
     public get modelID():TKey{
         return this._modelID;
     }
@@ -133,7 +131,7 @@ export abstract class ModelComponent<T extends Model,TKey =number | string>
         if(this.useRoute ===true){
             let popupService = this.Injector.get<PopupService>(PopupService);
 
-            let defaultPopupOptions:Partial<IPopupOptions> = {ContainerElement:'.main', 
+            let defaultPopupOptions:Partial<IPopupOptions> = {ContainerElement:'.main',
                               Position: {my:'top',at:'top',of:'.main',offset:'0 50'} };
             let popupOptions : PopupOptions = {...defaultPopupOptions, ...this.popupOptions };
 
@@ -170,12 +168,12 @@ export abstract class ModelComponent<T extends Model,TKey =number | string>
 
     @Virtual()
     public setDefaultValues(model:T):void{
-        
+
     }
 
     @Virtual()
     public validateModel(model:T,operation: ModelOperation):T{
-        return model;        
+        return model;
     }
 
     @Virtual()
@@ -245,7 +243,7 @@ export abstract class ModelComponent<T extends Model,TKey =number | string>
             })
         );
 
-         
+
         let $findOperation: Observable<ModelOperation> = $paramMap.pipe(
             concatMap((operation:ModelOperation) => {
                 if (operation !== ModelOperation.Edit){
@@ -257,7 +255,7 @@ export abstract class ModelComponent<T extends Model,TKey =number | string>
         );
         return $findOperation;
     }
-        
+
     private executeOperation():void{
         let operation:ModelOperation = this.modelOperation;
         switch(operation){
@@ -300,7 +298,7 @@ export abstract class ModelComponent<T extends Model,TKey =number | string>
 
     private emitModelLoadingToModelForms(model:T):void{
         let entity :Model = this.getEntity(model);
-        
+
         if (this.modelForms){
             this.modelForms.forEach(form => {
                 form.onModelLoading(entity);
@@ -310,7 +308,7 @@ export abstract class ModelComponent<T extends Model,TKey =number | string>
 
     private emitModelLoadedToModelForms(model:T):void{
         let entity :Model = this.getEntity(model);
-        
+
         if (this.modelForms){
             this.modelForms.forEach(form => {
                 form.onModelLoaded(entity);
@@ -320,7 +318,7 @@ export abstract class ModelComponent<T extends Model,TKey =number | string>
 
 
     private emitReloadFormToModelForms():void{
-         
+
         if (this.modelForms){
             this.modelForms.forEach(form => {
                 form.reloadForm();
@@ -390,7 +388,7 @@ export abstract class ModelComponent<T extends Model,TKey =number | string>
         if(model){
             this.updateModel(model,ModelState.Loading);
         }else{
-            this.newModel(); 
+            this.newModel();
         }
     }
 
@@ -562,7 +560,7 @@ onModelLoaded(model:T):boolean{
             this.beforeModelLoaded(model).subscribe((modelReturned) => {
                 this.modelLoadedEvent.emit(modelReturned);
             });
-                 
+
         }else{
             this.modelLoadedEvent.emit(model);
         }
@@ -570,21 +568,6 @@ onModelLoaded(model:T):boolean{
     this._modelState = ModelState.Loaded;
     return handled;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

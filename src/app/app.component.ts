@@ -8,12 +8,9 @@ import { environment } from 'src/environments/environment';
 })
 export class AppComponent  {
   title = "Yil Yasar Template";
-  @HostBinding('class') get getClass() {
-    return Object.keys(this.screen.sizes).filter(cl => this.screen.sizes[cl]).join(' ');
-  }
 
-  constructor(@Inject("exceljs") private exceljs: unknown, public test: VersionCheckService) {
-
-      test.initVersionCheck(environment.versionCheckURL);
+  constructor(@Inject("exceljs") private exceljs: unknown) //, public test: VersionCheckService) {
+  {
+    //  test.initVersionCheck(environment.versionCheckURL);
   }
 }

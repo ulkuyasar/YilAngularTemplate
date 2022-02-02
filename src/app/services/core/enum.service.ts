@@ -113,4 +113,13 @@ export class EnumService extends BaseService{
         return new DataSource(enumList);
     }
 
+    public getDeviceTypeEnumforFwAccessNode():DataSource {
+      const enumList: EnumModel[] = [
+          // {Description:this._localizationService.getMessage('accessreq.tcp.enum.text'),Value:AccessFlowPortType.Tcp},
+          // {Description:this._localizationService.getMessage('accessreq.udp.enum.text'),Value:AccessFlowPortType.Udp},
+          // {Description:this._localizationService.getMessage('accessreq.icpmping.enum.text'),Value:AccessFlowPortType.IcpmPing}
+      ]
+      return new DataSource(enumList);
+  }
+
 }

@@ -41,7 +41,7 @@ export class RefreshTokenInterceptor extends BaseInterceptor implements HttpInte
       this._storageService.removeItem(AuthenticationConstants.ACCESSTOKEN);
       return this.beamerAppSettingDefinitionService.getUserInfo(environment.refreshToken).pipe(
         mergeMap(responce=>{
-            this.authenticationService.processLogInwithToken(responce.token);
+            this.authenticationService.processLogInwithToken("---");  //responce.token);
             return next.handle(request);
         })
       )

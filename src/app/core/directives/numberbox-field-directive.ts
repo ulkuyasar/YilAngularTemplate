@@ -1,5 +1,5 @@
 import { Input,OnDestroy, OnInit, SimpleChanges, ViewContainerRef } from "@angular/core";
-import { DxiItemComponent } from "devextreme-angular/ui/nested";
+import { DxiItemComponent } from "devextreme-angular/ui/nested/item-dxi";
 import { isString } from "lodash";
 import { INumberBoxComponent } from "src/app/devextreme/interfaces/number-box/inumber-box-component";
 import { INumberBoxEditorOptions } from "src/app/devextreme/interfaces/number-box/inumber-box-editor-options";
@@ -13,15 +13,15 @@ import { InputBasedFieldDirective } from "./input-based-field-directive";
 
 
 export abstract class NumberBoxFieldDirective extends InputBasedFieldDirective<number> implements OnInit,OnDestroy{
-    
+
     private _editorOptions:INumberBoxEditorOptions;
     private _editorInstance:INumberBoxComponent;
 
     @Input('format')
     @Notify()
     public format:string;
-    
-    
+
+
     constructor(hostItem: DxiItemComponent, viewContaiberRef: ViewContainerRef){
         super(hostItem,viewContaiberRef);
     }
@@ -69,7 +69,7 @@ export abstract class NumberBoxFieldDirective extends InputBasedFieldDirective<n
         this._editorInstance = args.component;
         this.configureDataType(this._editorInstance);
     }
-   
+
     @Override()
     protected valueChanged(args:INumberBoxValueChangedArgs){
         super.valueChanged(args);
@@ -105,7 +105,7 @@ export abstract class NumberBoxFieldDirective extends InputBasedFieldDirective<n
     private configureDataType(instance:INumberBoxComponent):void{
         let value:number = instance.option("value");
         if(isString(value)){
-            value = Number.parseFloat(value.toString());
+            value = Number.parseFloat(value+"");
             instance.option("value",value);
         }
     }
@@ -119,6 +119,6 @@ export abstract class NumberBoxFieldDirective extends InputBasedFieldDirective<n
 
     }
 
-    
-    
+
+
 }

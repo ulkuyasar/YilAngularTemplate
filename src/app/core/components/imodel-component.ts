@@ -15,9 +15,9 @@ export interface IModelComponent{
     delete(afterActionType:ModelAfterActionType):Observable<Model>;
     ok(afterActionType:ModelAfterActionType):Observable<Model>;
 
-    menuModel():void;
+    newModel():void;
     getModel():void;
-    cleanModel():void;
+    clearModel():void;
     changeOperation(operation:ModelOperation):void;
 
 }

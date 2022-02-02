@@ -1,5 +1,5 @@
 import { EventEmitter, Input, OnDestroy, OnInit, SimpleChange, SimpleChanges, ViewContainerRef } from "@angular/core";
-import { DxiItemComponent } from "devextreme-angular/ui/nested";
+import { DxiItemComponent } from "devextreme-angular/ui/nested/item-dxi";
 import { ICheckBoxComponent } from "src/app/devextreme/interfaces/check-box/icheckbox-component";
 import { ICheckBoxInitilizedArgs } from "src/app/devextreme/interfaces/check-box/icheckbox-initialized-args";
 import { ICheckBoxOptions } from "src/app/devextreme/interfaces/check-box/icheckbox-options";
@@ -9,7 +9,7 @@ import { FieldDirective } from "./field.directive";
 
 
 export abstract class CheckboxFieldDirective extends FieldDirective<boolean> implements OnInit,OnDestroy{
-    
+
     private _editorOptions:ICheckBoxOptions;
     private _editorInstance:ICheckBoxComponent;
 

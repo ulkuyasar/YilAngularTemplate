@@ -12,7 +12,7 @@ import { ISelectBoxInitilizedArgs } from "src/app/devextreme/interfaces/select-b
 import { DxiItemComponent } from "devextreme-angular/ui/nested/item-dxi";
 
 
-export abstract class SelectBoxFieldDirective<TM extends Model | EnumModel, TKey =number> extends LookupFieldDirective<TKey> implements OnInit,OnDestroy {
+export abstract class SelectBoxFieldDirective<TM extends Model | EnumModel, TKey =number> extends LookupFieldDirective<TM,TKey> implements OnInit,OnDestroy {
 
 
     @Input('showClearButton')
@@ -34,7 +34,7 @@ export abstract class SelectBoxFieldDirective<TM extends Model | EnumModel, TKey
     private _editorOptions:ISelectBoxEditorOptions<TM>;
     private _editorInstance:ISelectBoxComponent;
 
-    constructor(hostItem: DxiItemComponent,private viewContaiberRef: ViewContainerRef){
+    constructor(hostItem: DxiItemComponent, viewContaiberRef: ViewContainerRef){
         super(hostItem,viewContaiberRef);
     }
 

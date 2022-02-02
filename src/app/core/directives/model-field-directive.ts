@@ -8,11 +8,11 @@ import { IModelService } from "../services/imodel-service";
 import { SelectBoxFieldDirective } from "./select-box-field-directive";
 import { DxiItemComponent } from "devextreme-angular/ui/nested/item-dxi";
 
-export abstract class ModelFieldDirective<T extends Model , TV extends ViewModel<T>, TKey = number>
-                extends SelectBoxFieldDirective<TV,TKey> implements OnInit,OnDestroy {
+export abstract class ModelFieldDirective <T extends Model , TV extends ViewModel<T> = ViewModel<T>, TKey = number> extends
+  SelectBoxFieldDirective<TV,TKey> implements OnInit,OnDestroy {
 
     private _modelService:IModelService<T,TKey>;
-    constructor(hostItem: DxiItemComponent,private viewContaiberRef: ViewContainerRef,modelService:IModelService<T,TKey>){
+    constructor(hostItem: DxiItemComponent, viewContaiberRef: ViewContainerRef,modelService:IModelService<T,TKey>){
         super(hostItem,viewContaiberRef);
         this._modelService = modelService;
     }

@@ -41,6 +41,7 @@ import { JsonInterceptor } from './core/http/json-interceptor';
     LayoutModule,
     ServicesModule,
     AppRoutingModule,
+    //ReleaseNotesModule,
     LoginModule,
 
     HttpClientXsrfModule.withOptions({

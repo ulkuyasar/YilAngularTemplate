@@ -266,7 +266,7 @@ export class ModelFormComponent extends FormComponent implements OnInit,OnDestro
     }
 
     public clearForm():void{
-      this.parentModelComponent.cleanModel();
+      this.parentModelComponent.clearModel();
       this.clear(false);
     }
 

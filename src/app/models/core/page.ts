@@ -1,4 +1,5 @@
 import { ColumnType } from "../enums/column-type.enum";
+import { TooltipType } from "../enums/tool-tip-type.enum";
 
 export interface IPage<T>{
     Data: T[];
@@ -13,7 +14,7 @@ export class Column {
     constructor(public name:string, public text:string, public sort:string,
             public columnType:ColumnType = ColumnType.String,public cssClass:string="",
             public link:string ="", public isNeedTranslation:boolean=false,
-            public showOnDelete:boolean=false,public tooltipType:TooltipType.None){}
+            public showOnDelete:boolean=false,public tooltipType:TooltipType =TooltipType.None){}
 
     get isPulledRight():boolean{
         return this.columnType === ColumnType.Number || this.columnType === ColumnType.Date;

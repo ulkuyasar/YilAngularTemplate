@@ -41,7 +41,7 @@ export abstract class LookupFieldDirective<TM extends Model | EnumModel, TKey =n
     private _parentFieldValueChangedSubscription:Subscription;
     private _parentFieldDataLoadedSSubscription:Subscription;
 
-    constructor(hostItem: DxiItemComponent,private viewContaiberRef: ViewContainerRef){
+    constructor(hostItem: DxiItemComponent,viewContaiberRef: ViewContainerRef){
         super(hostItem,viewContaiberRef);
         this._keyMap = new Map<string,any>();
     }
@@ -78,13 +78,13 @@ export abstract class LookupFieldDirective<TM extends Model | EnumModel, TKey =n
         return true;
     }
 
-
     @Virtual()
     protected selectedItemChanged(args: ISelectedItemChangedArgs<TM>):void{
         this._selectedItem = args.selectedItem;
         this.updateModelField();
         this.onSelectedItemChanged(args);
     }
+
 
     private subscribeToParentFields():void{
         if(this.parentFields && this.parentFields.length>0){
