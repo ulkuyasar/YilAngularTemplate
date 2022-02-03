@@ -1,6 +1,5 @@
 import {  Component,  Input, OnDestroy, OnInit, ViewContainerRef } from "@angular/core";
 import { ComponentName } from "src/app/core/decorators/component-name";
-import { IReturnValue } from "src/app/core/component-model/ireturn-value";
 import { PanelComponent } from "src/app/core/components/panel-component";
 
 @Component({
@@ -10,7 +9,7 @@ import { PanelComponent } from "src/app/core/components/panel-component";
 })
 @ComponentName(EmbeddedRouterOutletPanelComponent,"EmbeddedRouterOutletPanelComponent")
 export class EmbeddedRouterOutletPanelComponent extends PanelComponent implements OnInit,OnDestroy{
- 
+
    routerDivID:string;
 
    constructor(viewContainerRef:ViewContainerRef){

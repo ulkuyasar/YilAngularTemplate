@@ -3,11 +3,11 @@ import { Directive, ElementRef, HostBinding, Input } from "@angular/core";
 @Directive({
     selector:'[appCollapse]'
 })
-export class CollopseDirective{
+export class CollapseDirective{
 
     @HostBinding('class.collapsing')
     private isCollapsing:boolean;
-    
+
     @HostBinding('style.height')
     private height:string;
 
@@ -23,7 +23,7 @@ export class CollopseDirective{
         }
     }
 
-    constructor(public elementRef:ElementRef){   
+    constructor(public elementRef:ElementRef){
     }
 
     measureHeight(){
@@ -41,7 +41,7 @@ export class CollopseDirective{
         },1);
     }
 
-    
+
     show(){
         this.height =  'px';
         this.isCollapsing = true;

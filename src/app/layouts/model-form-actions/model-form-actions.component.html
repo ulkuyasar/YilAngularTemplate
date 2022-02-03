@@ -1,35 +1,35 @@
 <div class="form-header d-flex align-content-start flex-wrap">
     <div class="btn-actions flex-grow-1 p-0">
-        <dx-check-box [visible]="isContinueCreateVisible === true" [disable]="isCreateButtonDisabled === true" [(value)]="continueCreate"
+        <dx-check-box [visible]="isContinueCreateVisible === true" [disabled]="isCreateButtonDisabled === true" [(value)]="continueCreate"
            [text]="continueCreateText | translate" [hint]="continueCreateText | translate" class="btn-continue-create"></dx-check-box>
         <ng-content select=".before-create-button"></ng-content>
 
-        <dx-button [visible]="isCreateButtonVisible === true" [disable]="isCreateButtonDisabled === true" 
+        <dx-button [visible]="isCreateButtonVisible === true" [disabled]="isCreateButtonDisabled === true"
         [text]="createButtonText | translate" [hint]="createButtonText | translate" class="btn-continue-orange" (onClick)="createModel($event)"></dx-button>
         <ng-content select=".after-create-button"></ng-content>
 
-        <dx-button [visible]="isCopyButtonVisible === true" [disable]="isCopyButtonDisabled === true" 
+        <dx-button [visible]="isCopyButtonVisible === true" [disabled]="isCopyButtonDisabled===true"
         [text]="copyButtonText | translate" [hint]="copyButtonText | translate" class="btn-continue-orange" (onClick)="copyModel($event)"></dx-button>
         <ng-content select=".after-copy-button"></ng-content>
 
-        <dx-button [visible]="isUpdateButtonVisible === true" [disable]="isUpdateButtonDisabled === true"
+        <dx-button [visible]="isUpdateButtonVisible === true" [disabled]="isUpdateButtonDisabled === true"
         [text]="updateButtonText | translate" [hint]="updateButtonText | translate" class="btn-continue-orange" (onClick)="updateModel($event)"></dx-button>
         <ng-content select=".after-update-button"></ng-content>
 
-        <dx-button [visible]="isDeleteButtonVisible === true" [disable]="isDeleteButtonDisabled === true"
+        <dx-button [visible]="isDeleteButtonVisible === true" [disabled]="isDeleteButtonDisabled === true"
         [text]="deleteButtonText | translate" [hint]="deleteButtonText | translate" class="btn-continue-orange" (onClick)="deleteModel($event)"></dx-button>
         <ng-content select=".after-delete-button"></ng-content>
 
-        <dx-button [visible]="isOkButtonVisible === true" [disable]="isOkButtonDisabled === true"
+        <dx-button [visible]="isOKButtonVisible === true" [disabled]="isOKButtonDisabled === true"
         [text]="okButtonText | translate" [hint]="okButtonText | translate" class="btn-continue-orange" (onClick)="okModel($event)"></dx-button>
         <ng-content select=".after-ok-button"></ng-content>
 
-        <dx-button [visible]="isClearButtonVisible === true" [disable]="isClearButtonDisabled === true"
-        [text]="clearButtonText | translate" [hint]="clearButtonText | translate" class="btn-continue-orange" (onClick)="clearModel($event)"></dx-button>
+        <dx-button [visible]="isClearButtonVisible === true" [disabled]="isClearButtonDisabled === true"
+        [text]="clearButtonText | translate" [hint]="clearButtonText | translate" class="btn-continue-orange" (onClick)="clearForm($event)"></dx-button>
         <ng-content select=".after-clear-button"></ng-content>
 
-        <dx-button [visible]="isRefreshButtonVisible === true" [disable]="isRefreshButtonDisabled === true"
-        [text]="refreshButtonText | translate" [hint]="refreshButtonText | translate" class="btn-continue-orange" (onClick)="refreshModel($event)"></dx-button>
+        <dx-button [visible]="isRefreshButtonVisible === true" [disabled]="isRefreshButtonDisabled === true"
+        [text]="refreshButtonText | translate" [hint]="refreshButtonText | translate" class="btn-continue-orange" (onClick)="refreshForm($event)"></dx-button>
         <ng-content></ng-content>
     </div>
 

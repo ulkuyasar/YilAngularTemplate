@@ -1,8 +1,6 @@
 import { AfterViewInit, Component, EventEmitter, Injector,  OnDestroy, OnInit, Output, ViewContainerRef, ViewEncapsulation } from "@angular/core";
 import { ComponentName } from "src/app/core/decorators/component-name";
-import { FormComponent } from "src/app/core/components/form-component";
 import { AuthenticationService } from "src/app/authentication/authentication.service";
-import { ConfigService } from "src/app/config/config.service";
 import { User } from "src/app/models/user";
 import { BaseComponent } from "src/app/core/components/base-component";
 import { IConfigSubscriber } from "src/app/config/iconfig-subscriber";
@@ -10,12 +8,10 @@ import { MenuItem } from "./menu-item";
 import { StorageService } from "src/app/storage/storage-service";
 import { AppConfig } from "src/app/config/app.config";
 import { logoImageProfileAccount, logoImageTopMenu } from "./menu-images";
-import { ITreeViewComponent } from "src/app/devextreme/interfaces/tree-view/itree-view-component";
 import { ITreeViewEventArgs } from "src/app/devextreme/interfaces/tree-view/itree-view-event-args";
 import { AuthenticationConstants } from "src/app/authentication/authentication.constants";
 import { PopupOptions } from "../popup/popup-options";
 import { PopupService } from "../popup/popup-service";
-import { numberFormatter } from "globalize";
 import { MenuService } from "./menu.service";
 import { AuthenticationContextType } from "src/app/authentication/authentication-context-type.enum";
 

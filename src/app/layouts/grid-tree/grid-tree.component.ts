@@ -920,7 +920,7 @@ export class GridTreeComponent extends BaseComponent implements OnInit,OnDestroy
     }
 
 
-    private selectionChanged(args:any):void{
+    public selectionChanged(args:any):void{
       let dataContext = this.dataContext;
       let selectedKeys:Array<any> = this.getSelectedRowKeys();
       if (selectedKeys && selectedKeys.length>0 && dataContext.items){
@@ -1031,7 +1031,7 @@ export class GridTreeComponent extends BaseComponent implements OnInit,OnDestroy
       }
     }
 
-    public edittingStart(args:any):void{
+    public editingStart(args:any):void{
       if (args.key!== undefined && args.key!== null){
         let rowKey = args.key;
         this.selectRowsByKeys(rowKey,false);

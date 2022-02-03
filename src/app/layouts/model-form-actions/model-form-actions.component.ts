@@ -15,13 +15,13 @@ import { ModelFormComponent } from "../model-form/model-form.component";
 })
 @ComponentName(ModelFormActionsComponent,"ModelFormActionsComponent")
 export class ModelFormActionsComponent extends BaseComponent implements OnInit,OnDestroy,AfterViewInit{
-    
+
   @Input()
   modelForm:ModelFormComponent;
 
   @Input()
   allowCreate:boolean=true;
-  
+
   @Input()
   createButtonText:string='model.form.actions.createbutton.text';
 
@@ -35,17 +35,17 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
   continueCreate:boolean=true;
 
   @Input()
-  continueButtonText:string='model.form.actions.continuecreate.text';
+  continueCreateText:string='model.form.actions.continuecreate.text';
 
 
-  
+
   @Input()
   allowCopy:boolean=true;
 
   @Input()
   copyButtonText:string='model.form.actions.copybutton.text';
 
-  
+
   @Input()
   copyButtonIcon:string='copy';
 
@@ -62,7 +62,7 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
 
 
 
-  
+
   @Input()
   allowDelete:boolean=true;
 
@@ -185,7 +185,7 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
     if(!this.modelForm){
       return false;
     }
-    
+
     if(this.modelForm.isModal){
       return false;
     }
@@ -207,7 +207,7 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
     if(!this.modelForm){
       return false;
     }
-    
+
     if(this.modelForm.isModal){
       return false;
     }
@@ -218,7 +218,7 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
   }
 
 
-  
+
   get isCopyButtonVisible():boolean{
     let isVisible:boolean = true;
 
@@ -230,7 +230,7 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
     if(!this.modelForm){
       return false;
     }
-    
+
     if(this.modelForm.isModal){
       return false;
     }
@@ -241,7 +241,7 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
   }
 
 
-  
+
   get isUpdateButtonVisible():boolean{
     let isVisible:boolean = true;
 
@@ -253,7 +253,7 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
     if(!this.modelForm){
       return false;
     }
-    
+
     if(this.modelForm.isModal){
       return false;
     }
@@ -263,7 +263,7 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
 
   }
 
-  
+
   get isDeleteButtonVisible():boolean{
     let isVisible:boolean = true;
 
@@ -275,7 +275,7 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
     if(!this.modelForm){
       return false;
     }
-    
+
     if(this.modelForm.isModal){
       return false;
     }
@@ -285,7 +285,7 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
 
   }
 
-  
+
   get isOKButtonVisible():boolean{
     let isVisible:boolean = true;
 
@@ -296,7 +296,7 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
     if(!this.modelForm){
       return false;
     }
-    
+
     if(this.modelForm.isModal){
       return false;
     }
@@ -305,8 +305,34 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
     return isVisible;
 
   }
+  get isRefreshButtonVisible():boolean{
+    let isVisible:boolean = true;
 
-  isCreateButtonDisabled():boolean{
+    if(this.allowRefresh === false){
+      return false;
+    }
+
+    if(!this.modelForm){
+      return false;
+    }
+
+    if(this.modelForm.isModal){
+      return false;
+    }
+
+    isVisible = this.modelForm.modelOperation === ModelOperation.Edit || this.modelForm.modelOperation  === ModelOperation.Copy;
+    return isVisible;
+
+  }
+
+
+
+
+  get isClearButtonVisible():boolean{
+    return false;
+  }
+
+  get isCreateButtonDisabled():boolean{
     let isDisabled:boolean = false;
     if(this.allowCreate===false){
       return true;
@@ -314,7 +340,7 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
     return isDisabled;
   }
 
-  isUpdateButtonDisabled():boolean{
+ get isUpdateButtonDisabled():boolean{
     let isDisabled:boolean = false;
     if(this.allowUpdate===false){
       return true;
@@ -322,7 +348,7 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
     return isDisabled;
   }
 
-  isDeleteButtonDisabled():boolean{
+  get isDeleteButtonDisabled():boolean{
     let isDisabled:boolean = false;
     if(this.allowDelete===false){
       return true;
@@ -330,8 +356,8 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
     return isDisabled;
   }
 
-  
-  isOKButtonDisabled():boolean{
+
+  get isOKButtonDisabled():boolean{
     let isDisabled:boolean = false;
     if(this.allowOk===false){
       return true;
@@ -339,7 +365,7 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
     return isDisabled;
   }
 
-  isClearButtonDisabled():boolean{
+ get isClearButtonDisabled():boolean{
     let isDisabled:boolean = false;
     if(this.allowClear===false){
       return true;
@@ -347,9 +373,17 @@ export class ModelFormActionsComponent extends BaseComponent implements OnInit,O
     return isDisabled;
   }
 
-  isRefreshButtonDisabled():boolean{
+ get isRefreshButtonDisabled():boolean{
     let isDisabled:boolean = false;
     if(this.allowRefresh===false){
+      return true;
+    }
+    return isDisabled;
+  }
+
+  get isCopyButtonDisabled():boolean{
+    let isDisabled:boolean = false;
+    if(this.allowCopy===false){
       return true;
     }
     return isDisabled;

@@ -15,7 +15,7 @@
     </a>
 
     <ng-template ngFor let-button [ngForOf]="cellButtons">
-        <a *ngIf="isCellButtonVisible === true" [attr.name]="button.name" (click)="cellButtonClick()" [class]="getClassName()" tooltip="{{'botton.tooltip' | translate}}"
+        <a *ngIf="isCellButtonVisible(button)" [attr.name]="button.name" (click)="cellButtonClick()" [class]="getClassName()" tooltip="{{'botton.tooltip' | translate}}"
             container="body" placement="auto" containerClass="custom-tooltip">
             <em [class]="button.icon"></em>
         </a>

@@ -9,7 +9,7 @@
   </div>
 
 <div class="grid-view-body">
-  
+
     <dx-data-grid
       [id]="'dx-grid-'+Id"
       class="data-grid fade-in"
@@ -25,8 +25,8 @@
       [activeStateEnabled]="activeStateEnabled"
       [rowAlternationEnabled]="rowAlternationEnabled"
       [allowColumnReordering]="allowColumnReordering"
-      [alowColumnResing]="alowColumnResing"
-      [columnResingMode]="columnResingMode"
+      [allowColumnResizing]="allowColumnResizing"
+      [columnResizingMode]="columnResizingMode"
       [columnHidingEnabled]="columnHidingEnabled"
       [columnAutoWidth]="columnAutoWidth"
       [wordWrapEnabled]="wordWrapEnabled"
@@ -39,7 +39,7 @@
       [focusedRowEnabled]="focusedRowEnabled"
       [focusedRowIndex]="focusedRowIndex"
       [focusedRowKey]="focusedRowKey"
-      [focusStateEnabled]="focusStateEnabled"
+      [focusStateEnabled]="focusedStateEnabled"
       [renderAsync]="renderAsync"
       [repaintChangesOnly]="repaintChangesOnly"
       (onSelectionChanged)="selectionChanged($event)"
@@ -47,8 +47,8 @@
       (onExporting)="exporting($event)"
       (onCellPrepared)="cellPrepared($event)"
       (onRowClick)="rowClick($event)"
-      (onRowCollepsed)="rowCollepsed($event)"
-      (onRowCollopsing)="rowCollopsing($event)"
+      (onRowCollepsed)="rowCollapsed($event)"
+      (onRowCollopsing)="rowCollapsing($event)"
       (onRowExpanded)="rowExpanded($event)"
       (onRowExpanding)="rowExpanding($event)"
       (onRowInserted)="rowInserted($event)"
@@ -59,17 +59,17 @@
       (onRowUpdated)="rowUpdated($event)"
       (onRowUpdating)="rowUpdating($event)"
       (onEditingStart)="editingStart($event)"
-      (onDataErrorOccurred)="dataErrorOccurred($event)"
+      (onDataErrorOccurred)="dataErrorOccured($event)"
       (onToolbarPreparing)="toolbarPreparing($event)"
       [errorRowEnabled]="errorRowEnabled">
       <ng-content select="dxi-column"></ng-content>
-      <dxo-summery></dxo-summery>
+      <dxo-summary></dxo-summary>
       <dxo-export [enabled]="false"></dxo-export>
-    
+
     </dx-data-grid>
   </div>
 
-  <div class="grid-view-footer" *ngif="showFooter === true && footerCpmponent">
+  <div class="grid-view-footer" *ngIf="showFooter === true && footerComponent">
     <ng-content select="app-grid-footer"></ng-content>
   </div>
 </div>

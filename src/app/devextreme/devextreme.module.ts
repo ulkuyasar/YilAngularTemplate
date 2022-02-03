@@ -1,19 +1,20 @@
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { LOCALE_ID, NgModule } from '@angular/core';
 
-//import { localeTr } from '@angular/common/locales/tr';
-import { DxAccordionModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxDropDownBoxModule, DxFileUploaderModule, 
-  DxFormModule, DxHtmlEditorModule, DxListModule, DxLoadPanelModule, DxMenuModule, DxPivotGridModule, DxPopupModule, DxRadioGroupModule, 
-  DxScrollViewModule, DxSelectBoxModule, DxTabPanelModule, DxTabsModule, DxTemplateModule, DxTextAreaModule, DxTextBoxModule, DxToolbarModule, 
-  DxTooltipModule, DxTreeListModule } from 'devextreme-angular';
+import localeTr  from '@angular/common/locales/tr';
+import { DxAccordionModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxDropDownBoxModule, DxFileUploaderModule,
+  DxFormModule, DxHtmlEditorModule, DxListModule, DxLoadPanelModule, DxMenuModule, DxPivotGridModule, DxPopupModule, DxRadioGroupModule,
+  DxRangeSelectorModule,
+  DxScrollViewModule, DxSelectBoxModule, DxTabPanelModule, DxTabsModule, DxTemplateModule, DxTextAreaModule, DxTextBoxModule, DxToolbarModule,
+  DxTooltipModule, DxTreeListModule, DxTreeViewModule } from 'devextreme-angular';
 
-//registerLocaleData(localeTr,'tr')   // yasar burayı duzenle
+registerLocaleData(localeTr,'tr')
 @NgModule({
   declarations: [
 
   ],
   imports: [
-    
+    CommonModule,
     DxDataGridModule,
     DxButtonModule,
     DxTextBoxModule,
@@ -42,6 +43,7 @@ import { DxAccordionModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, 
   ],
   exports: [
     DxDataGridModule,
+    DxTreeViewModule,
     DxButtonModule,
     DxTextBoxModule,
     DxCheckBoxModule,
@@ -61,6 +63,7 @@ import { DxAccordionModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, 
     DxSelectBoxModule,
     DxRadioGroupModule,
     DxTabsModule,
+    DxRangeSelectorModule,
     DxPivotGridModule,
     DxListModule,
     DxAccordionModule,

@@ -26,8 +26,8 @@
       [activeStateEnabled]="activeStateEnabled"
       [rowAlternationEnabled]="rowAlternationEnabled"
       [allowColumnReordering]="allowColumnReordering"
-      [alowColumnResing]="alowColumnResing"
-      [columnResingMode]="columnResingMode"
+      [allowColumnResizing]="allowColumnResizing"
+      [columnResizingMode]="columnResizingMode"
       [columnHidingEnabled]="columnHidingEnabled"
       [columnAutoWidth]="columnAutoWidth"
       [wordWrapEnabled]="wordWrapEnabled"
@@ -40,7 +40,7 @@
       [focusedRowEnabled]="focusedRowEnabled"
       [focusedRowIndex]="focusedRowIndex"
       [focusedRowKey]="focusedRowKey"
-      [focusStateEnabled]="focusStateEnabled"
+      [focusStateEnabled]="focusedStateEnabled"
       [renderAsync]="renderAsync"
       [repaintChangesOnly]="repaintChangesOnly"
       (onSelectionChanged)="selectionChanged($event)"
@@ -48,8 +48,8 @@
       (onExporting)="exporting($event)"
       (onCellPrepared)="cellPrepared($event)"
       (onRowClick)="rowClick($event)"
-      (onRowCollepsed)="rowCollepsed($event)"
-      (onRowCollopsing)="rowCollopsing($event)"
+      (onRowCollepsed)="rowCollapsed($event)"
+      (onRowCollopsing)="rowCollapsing($event)"
       (onRowExpanded)="rowExpanded($event)"
       (onRowExpanding)="rowExpanding($event)"
       (onRowInserted)="rowInserted($event)"
@@ -60,16 +60,12 @@
       (onRowUpdated)="rowUpdated($event)"
       (onRowUpdating)="rowUpdating($event)"
       (onEditingStart)="editingStart($event)"
-
       (onToolbarPreparing)="toolbarPreparing($event)">
       <ng-content select="dxi-column"></ng-content>
-
       <dxo-export [enabled]="false"></dxo-export>
-
     </dx-tree-list>
   </div>
-
-  <div class="grid-tree-footer" *ngif="showFooter === true && footerCpmponent">
+  <div class="grid-tree-footer" *ngIf="showFooter === true && footerComponent">
     <ng-content select="app-grid-footer"></ng-content>
   </div>
 </div>
@@ -77,5 +73,3 @@
 <div [attr.id]="cellButtonsContainerDivID" style="display: none">
   <ng-container #cellButtonsContainer></ng-container>
 </div>
-
-

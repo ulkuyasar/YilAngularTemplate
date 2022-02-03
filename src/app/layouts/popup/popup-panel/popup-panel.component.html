@@ -1,5 +1,5 @@
 
- <dx-popup
+ <!-- <dx-popup
  [width]="300"
  [height]="280"
  [showTitle]="true"
@@ -8,17 +8,17 @@
  [closeOnOutsideClick]="true"
  [showCloseButton]="false"
  container=".dx-viewport"
->
+> -->
 
-<!-- <dx-popup [ngClass]="ngClass" [container]="containerElement" class="details-model" animation="Animation"
-    [width]="width" [maxwidth]="maxWidth" [minwidth]="minWidth"
-    [height]="height" [maxheight]="maxHeight" [minheight]="minHeight"
+<dx-popup [ngClass]="ngClass" [container]="containerElement" class="details-model"
+    animation="Animation"  [showTitle]="showTitle"  [title]="title" [elementAttr]="elementAttr"
+    [width]="width" [maxWidth]="maxWidth" [minWidth]="minWidth"
+    [height]="height" [maxHeight]="maxHeight" [minHeight]="minHeight"
+
     [showTitle]="showTitle" [position]="position" [title]="title"
-    [fullscreen]="fullscreen" [dragenabled]="dragEnabled" [visible]="visible" [clseoutsideclick]="clseOutsideClick"
-    [resizeenabled]="resizeEnabled" [shading]="shading" [shadingcolor]="shadingColor" [showclosebutton]="showCloseButton"
-    (onShowing)="showing($event)" (onShown)="shown($event) (onHiding)="hiding($event)" (onHidden)="hidden($event)" 
->
-</dx-popup> -->
+    [fullScreen]="fullScreen" [dragEnabled]="dragEnabled" [visible]="visible" [closeOnOutsideClick]="closeOnOutsideClick"
+    [resizeEnabled]="resizeEnabled" [shading]="shading" [shadingColor]="shadingColor" [showCloseButton]="showCloseButton"
+    (onShowing)="showing($event)" (onShown)="shown($event)" (onHiding)="hiding($event)" (onHidden)="hidden($event)"></dx-popup>
 
 <div [attr.id]="containerDivID" style="display: none" class="fade-in">
   <ng-container #componentContainer></ng-container>

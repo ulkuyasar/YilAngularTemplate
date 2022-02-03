@@ -61,7 +61,7 @@ export class GridToolbarComponent extends BaseComponent implements OnInit,OnDest
    showColumnChooserButtonText:string="grid.toolbar.columnchooserbutton.text";
 
    @Input()
-   ColumnChooserButtonIcon:string="icon icon-filter icon-16px";
+   showColumnChooserButtonIcon:string="icon icon-filter icon-16px";
 
    @Input()
    enableExport:boolean=true;
@@ -95,11 +95,12 @@ export class GridToolbarComponent extends BaseComponent implements OnInit,OnDest
 
     gridView:IGridView;
     exportToExcelMenu: MenuItem[];
+    status:boolean;
 
     constructor(viewContainerRef:ViewContainerRef){
       super(viewContainerRef);
       this.exportToExcelMenu = this.createExcelMenu();
-
+      this.status= false;
     }
 
    ngOnInit() {

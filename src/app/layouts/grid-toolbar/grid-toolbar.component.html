@@ -2,7 +2,7 @@
 
 <ng-content select=".before-refresh-button"></ng-content>
 
-<dx-button *ngIf="enableRefresh===true" class="dx-button-orange" [text]="refreshButtonText | translate" [hint]="refreshButtonText | translate" 
+<dx-button *ngIf="enableRefresh===true" class="dx-button-orange" [text]="refreshButtonText | translate" [hint]="refreshButtonText | translate"
   [icon]="refreshButtonIcon" (onClick)="refreshButtonClick($event)" container="body"></dx-button>
 <ng-content select=".after-refresh-button"></ng-content>
 
@@ -19,11 +19,15 @@
     [hint]="deleteButtonText | translate" [icon]="deleteButtonIcon" (onClick)="deleteButtonClick($event)" container="body"></dx-button>
     <ng-content select=".after-delete-button"></ng-content>
 
-    <dx-button *ngIf="enableColumnChooser===true" class="dx-button-orange" [text]="dx.menu-container ???????" [text]="showColumnChooserButtonText | translate"
-    [hint]="showColumnChooserButtonText | translate" [icon]="showColumnChooserButtonIcon" (onClick)="ButtonClick????($event)" ></dx-button>
+    <dx-button *ngIf="enableColumnChooser===true" class="dx-button-orange"
+    [text]="showColumnChooserButtonText | translate"
+    [hint]="showColumnChooserButtonText | translate"
+    [icon]="showColumnChooserButtonIcon"
+    (onClick)="showColumnChooserButtonClick($event)" container="body">
+    </dx-button>
 
-    <div *ngIf="enabledExport===true" class="dx-menu-container export-excel m-r-5">
-      <dx-menu [dataSource]="exportToExcelMenu" displayExpr="Caption" container="dx-menu-container" (onItemClick)="excellMEnuItemClick($event.itemData)"
+    <div *ngIf="enableExport===true" class="dx-menu-container export-excel m-r-5">
+      <dx-menu [dataSource]="exportToExcelMenu" displayExpr="Caption" container="dx-menu-container" (onItemClick)="excelMenuItemClick($event.itemData)"></dx-menu>
     </div>
 
     <div *ngIf="enableStates === true" class="float-btn" [ngClass]="status ? 'open' : 'closed'">
@@ -32,54 +36,54 @@
           <div class="state">
             <span class="state-color new-state"></span>
             <span class="state-id">Yeni</span>
-          </div>   
-          
+          </div>
+
           <div class="state">
             <span class="state-color draft-state"></span>
             <span class="state-id">Taslak</span>
-          </div>   
+          </div>
 
           <div class="state">
             <span class="state-color confirmed-state"></span>
             <span class="state-id">Onaylı</span>
-          </div>   
+          </div>
 
           <div class="state">
             <span class="state-color complete-state"></span>
             <span class="state-id">Tamamlandı/Kesin</span>
-          </div>   
+          </div>
 
           <div class="state">
             <span class="state-color paid-state"></span>
             <span class="state-id">Ödendi</span>
-          </div>   
+          </div>
 
 
 
           <div class="state">
             <span class="state-color paid-partitial-state"></span>
             <span class="state-id">Kısmen Ödendi</span>
-          </div>   
+          </div>
 
           <div class="state">
             <span class="state-color paid-over-state"></span>
             <span class="state-id">Fazla Ödendi</span>
-          </div>   
+          </div>
 
           <div class="state">
             <span class="state-color false-state"></span>
             <span class="state-id">Yanlış</span>
-          </div>   
+          </div>
 
           <div class="state">
             <span class="state-color expired-state"></span>
             <span class="state-id">Zamanı Geçmiş</span>
-          </div>   
-        
+          </div>
+
           <div class="state">
             <span class="state-color invalid-state"></span>
             <span class="state-id">Taslak</span>
-          </div>   
+          </div>
         </div>
       </div>
 

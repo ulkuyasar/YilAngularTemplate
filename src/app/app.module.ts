@@ -37,11 +37,11 @@ import { JsonInterceptor } from './core/http/json-interceptor';
     LocalizationModule,
     EventModule,
     StartupModule,
-    ConfigModule,
+   ConfigModule,
     LayoutModule,
     ServicesModule,
     AppRoutingModule,
-    //ReleaseNotesModule,
+//ReleaseNotesModule,
     LoginModule,
 
     HttpClientXsrfModule.withOptions({
@@ -85,6 +85,7 @@ import { JsonInterceptor } from './core/http/json-interceptor';
 })
 export class AppModule {
   constructor(injector:Injector){
+    debugger;
     BaseService.appInjector = injector;
   }
  }
