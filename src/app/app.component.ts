@@ -11,7 +11,7 @@ export class AppComponent  {
 
   constructor(@Inject("exceljs") private exceljs: unknown) //, public test: VersionCheckService) {
   {
-    debugger;
+
     //  test.initVersionCheck(environment.versionCheckURL);
   }
 }

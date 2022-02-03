@@ -12,7 +12,7 @@
 
 // }
 
-// @NgModule({
+// // @NgModule({
 //   declarations: [ FooterComponent ],
 //   exports: [ FooterComponent ]
 // })

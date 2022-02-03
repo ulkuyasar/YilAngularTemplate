@@ -1,11 +1,12 @@
-import {  Component, OnDestroy, OnInit, ViewContainerRef, AfterViewInit } from "@angular/core";;
+import {  Component, OnDestroy, OnInit, ViewContainerRef, AfterViewInit, ViewEncapsulation } from "@angular/core";;
 import { ComponentName } from "src/app/core/decorators/component-name";
 import { PageComponent } from "src/app/core/components/page-component";
 
 @Component({
   selector: 'app-route-not-found',
   templateUrl: './route-not-found.component.html',
-  styleUrls: ['./route-not-found.component.css']
+  styleUrls: ['./route-not-found.component.css'],
+  encapsulation:ViewEncapsulation.None
 })
 @ComponentName(RouteNotFoundComponent,"RouteNotFoundComponent")
 export class RouteNotFoundComponent extends PageComponent implements OnInit,OnDestroy,AfterViewInit{

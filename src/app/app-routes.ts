@@ -8,8 +8,8 @@ import { StartupResolver } from "./startup/startup.resolver";
 
 export const appRoutes:Routes = [
   {
-    redirectTo: '/main',
     path: '',
+    redirectTo: '/main',
     pathMatch: 'full'
   },
   {
@@ -24,7 +24,7 @@ export const appRoutes:Routes = [
       {
         path:'main',
         component:MainComponent,
-        children:
+       children:
         [
           {
             path:'',

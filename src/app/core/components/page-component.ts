@@ -10,17 +10,15 @@ import { PageType } from "../component-model/page-type.enum";
 import { PanelViewType } from "../component-model/panel-view-type.enum";
 import { BaseComponent } from "./base-component";
 
-// @Component({   //yasar sen ekledın
-//     template: ''
-// })
+
 export abstract class PageComponent extends BaseComponent implements OnInit, OnDestroy, AfterViewInit{
 
-    
-    @Input()
-    pageType: PageType;       
 
     @Input()
-    createPanels:boolean=true;   
+    pageType: PageType;
+
+    @Input()
+    createPanels:boolean=true;
 
 
     private _popupPanelRef: PopupPanelRef;
@@ -40,8 +38,8 @@ export abstract class PageComponent extends BaseComponent implements OnInit, OnD
 
         this._popupOptions = new PopupOptions();
         this.pageType = PageType.Popup;
-        
-        
+
+
     }
 
 
@@ -77,7 +75,7 @@ export abstract class PageComponent extends BaseComponent implements OnInit, OnD
     }
 
     ngAfterViewInit() {
-        super.ngAfterViewInit();         
+        super.ngAfterViewInit();
     }
 
     private createEmbeddedRouterOutletPanel(){
@@ -85,7 +83,7 @@ export abstract class PageComponent extends BaseComponent implements OnInit, OnD
         let componentRef : ComponentRef<EmbeddedRouterOutletPanelComponent> = this.viewContainerRef.createComponent(componentFactory);
         let componentInstance:EmbeddedRouterOutletPanelComponent =componentRef.instance;
         componentInstance.panelViewType = PanelViewType.Router;
-        
+
     }
 
     private createPopupPanel(){

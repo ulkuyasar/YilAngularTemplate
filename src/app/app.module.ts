@@ -37,12 +37,15 @@ import { JsonInterceptor } from './core/http/json-interceptor';
     LocalizationModule,
     EventModule,
     StartupModule,
-   ConfigModule,
-    LayoutModule,
+    ConfigModule,
+   // LayoutModule,
     ServicesModule,
-    AppRoutingModule,
-//ReleaseNotesModule,
+  //  AppRoutingModule,
     LoginModule,
+
+yasar .... dx component modulerı yuklenırken hata alınıyor....
+
+
 
     HttpClientXsrfModule.withOptions({
       cookieName:'X-XSRF-TOKEN',
@@ -57,11 +60,11 @@ import { JsonInterceptor } from './core/http/json-interceptor';
     useClass:RefreshTokenInterceptor,
     multi:true
   },
-  {
-    provide:HTTP_INTERCEPTORS,
-    useClass:AuthenticationInterceptor,
-    multi:true
-  },
+  // {
+  //   provide:HTTP_INTERCEPTORS,
+  //   useClass:AuthenticationInterceptor,
+  //   multi:true
+  // },
   {
     provide:HTTP_INTERCEPTORS,
     useClass:ErrorInterceptor,
@@ -84,8 +87,8 @@ import { JsonInterceptor } from './core/http/json-interceptor';
   bootstrap: [AppComponent]
 })
 export class AppModule {
+
   constructor(injector:Injector){
-    debugger;
     BaseService.appInjector = injector;
   }
  }

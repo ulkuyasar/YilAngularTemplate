@@ -25,22 +25,22 @@ import ruMessages from 'devextreme/localization/messages/ru.json'
     ],
     providers: [LocalizationResolver]
   })
-  export class LocalizationModule { 
+  export class LocalizationModule {
 
     constructor(){
         this.initGlobalize();
     }
 
     initGlobalize(){
-      debugger;
+
         Globalize.load(trCldrData);
         Globalize.load(deCldrData);
         Globalize.load(ruCldrData);
         Globalize.load(supplementalCldrData);
 
         // yasar buraya bakmalısın....
-     //   Globalize.loadMessages(trMessages);
-     //   Globalize.loadMessages(deMessages);
-     //   Globalize.loadMessages(ruMessages);
+       // Globalize.loadMessages(trMessages);
+       // Globalize.loadMessages(deMessages);
+       // Globalize.loadMessages(ruMessages);
     }
   }

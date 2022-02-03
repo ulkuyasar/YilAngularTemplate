@@ -34,12 +34,6 @@ import {MarkdownModule} from 'ngx-markdown';
 import { CollapseDirective } from './collapse/collapse.directive';
 
 
-
-
-
-
-
-
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -93,7 +87,6 @@ import { CollapseDirective } from './collapse/collapse.directive';
     DevextremeModule,
     LocalizationModule,
     TooltipModule,
-
     HeaderComponent,
     FooterComponent,
     ToolbarComponent,
