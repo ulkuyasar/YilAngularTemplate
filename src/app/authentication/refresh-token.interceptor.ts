@@ -5,6 +5,7 @@ import { mergeMap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 
 import { BaseInterceptor } from "../core/http/base-interceptor";
+import { AppsettingDefinitionService } from "../services/definition/appsetting-definition.service";
 import { StorageService } from "../storage/storage-service";
 import { AuthenticationConstants } from "./authentication.constants";
 import { AuthenticationService } from "./authentication.service";
@@ -18,7 +19,7 @@ export class RefreshTokenInterceptor extends BaseInterceptor implements HttpInte
 
     constructor(injector:Injector,
                 private authenticationService:AuthenticationService,
-                private beamerAppSettingDefinitionService:BeamerAppSettingDefinitionService){
+                private beamerAppSettingDefinitionService:AppsettingDefinitionService){
         super(injector);
         this._storageService = this.injector.get<StorageService>(StorageService);
     }
@@ -41,7 +42,7 @@ export class RefreshTokenInterceptor extends BaseInterceptor implements HttpInte
       this._storageService.removeItem(AuthenticationConstants.ACCESSTOKEN);
       return this.beamerAppSettingDefinitionService.getUserInfo(environment.refreshToken).pipe(
         mergeMap(responce=>{
-            this.authenticationService.processLogInwithToken("---");  //responce.token);
+            this.authenticationService.processLogInwithToken(responce.token);
             return next.handle(request);
         })
       )
