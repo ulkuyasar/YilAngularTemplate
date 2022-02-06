@@ -1,31 +1,31 @@
 <div class="model-header">
-  <app-model-form-actions [modelform]="fwaccesstopologynode"></app-model-form-actions>
+  <app-model-form-actions [modelForm]="fwaccesstopologynode"></app-model-form-actions>
 </div>
 
 <div class="model-body">
-  <app-model-form #fwaccesstopologynode id="fwaccesstopologynode" [datacontext]="datacontext">
+  <app-model-form #fwaccesstopologynode id="fwaccesstopologynode" [dataContext]="dataContext">
     <dxi-item itemtype="group">
       <dxo-col-count-by-screen [xs]="1" [sm]="2" [lg]="2"></dxo-col-count-by-screen>
 
-      <dxi-item datafield="Name" editortype="dxTextBox" [colspan]="2"
+      <dxi-item datafield="Name" editortype="dxTextBox" [colSpan]="2"
         [label]="{text:'fw.access.topology.node.name.caption'|translate}">
         <dxi-validation-rule type="required"message="{{'validation.field.required'|translate}}">
         </dxi-validation-rule>
       </dxi-item>
 
-      <dxi-item datafield="DeviceType" editortype="dxSelectBox" [colspan]="2" [editoroptions]="devicetypeselectboxeditoroptions"
+      <dxi-item datafield="DeviceType" editortype="dxSelectBox" [colSpan]="2" [editorOptions]="devicetypeselectboxeditoroptions"
         [label]="{text:'fw.access.topology.node.devicetype.caption'|translate}">
         <dxi-validation-rule type="required"message="{{'validation.field.required'|translate}}">
         </dxi-validation-rule>
       </dxi-item>
 
-      <dxi-item datafield="Model" editortype="dxTextBox" [colspan]="2"
+      <dxi-item datafield="Model" editortype="dxTextBox" [colSpan]="2"
         [label]="{text:'fw.access.topology.node.model.caption'|translate}">
         <dxi-validation-rule type="required"message="{{'validation.field.required'|translate}}">
         </dxi-validation-rule>
       </dxi-item>
 
-      <dxi-item datafield="X" editortype="dxNumberBox" [colspan]="2"
+      <dxi-item datafield="X" editortype="dxNumberBox" [colSpan]="2"
         [label]="{text:'fw.access.topology.node.x.caption'|translate}">
         <dxi-validation-rule type="required"message="{{'validation.field.required'|translate}}">
         </dxi-validation-rule>

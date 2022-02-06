@@ -3,30 +3,33 @@
   "compilerOptions": {
     "outDir": "./out-tsc/app",
     "types": ["node"],
+    "strict": false,
+    "forceConsistentCasingInFileNames":  true ,
+
     "paths": {
       "jszip": [
         "node_modules/jszip/dist/jszip.min.js"
       ],
-      "globalize": [  
-        "node_modules/globalize/dist/globalize"  
-      ],  
-      "globalize/*": [  
-        "node_modules/globalize/dist/globalize/*"    
-      ], 
-      "cldr": [  
-        "node_modules/cldrjs/dist/cldr"     
-      ], 
-      "cldr/*": [  
-        "node_modules/cldrjs/dist/cldr/*"  
+      "globalize": [
+        "node_modules/globalize/dist/globalize"
+      ],
+      "globalize/*": [
+        "node_modules/globalize/dist/globalize/*"
+      ],
+      "cldr": [
+        "node_modules/cldrjs/dist/cldr"
+      ],
+      "cldr/*": [
+        "node_modules/cldrjs/dist/cldr/*"
       ]
-    
+
     }
   },
   "exclude": ["./src/test.ts",
               "src/**/*.spec.ts"
             ]
 
-          
+
   // ,
   // "files": [
   //   "src/main.ts",

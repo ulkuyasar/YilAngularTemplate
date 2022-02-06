@@ -17,6 +17,7 @@ import { AuthenticationContextType } from "src/app/authentication/authentication
 export class RootComponent extends BaseComponent implements OnInit,OnDestroy{
 
    constructor(viewContainerRef:ViewContainerRef){
+         debugger;
          super(viewContainerRef);
          this.activatedRoute.data.subscribe(data=>this.navigateToFirst(data));
          this.initializeErrorService();

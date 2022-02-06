@@ -21,6 +21,7 @@ import { RefreshTokenInterceptor } from './authentication/refresh-token.intercep
 import { AuthenticationInterceptor } from './authentication/authentication.interceptor';
 import { ErrorInterceptor } from './core/http/error-interceptor';
 import { JsonInterceptor } from './core/http/json-interceptor';
+import { HttpXsrfInterceptor } from './core/security/xsrf-interceptors';
 
 @NgModule({
   declarations: [
@@ -38,14 +39,10 @@ import { JsonInterceptor } from './core/http/json-interceptor';
     EventModule,
     StartupModule,
     ConfigModule,
-   // LayoutModule,
+    LayoutModule,
     ServicesModule,
-  //  AppRoutingModule,
+    AppRoutingModule,
     LoginModule,
-
-yasar .... dx component modulerı yuklenırken hata alınıyor....
-
-
 
     HttpClientXsrfModule.withOptions({
       cookieName:'X-XSRF-TOKEN',
@@ -55,11 +52,11 @@ yasar .... dx component modulerı yuklenırken hata alınıyor....
 
   ],
   providers: [
-  {
-    provide:HTTP_INTERCEPTORS,
-    useClass:RefreshTokenInterceptor,
-    multi:true
-  },
+  // {
+  //   provide:HTTP_INTERCEPTORS,
+  //   useClass:RefreshTokenInterceptor,
+  //   multi:true
+  // },
   // {
   //   provide:HTTP_INTERCEPTORS,
   //   useClass:AuthenticationInterceptor,
@@ -74,14 +71,15 @@ yasar .... dx component modulerı yuklenırken hata alınıyor....
     provide:HTTP_INTERCEPTORS,
     useClass:JsonInterceptor,
     multi:true
-  },
+  }
+  // ,
   // {
   //   provide:HTTP_INTERCEPTORS,
   //   useClass:HttpXsrfInterceptor,
   //   multi:true
   // },
 
-    VersionCheckService,
+  //   VersionCheckService,
 
   ],
   bootstrap: [AppComponent]
@@ -89,6 +87,7 @@ yasar .... dx component modulerı yuklenırken hata alınıyor....
 export class AppModule {
 
   constructor(injector:Injector){
+    debugger; //1
     BaseService.appInjector = injector;
   }
  }

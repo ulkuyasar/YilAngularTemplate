@@ -24,6 +24,7 @@ export class AuthenticationService extends ApiService{
 
     constructor(injector:Injector){
         super(injector);
+        // debugger;
         this._storageService = injector.get<StorageService>(StorageService);
         let configService = injector.get<ConfigService>(ConfigService);
 

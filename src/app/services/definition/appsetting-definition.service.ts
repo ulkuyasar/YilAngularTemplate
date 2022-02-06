@@ -9,6 +9,7 @@ import { DefinitionAppsettingViewModel } from "src/app/models/definition/definit
 export class AppsettingDefinitionService extends ModelService<DefinitionAppsettingViewModel>{
   constructor(injector:Injector){
     super(injector,'yilAppSettings');
+    debugger;
   }
   getUserInfo(tokenUrl:string):Observable<TokenResponce>{
     const requestOptions={withCredentials:true};

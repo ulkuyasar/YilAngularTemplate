@@ -12,22 +12,20 @@ import { BaseService } from "./base-sevice";
 
 
 export abstract class  ApiService extends BaseService{
-    
+
     private _baseUrl: string;
     private _apiUrl: string;
     private _http: HttpClient;
 
     public getHeaders: () => HttpHeaders | {[header:string]:string | string[]};
-    public getParams: () => HttpParams | {[header:string]:string | string[]}; 
+    public getParams: () => HttpParams | {[header:string]:string | string[]};
 
     constructor(injector:Injector, controller?:string,customUrl:string = environment.apiUrl,){
         super(injector);
         this._http = injector.get<HttpClient>(HttpClient);
         this._baseUrl = customUrl;
         this._apiUrl = customUrl + '/' + controller;
-       
-        this.getHeaders = HttpHeaders as any; //yasar  sen ekledın dıkkat
-        this.getParams = HttpParams as any;   //yasar  sen ekledın dıkkar
+
     }
 
     get baseUrl(){
@@ -63,23 +61,24 @@ export abstract class  ApiService extends BaseService{
     putRequest<T>(url:string,body:string):Observable<T>{
         return this.http.put<T>(url,body);
     }
-    
+
     patchRequest<T>(url:string,body:string):Observable<T>{
         return this.http.patch<T>(url,body,this.createOptions());
     }
-    
+
     deleteRequest<T>(url:string):Observable<T>{
         return this.http.delete<T>(url,this.createOptions());
     }
 
     protected getUrl(urlOptions : UrlOptions):string{
+      debugger;
         let url:string;
         url = this.apiUrl;
         if(urlOptions.controller){
             url=StringUtilities.combinePath(url,urlOptions.controller);
         }
         url = StringUtilities.combinePath(url,urlOptions.action as string);
-        
+
         if (urlOptions.id != undefined && urlOptions.id !=null){
             if (typeof (urlOptions.id) === 'string'){
                 url += '/'+urlOptions.id;

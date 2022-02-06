@@ -17,13 +17,16 @@ export class RefreshTokenInterceptor extends BaseInterceptor implements HttpInte
 
     private _storageService:StorageService;
 
-    constructor(injector:Injector,
+     constructor(injector:Injector,
                 private authenticationService:AuthenticationService,
                 private beamerAppSettingDefinitionService:AppsettingDefinitionService){
+
         super(injector);
+         debugger; //2.5
         this._storageService = this.injector.get<StorageService>(StorageService);
     }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+      debugger; //3
       let isOutSideResource = (request.url.substring(0,3) !== "../");
       if(isOutSideResource){
         return next.handle(request);

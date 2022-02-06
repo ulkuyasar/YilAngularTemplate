@@ -31,6 +31,7 @@ export class FWAccessTopologyNodeComponent extends ListComponent implements OnIn
 
    constructor(viewContainerRef:ViewContainerRef){
          super(viewContainerRef);
+         debugger;
          this.fwAccessTopologyNodeFilterModel = new FWAccessTopologyFilterModel();
          this.autoBind = false;
          this.injectServices();

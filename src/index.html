@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 
   <title>YilAngularTemplate-Yaşar</title>
   <base href="/">
@@ -43,10 +43,36 @@
     <div class="loader-wrapper">
       <img class="loader-logo" src="assets/img/logo/default/logo_loader.png?v=cacheVersion" />
       <img class="loader" src="assets/img/logo/default/logo_loader.gif?v=cacheVersion" />
-
-
     </div>
-  </app-root>
 
+  </app-root>
+  yasar yılmaz index.html
+  <app-dashboard></app-dashboard>
+  <app-fw-access-topology-node></app-fw-access-topology-node>
+
+
+  <noscript>
+    <style>
+      app-root{display: none;}
+    </style>
+      <code> Lütfen tarayıcınızın ayarlarından Javasccripti ektinleştirin!<br/>
+      <a target="_blank" href="https://www.enable.javascript.cpm/tr"> javascript talimatlari buradadır.
+      </a></code>
+  </noscript>
+  <pre class="storage-error-wrapper">Lütfen tarayıcınızın ayarlarından ÇErezler ve site verileri özelliğini etkinleştiriniz!</pre>
+<script>
+      function storageAvailable(type){var storage; try{storage=window[type];
+      var x='__storage_test__'; storage.setItem(x,x);storage.removeItem(x);return true; } catch(e)
+      {return e instanceof DOMException && (e.code===22 || e.code===1014 || e.name ==='QuotaExceededError' || e.name==='NS_ERROR_DOM_QUOTA_REACHED') &&
+      (storage && storage.length!==0);}}
+      if (storageAvailable('localStorage')){
+        document.querySelector(".devcenter-app").style.display="block";
+        document.querySelector(".storage-error-wrapper").style.display='none';
+      }else{
+        console.log("Localstorage ve cerezler kapali.");
+        document.querySelector(".devcenter-app").style.display='none';
+        document.querySelector(".storage-error-wrapper").style.display='block';
+        }
+</script>
 </body>
 </html>
