@@ -1,11 +1,11 @@
 //initilize
 require('typescript-require')
-
+debugger;
 const path=require('path');
 const fs=require('fs');
 const util=require('util');
 
-//versioyonu almak 
+//versioyonu almak
 const yilAngularVersion = require('../src/app/config/config.constants').appVersion
 
 //promisify core API's
@@ -37,7 +37,7 @@ readDir(path.join(__dirname,'../dist/yilangulartemplate/'))
                 mainHash = matchHash[1];
             }
         }
-  
+
 
     console.log(`yeni sürüm ve hasjh ekleniyor ${versionFilePath}`);
 

@@ -10,9 +10,7 @@ import { DxAccordionModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, 
 
 registerLocaleData(localeTr,'tr')
 @NgModule({
-  declarations: [
-
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     DxDataGridModule,

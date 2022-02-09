@@ -79,7 +79,7 @@ import { HttpXsrfInterceptor } from './core/security/xsrf-interceptors';
   //   multi:true
   // },
 
-  //   VersionCheckService,
+     ,VersionCheckService
 
   ],
   bootstrap: [AppComponent]

@@ -1,8 +1,11 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import Globalize from "globalize/dist/globalize";
-import { LocalizationResolver } from "./localization.resolver";
 import { TranslatePipe } from "./translate/translate.pipe";
+
+import 'devextreme/localization/globalize/number';
+import 'devextreme/localization/globalize/date';
+import 'devextreme/localization/globalize/message';
+
 
 import trCldrData from 'devextreme-cldr-data/tr.json'
 import deCldrData from 'devextreme-cldr-data/de.json'
@@ -12,6 +15,9 @@ import supplementalCldrData from 'devextreme-cldr-data/supplemental.json'
 import trMessages from '../../assets/localization/devextreme/tr.json'
 import deMessages from 'devextreme/localization/messages/de.json'
 import ruMessages from 'devextreme/localization/messages/ru.json'
+
+import Globalize from 'globalize';
+import { LocalizationResolver } from "./localization.resolver";
 
 @NgModule({
     declarations: [
@@ -38,9 +44,10 @@ import ruMessages from 'devextreme/localization/messages/ru.json'
         Globalize.load(ruCldrData);
         Globalize.load(supplementalCldrData);
 
+        debugger;
         // yasar buraya bakmalısın....
-       // Globalize.loadMessages(trMessages);
-       // Globalize.loadMessages(deMessages);
-       // Globalize.loadMessages(ruMessages);
+        Globalize.loadMessages(trMessages);
+        Globalize.loadMessages(deMessages);
+        Globalize.loadMessages(ruMessages);
     }
   }

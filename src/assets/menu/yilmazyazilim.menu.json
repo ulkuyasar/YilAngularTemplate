@@ -1,0 +1,52 @@
+[
+  {
+    "Id":1,
+    "Name":"Ana Sayfa",
+    "Action":"main",
+    "isAdmin":false,
+    "text":"menu.homepage.title",
+    "Icon":"icon icon-home-outline",
+    "TabKey":"DEFAULT",
+    "isActive":true,
+    "Description":"",
+    "MenuKey":"1"
+  },
+  {
+    "Id":2,
+    "Name":"Erişim ve Firewall Akışları",
+    "Action":"main/fw-request",
+    "isAdmin":false,
+    "text":"menu.firefallrequest.title",
+    "Icon":"icon icon-network",
+    "TabKey":"DEFAULT",
+    "isActive":true,
+    "Description":"",
+    "MenuKey":"2"
+  },
+  {
+    "Id":2.1,
+    "Name":"Network Erişim Talebi",
+    "Action":"main/fwaccess/network",
+    "isAdmin":false,
+    "text":"menu.firefallrequest.title",
+    "Icon":"icon icon-network",
+    "TabKey":"DEFAULT",
+    "isActive":true,
+    "Description":"",
+    "MenuKey":"2.1",
+    "ParentMenuKey":"2"
+  },
+  {
+    "Id":2.2,
+    "Name":"Node Ekleme",
+    "Action":"main/fwaccess/fwaccesstopologynode",
+    "isAdmin":false,
+    "text":"menu.fwaccess.topologynode.title",
+    "Icon":"icon icon-access-point-network",
+    "TabKey":"DEFAULT",
+    "isActive":true,
+    "Description":"",
+    "MenuKey":"2.2",
+    "ParentMenuKey":"2"
+  }
+]

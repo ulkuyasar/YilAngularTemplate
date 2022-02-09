@@ -9,7 +9,7 @@ export const FwAccessRoutes:Routes =[
   //   component:  // FWAccessShowTopologyComponent,
   // },
   {
-    path:'fwaccesstopologynode',component:FWAccessTopologyNodeComponent,canActivate:[AuthenticationScreenGuard],data:{screenId:200},
+    path:'fwaccesstopologynode',component:FWAccessTopologyNodeComponent,
     children:[
       {
         path:'add',component:FwAccessTopologyNodeModelComponent

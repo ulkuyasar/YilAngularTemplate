@@ -1,0 +1,18 @@
+{
+  "BaseUrl":"//localhost",
+  "ApiPrefix":"api",
+  "AppName":"YilAngularTemplate",
+  "CopyrightText":"YilSirket A.Ş",
+  "CommercialTitle":"Yil Şirket A.Ş Title",
+  "MainPath":"main",
+  "LoginPath":"login",
+  "ClientId":"YilAngularTemplate",
+  "DefaultLanguage":"tr",
+  "TemplateKey":"default",
+  "CaptchaMode":"none",
+  "CaptchaKey":"dfglhdfgjdfljglkdfjg",
+  "UseClientIP":true,
+  "FilterCountLimit":5,
+  "FujitsuURLBranchCode":"",
+  "EnableSMS":false
+}

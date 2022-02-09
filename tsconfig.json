@@ -49,7 +49,7 @@
     // "noImplicitReturns": true,
     // "noFallthroughCasesInSwitch": true,
 
-  }
+  },
   //,
   // "angularCompilerOptions": {
   //   "enableI18nLegacyMessageIdFormat": false,
@@ -57,4 +57,10 @@
   //   "strictInputAccessModifiers": true,
   //   "strictTemplates": true
   // }
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
 }
