@@ -31,9 +31,13 @@
               "src/web.config"
             ],
             "styles": [
-
+              "src/assets/ui/css/bootstrap-custom.css",
               "node_modules/devextreme/dist/css/dx.common.css",
               "node_modules/devextreme/dist/css/dx.light.compact.css",
+              "src/assets/ui/css/styles.css",
+              "src/assets/ui/css/custom.css",
+              "src/assets/ui/css/fonts.css",
+              "src/assets/ui/css/zomb-ie.css",
               "node_modules/codemirror/lib/codemirror.css",
               "node_modules/codemirror/theme/rubyblue.css",
               "node_modules/codemirror/addon/hint/show-hint.js"
